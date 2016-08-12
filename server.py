@@ -1,24 +1,14 @@
 """My web app's online structure."""
 
+# Jinja is a popular template system for Python, used by Flask.
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, redirect, session, current_app, flash, url_for
+from flask import Flask, render_template, request, redirect, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, Connection
 
-import os
-
-
-# from flask.ext.social import Social, SQLAlchemyConnectionDatastore, login_failed
-# from flask.ext.social.datastore import SQLAlchemyConnectionDatastore
-# from flask.ext.social.utils import get_provider_or_404, get_connection_values_from_oauth_response
-# from flask.ext.social.views import connect_handler
-# from flask.ext.sqlalchemy import SQLAlchemy
-
-# from flask.ext.security import LoginForm, current_user, login_required, login_user, Security, SQLAlchemyUserDatastore
-
-# from flask.ext.assets import Environment
+import user
 
 # Instantiates Flask.
 app = Flask(__name__)
@@ -26,33 +16,12 @@ app = Flask(__name__)
 # Required to use Flask sessions and the debug DebugToolbarExtension
 app.secret_key = "ILoveStephenColbert"
 
-# app.config['SOCIAL_GOOGLE'] = 'client_secrets.sh'
-
-# app.config['SOCIAL_GOOGLE'] = {
-#     'consumer_key': os.environ.get('GOOGLE_OAUTH2_CLIENT_ID'),
-#     'consumer_secret': os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
-# }
-
-# security_ds = SQLAlchemyUserDatastore(db, models.User, models.Role)
-# social_ds = SQLAlchemyConnectionDatastore(db, models.Connection)
-
-# app.security = Security(app, security_ds)
-# app.social = Social(app, social_ds)
-
-# fsocial = Social(app, SQLAlchemyConnectionDatastore(db, Connection))
-
-# app.config['SECRET_KEY'] = 'your-secret-key'
-
-# REDIRECT_URI = '/import_contacts'
-
-# oauth2 = UserOAuth2(app)
-
 # Raises an error when an undefined variable is used in Jinja2.
 app.jinja_env.undefined = StrictUndefined
 
-# gd_client = gdata.contacts.client.ContactsClient(source='contacts')
 
-
+# @app.route('/') is a Python decorator. '/' in the decorator maps directly
+# to the URL the user requested which is the homepage.
 @app.route('/')
 def index():
     """Homepage."""
@@ -60,15 +29,48 @@ def index():
     return render_template("homepage.html")
 
 
+# Tells Flask, "When you receive the request http://server/login, call the
+# login function."
 @app.route('/login')
 def login():
-    """Page where users sign-in with oAuth from Google."""
+    """Page where existing user inputs login info."""
 
-    # if current_user.is_authenticated():
-    #     return redirect(request.referrer or '/')
-
-    # return render_template('login.html', form=LoginForm())
     return render_template('login_form.html')
+
+
+@app.route('/login', methods=["POST"])
+def process_login():
+    """Log user into site.
+
+    Find the user's login credentials located in the 'request.form'
+    dictionary, look up the user, and store them in the session.
+    """
+
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = customers.get_by_email(email)
+
+    if not user:
+        flash("No such email address.")
+        return redirect('/login')
+
+    if user.password != password:
+        flash("Incorrect password.")
+        return redirect("/login")
+
+    session["logged_in_customer_email"] = user.email
+    flash("Logged in.")
+    return redirect("/melons")
+
+
+@app.route("/logout")
+def process_logout():
+    """Log user out."""
+
+    del session["logged_in_customer_email"]
+    flash("Logged out.")
+    return redirect("/melons")
 
 
 @app.route('/register')
@@ -81,6 +83,10 @@ def register():
 #         self.provider = provider
 
 
+@app.route('/add_contacts')
+def add_contacts():
+    """User manually adds contacts and categorizes them as friend, family, or
+    professional contact."""
 # @app.context_processor
 # def template_extras():
 #     return dict(
@@ -183,7 +189,7 @@ def landing_page():
 # def info():
 #     return "Hello, {} ({})".format(oauth2.email, oauth2.user_id)
 
-
+# App will only run if we ask it to run.
 if __name__ == "__main__":
     # Setting this to be true so that I can invoke the DebugToolbarExtension
     app.debug = True
@@ -193,5 +199,7 @@ if __name__ == "__main__":
 
     # fsocial.init_app(app)
 
-    # port 5000 required for vagrant
+    # Port 5000 required for vagrant.
+    # debug=True runs Flask in "debug mode". It will reload my code when it
+    # changes and provide error messages in the browser.
     app.run(debug=True, host='0.0.0.0', port=5000)

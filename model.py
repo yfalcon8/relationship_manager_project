@@ -69,6 +69,12 @@ class User(db.Model):
     bday = db.Column(db.Date,
                      nullable=False)
 
+    def __repr__(self):
+        return "<User: %s %s, %s, %s>" (self.first_name,
+                                        self.last_name,
+                                        self.email,
+                                        self.bday)
+
 
 class Recommendation(db.Model):
     """Stores information about my users."""
