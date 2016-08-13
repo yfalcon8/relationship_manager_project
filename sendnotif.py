@@ -1,19 +1,43 @@
+"""Send user an email about their contact and recommend how to reach out."""
+
 import smtplib
+# Built-in Simple Mail Transfer Protocol (SMTP) module
 
-content = "your python email worked! mmm!"
 
-# server and port (465 or 587 for gmail)
-mail = smtplib.SMTP('smtp.gmail.com', 587)
+from model import db, User
 
-# Identify yourself to server by helo (regular) or ehlo (esmtp server).
-# mail.ehlo()
+# FIXME: How do I query my db from this file?
+all_users = db.session.query(User).all()
+print all_users
 
-# Start TLS mode (transport layer security).
-# Any smtp command that comes after this code will be encrypted.
-mail.starttls()
 
-mail.login("relationshipmanagerhb@gmail.com", "fulfillinspiremotivate")
+def send_event_notification(name, email):
+    sender = "relationshipmanagerhb@gmail.com"
+    # recipient_email = ["yfalcon8@gmail.com"]
+    # recipient_name = ["Yuki Falcon"]
 
-mail.sendmail("relationshipmanagerhb@gmail.com", "yfalcon8@gmail.com", content)
+    content = """From: Relationship Manager App <RelationshipManagerHB@gmail.com>
+    To: <%s>
+    Subject: SMTP e-mail test
 
-mail.quit()
+    Hiya, %s!
+    your python email worked! mmm!""" % (email, name)
+
+    # Create an SMTP object that specifices the server & port (465 or 587 for Gmail).
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+
+    # Identify yourself to server by helo (regular) or ehlo (esmtp server).
+    mail.ehlo()
+
+    # Start TLS mode (transport layer security).
+    # Any smtp command that comes after this code will be encrypted.
+    mail.starttls()
+
+    # Log in to the account that email will come from.
+    mail.login(sender, "fulfillinspiremotivate")
+
+    # Specify sender, receiver and content of email.
+    mail.sendmail(sender, email, content)
+
+    # Disconnect from teh SMTP server
+    mail.quit()

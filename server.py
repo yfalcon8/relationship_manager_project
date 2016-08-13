@@ -6,9 +6,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, Connection
-
-import user
+from sendnotif import *
 
 # Instantiates Flask.
 app = Flask(__name__)
@@ -49,28 +47,21 @@ def process_login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = customers.get_by_email(email)
+    user = db.session.query(User).filter_by(email=email).one()
 
-    if not user:
-        flash("No such email address.")
-        return redirect('/login')
+    # user = customers.get_by_email(email)
 
-    if user.password != password:
-        flash("Incorrect password.")
-        return redirect("/login")
+    # if not user:
+    #     flash("That email does not exist in the database.")
+    #     return redirect('/login')
 
-    session["logged_in_customer_email"] = user.email
-    flash("Logged in.")
-    return redirect("/melons")
+    # if user.password != password:
+    #     flash("Incorrect password.")
+    #     return redirect("/login")
 
-
-@app.route("/logout")
-def process_logout():
-    """Log user out."""
-
-    del session["logged_in_customer_email"]
-    flash("Logged out.")
-    return redirect("/melons")
+    # session["logged_in_customer_email"] = user.email
+    # flash("Logged in.")
+    # return redirect("/melons")
 
 
 @app.route('/register')
@@ -82,11 +73,64 @@ def register():
 #     def __init__(self, provider):
 #         self.provider = provider
 
+@app.route('/send_email')
+def send_email():
+
+    user = User.query.get(session['user_id'])
+
+    send_event_notification(user.first_name, user.email)
+
+    return "Success!"
+
 
 @app.route('/add_contacts')
 def add_contacts():
     """User manually adds contacts and categorizes them as friend, family, or
     professional contact."""
+
+    return render_template('add_contact.html')
+
+
+@app.route("/methods_of_reaching_out")
+def methods_of_reaching_out():
+    """User can select methods of reaching out from a list."""
+
+    return render_template('reach_out.html')
+
+
+@app.route('/landing_page')
+# @login_required
+def landing_page():
+    """Page where users land after logging in or signing up."""
+
+    return render_template('landing_page.html')
+
+
+@app.route('/contact_display')
+def contact_display():
+    """Display a selected contacts profile."""
+
+    return render_template('contact_display.html')
+
+
+@app.route('/event_display')
+def event_display():
+    """Display a selected contacts profile."""
+
+    return render_template('event_display.html')
+
+
+@app.route('/logout')
+def process_logout():
+    """Log user out."""
+
+    # del session["logged_in_customer_email"]
+    # flash("Logged out.")
+    return render_template('logout.html')
+
+
+
+
 # @app.context_processor
 # def template_extras():
 #     return dict(
@@ -156,12 +200,7 @@ def add_contacts():
 #                            connection_values=connection_values)
 
 
-@app.route('/landing_page')
-# @login_required
-def landing_page():
-    """Page where users land after logging in or signing up."""
 
-    return render_template('landing_page.html')
     # return render_template('profile.html',
     #                        google_conn=social.google.get_connection())
 

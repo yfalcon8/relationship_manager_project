@@ -15,8 +15,6 @@ db = SQLAlchemy()
 
 # This set up allows my app the ability to talk to SQLite, PostgreSQL, MySQL
 # and more.
-
-
 def connect_to_db(app):
     """Connect to database."""
 
@@ -69,11 +67,12 @@ class User(db.Model):
     bday = db.Column(db.Date,
                      nullable=False)
 
+
     def __repr__(self):
-        return "<User: %s %s, %s, %s>" (self.first_name,
-                                        self.last_name,
-                                        self.email,
-                                        self.bday)
+        return "<User: {} {}, {}, {}>".format(self.first_name,
+                                              self.last_name,
+                                              self.email,
+                                              self.bday)
 
 
 class Recommendation(db.Model):
@@ -101,428 +100,426 @@ class Recommendation(db.Model):
     # associated recommendations and vice versa.
     relatp = db.relationship("Relationship", backref=db.backref("rcmdn"))
 
+    def __repr__(self):
+        return "<Recommendation: {}>".format(self.rcmdn_text)
 
-class Event(db.Model):
-    """Stores information about each event."""
+# class Event(db.Model):
+#     """Stores information about each event."""
 
-    __tablename__ = "events"
+#     __tablename__ = "events"
 
-    event_id = db.Column(db.Integer,
-                         autoincrement=True,
-                         primary_key=True)
+#     event_id = db.Column(db.Integer,
+#                          autoincrement=True,
+#                          primary_key=True)
 
-    user_id = db.Column(db.Integer,
-                        db.ForeignKey('users.user_id'))
+#     user_id = db.Column(db.Integer,
+#                         db.ForeignKey('users.user_id'))
 
-    scheduled_at = db.Column(db.DateTime,
-                             nullable=False)
+#     scheduled_at = db.Column(db.DateTime,
+#                              nullable=False)
 
-    relatp_id = db.Column(db.Integer)
+#     relatp_id = db.Column(db.Integer)
 
-    rcmdn_text = db.Column(db.Text,
-                           nullable=False)
+#     rcmdn_text = db.Column(db.Text,
+#                            nullable=False)
 
-    user = db.relationship('User', backref='event')
+#     user = db.relationship('User', backref='event')
 
+#     def __repr__(self):
+#         return "<Event: user_id=%s relatp_id=%s, rcmdn_text=%s>" (self.first_name,
+#                                                                   self.last_name,
+#                                                                   self.email,
+#                                                                   self.bday)
 
-class Relationship(db.Model):
-    """Stores all of a users' contacts info."""
 
-    __tablename__ = "relationships"
+# class Relationship(db.Model):
+#     """Stores all of a users' contacts info."""
 
-    relatp_id = db.Column(db.Integer,
-                          autoincrement=True,
-                          primary_key=True)
+#     __tablename__ = "relationships"
 
-    relatp_code = db.Column(db.Integer,
-                            nullable=False,
-                            default=100)
+#     relatp_id = db.Column(db.Integer,
+#                           autoincrement=True,
+#                           primary_key=True)
 
-    user_id = db.Column(db.Integer,
-                        db.ForeignKey('users.user_id'))
+#     relatp_code = db.Column(db.Integer,
+#                             nullable=False,
+#                             default=100)
 
-    email = db.Column(db.String(50))
+#     user_id = db.Column(db.Integer,
+#                         db.ForeignKey('users.user_id'))
 
-    bday = db.Column(db.Date)
+#     email = db.Column(db.String(50))
 
-    phone = db.Column(db.String(15))
+#     bday = db.Column(db.Date)
 
-    work = db.Column(db.String(50))
+#     phone = db.Column(db.String(15))
 
-    edu = db.Column(db.String(50))
+#     work = db.Column(db.String(50))
 
-    fb = db.Column(db.String(50))
+#     edu = db.Column(db.String(50))
 
-    linked_in = db.Column(db.String(50))
+#     fb = db.Column(db.String(50))
 
-    twitter = db.Column(db.String(50))
+#     linked_in = db.Column(db.String(50))
 
-    google_plus = db.Column(db.String(50))
+#     twitter = db.Column(db.String(50))
 
-    meet_up = db.Column(db.String(50))
+#     google_plus = db.Column(db.String(50))
 
-    github = db.Column(db.String(50))
+#     meet_up = db.Column(db.String(50))
 
-    pinterest = db.Column(db.String(50))
+#     github = db.Column(db.String(50))
 
-    reddit = db.Column(db.String(50))
+#     pinterest = db.Column(db.String(50))
 
-    word_press = db.Column(db.String(50))
+#     reddit = db.Column(db.String(50))
 
-    yelp = db.Column(db.String(50))
+#     word_press = db.Column(db.String(50))
 
-    youtube = db.Column(db.String(50))
+#     yelp = db.Column(db.String(50))
 
-    skype = db.Column(db.String(50))
+#     youtube = db.Column(db.String(50))
 
-    other_social_media = db.Column(db.String(50))
+#     skype = db.Column(db.String(50))
 
+#     other_social_media = db.Column(db.String(50))
 
-    user = db.relationship("User", backref=db.backref("relationships"))
 
-    recommendation = db.relationship("Recommendation",
-                                     secondary='rcmdns_relatps',
-                                     backref=db.backref("relationship"))
+#     user = db.relationship("User", backref=db.backref("relationships"))
 
+#     recommendation = db.relationship("Recommendation",
+#                                      secondary='rcmdns_relatps',
+#                                      backref=db.backref("relationship"))
 
-class RecommendationRelationship(db.Model):
-    """Association table between recommendation and relationship table.
 
-    Describes the method of reaching out that's tied to each contact.
-    """
+# class RecommendationRelationship(db.Model):
+#     """Association table between recommendation and relationship table.
 
-    __tablename__ = "rcmdns_relatps"
+#     Describes the method of reaching out that's tied to each contact.
+#     """
 
-    rcmdnRelatp_id = db.Column(db.Integer,
-                               autoincrement=True,
-                               primary_key=True)
+#     __tablename__ = "rcmdns_relatps"
 
-    rcmdn_id = db.Column(db.Integer,
-                         db.ForeignKey('recommendations.rcmdn_id'),
-                         nullable=False)
+#     rcmdnRelatp_id = db.Column(db.Integer,
+#                                autoincrement=True,
+#                                primary_key=True)
 
-    relatp_code = db.Column(db.Integer,
-                            db.ForeignKey('relationships.relatp_code'),
-                            default=100,
-                            nullable=False)
+#     rcmdn_id = db.Column(db.Integer,
+#                          db.ForeignKey('recommendations.rcmdn_id'),
+#                          nullable=False)
 
+#     relatp_code = db.Column(db.Integer,
+#                             db.ForeignKey('relationships.relatp_code'),
+#                             default=100,
+#                             nullable=False)
 
-class Gift_Idea(db.Model):
-    """Separately stores each gift idea a user has for his/her contact."""
 
-    __tablename__ = "gift_ideas"
+# class Gift_Idea(db.Model):
+#     """Separately stores each gift idea a user has for his/her contact."""
 
-    gift_idea_id = db.Column(db.Integer,
-                             nullable=False,
-                             primary_key=True)
+#     __tablename__ = "gift_ideas"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     gift_idea_id = db.Column(db.Integer,
+#                              nullable=False,
+#                              primary_key=True)
 
-    gift_idea = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    # The backref is pluralized as gift_ideas because I'm expecting a list of
-    # gift_ideas back. This is a one-to-many relationship so I'll be getting
-    # one contact back.
-    relatp = db.relationship("Relationship", backref=db.backref("gift_ideas"))
+#     gift_idea = db.Column(db.Text)
 
+#     # The backref is pluralized as gift_ideas because I'm expecting a list of
+#     # gift_ideas back. This is a one-to-many relationship so I'll be getting
+#     # one contact back.
+#     relatp = db.relationship("Relationship", backref=db.backref("gift_ideas"))
 
-class Goal(db.Model):
-    """Separately stores each goal a user has for his/her contact."""
 
-    __tablename__ = "goals"
+# class Goal(db.Model):
+#     """Separately stores each goal a user has for his/her contact."""
 
-    goal_id = db.Column(db.Integer,
-                        nullable=False,
-                        primary_key=True)
+#     __tablename__ = "goals"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     goal_id = db.Column(db.Integer,
+#                         nullable=False,
+#                         primary_key=True)
 
-    goal = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("goals"))
+#     goal = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("goals"))
 
-class Note(db.Model):
-    """Separately stores a note a user has for his/her contact.
 
-    For example, 'Paige is planning a vacation to the Bahamas in July.'"""
+# class Note(db.Model):
+#     """Separately stores a note a user has for his/her contact.
 
-    __tablename__ = "notes"
+#     For example, 'Paige is planning a vacation to the Bahamas in July.'"""
 
-    note_id = db.Column(db.Integer,
-                        nullable=False,
-                        primary_key=True)
+#     __tablename__ = "notes"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     note_id = db.Column(db.Integer,
+#                         nullable=False,
+#                         primary_key=True)
 
-    note = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("notes"))
+#     note = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("notes"))
 
-class Pet(db.Model):
-    """Separately stores pets a users contact has."""
 
-    __tablename__ = "pets"
+# class Pet(db.Model):
+#     """Separately stores pets a users contact has."""
 
-    pet_id = db.Column(db.Integer,
-                       nullable=False,
-                       primary_key=True)
+#     __tablename__ = "pets"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     pet_id = db.Column(db.Integer,
+#                        nullable=False,
+#                        primary_key=True)
 
-    pet = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("pets"))
+#     pet = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("pets"))
 
-class Family(db.Model):
-    """Separately stores a family member a user has noted for his/her contact."""
 
-    __tablename__ = "family"
+# class Family(db.Model):
+#     """Separately stores a family member a user has noted for his/her contact."""
 
-    family_id = db.Column(db.Integer,
-                          nullable=False,
-                          primary_key=True)
+#     __tablename__ = "family"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     family_id = db.Column(db.Integer,
+#                           nullable=False,
+#                           primary_key=True)
 
-    family = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("family"))
+#     family = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("family"))
 
-class Hobby(db.Model):
-    """Separately stores each gift idea a user has for his/her contact."""
 
-    __tablename__ = "hobbies"
+# class Hobby(db.Model):
+#     """Separately stores each gift idea a user has for his/her contact."""
 
-    hobby_id = db.Column(db.Integer,
-                         nullable=False,
-                         primary_key=True)
+#     __tablename__ = "hobbies"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     hobby_id = db.Column(db.Integer,
+#                          nullable=False,
+#                          primary_key=True)
 
-    hobby = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("hobbies"))
+#     hobby = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("hobbies"))
 
-class Like(db.Model):
-    """Separately stores each like that a user has noted for his/her contact."""
 
-    __tablename__ = "likes"
+# class Like(db.Model):
+#     """Separately stores each like that a user has noted for his/her contact."""
 
-    like_id = db.Column(db.Integer,
-                        nullable=False,
-                        primary_key=True)
+#     __tablename__ = "likes"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     like_id = db.Column(db.Integer,
+#                         nullable=False,
+#                         primary_key=True)
 
-    likes = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("likes"))
+#     likes = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("likes"))
 
-class Dislike(db.Model):
-    """Separately stores each dislike a user has noted for his/her contact."""
 
-    __tablename__ = "dislikes"
+# class Dislike(db.Model):
+#     """Separately stores each dislike a user has noted for his/her contact."""
 
-    dislike_id = db.Column(db.Integer,
-                           nullable=False,
-                           primary_key=True)
+#     __tablename__ = "dislikes"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     dislike_id = db.Column(db.Integer,
+#                            nullable=False,
+#                            primary_key=True)
 
-    dislike = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("dislikes"))
+#     dislike = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("dislikes"))
 
-class Pet_Peeve(db.Model):
-    """Separately stores each pet peeve a user has noted for his/her contact."""
 
-    __tablename__ = "pet_peeves"
+# class Pet_Peeve(db.Model):
+#     """Separately stores each pet peeve a user has noted for his/her contact."""
 
-    pet_peeve_id = db.Column(db.Integer,
-                             nullable=False,
-                             primary_key=True)
+#     __tablename__ = "pet_peeves"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     pet_peeve_id = db.Column(db.Integer,
+#                              nullable=False,
+#                              primary_key=True)
 
-    pet_peeve = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("pet_peeves"))
+#     pet_peeve = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("pet_peeves"))
 
-class Favorite_Food(db.Model):
-    """Separately stores each favorite food a user has noted for his/her contact."""
 
-    __tablename__ = "fav_foods"
+# class Favorite_Food(db.Model):
+#     """Separately stores each favorite food a user has noted for his/her contact."""
 
-    fav_food_id = db.Column(db.Integer,
-                            nullable=False,
-                            primary_key=True)
+#     __tablename__ = "fav_foods"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     fav_food_id = db.Column(db.Integer,
+#                             nullable=False,
+#                             primary_key=True)
 
-    fav_food = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("fav_foods"))
+#     fav_food = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("fav_foods"))
 
-class Favorite_Drink(db.Model):
-    """Separately stores favorite drink a user has noted for his/her contact."""
 
-    __tablename__ = "fav_drinks"
+# class Favorite_Drink(db.Model):
+#     """Separately stores favorite drink a user has noted for his/her contact."""
 
-    fav_drink_id = db.Column(db.Integer,
-                             nullable=False,
-                             primary_key=True)
+#     __tablename__ = "fav_drinks"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     fav_drink_id = db.Column(db.Integer,
+#                              nullable=False,
+#                              primary_key=True)
 
-    fav_drink = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("fav_drinks"))
+#     fav_drink = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("fav_drinks"))
 
-class Favorite_Restaurant(db.Model):
-    """Separately stores each favorite restaurant a user noted about his/her contact."""
 
-    __tablename__ = "fav_restaurants"
+# class Favorite_Restaurant(db.Model):
+#     """Separately stores each favorite restaurant a user noted about his/her contact."""
 
-    fav_restaurant_id = db.Column(db.Integer,
-                                  nullable=False,
-                                  primary_key=True)
+#     __tablename__ = "fav_restaurants"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     fav_restaurant_id = db.Column(db.Integer,
+#                                   nullable=False,
+#                                   primary_key=True)
 
-    fav_restaurant = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("fav_restaurants"))
+#     fav_restaurant = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("fav_restaurants"))
 
-class Favorite_Sports_Team(db.Model):
-    """Separately stores each favorite sports team a user noted for his/her contact."""
 
-    __tablename__ = "fav_sports_teams"
+# class Favorite_Sports_Team(db.Model):
+#     """Separately stores each favorite sports team a user noted for his/her contact."""
 
-    fav_sports_team_id = db.Column(db.Integer,
-                                   nullable=False,
-                                   primary_key=True)
+#     __tablename__ = "fav_sports_teams"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     fav_sports_team_id = db.Column(db.Integer,
+#                                    nullable=False,
+#                                    primary_key=True)
 
-    sports_team = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("fav_sports_teams"))
+#     sports_team = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("fav_sports_teams"))
 
-class Favorite_Brand(db.Model):
-    """Separately stores each favorite brand a user has noted for his/her contact."""
 
-    __tablename__ = "fav_brands"
+# class Favorite_Brand(db.Model):
+#     """Separately stores each favorite brand a user has noted for his/her contact."""
 
-    fav_brand_id = db.Column(db.Integer,
-                             nullable=False,
-                             primary_key=True)
+#     __tablename__ = "fav_brands"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     fav_brand_id = db.Column(db.Integer,
+#                              nullable=False,
+#                              primary_key=True)
 
-    fav_brand = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("fav_sports_teams"))
+#     fav_brand = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("fav_sports_teams"))
 
-class Other_Favorites(db.Model):
-    """Separately stores other favorites a user noted for his/her contact."""
 
-    __tablename__ = "other_favs"
+# class Other_Favorites(db.Model):
+#     """Separately stores other favorites a user noted for his/her contact."""
 
-    other_favs_id = db.Column(db.Integer,
-                              nullable=False,
-                              primary_key=True)
+#     __tablename__ = "other_favs"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     other_favs_id = db.Column(db.Integer,
+#                               nullable=False,
+#                               primary_key=True)
 
-    other_fav = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("other_favs"))
+#     other_fav = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("other_favs"))
 
-class Conversation_Log(db.Model):
-    """Separately stores each notable conversation a user had with his/her contact."""
 
-    __tablename__ = "convo_log"
+# class Conversation_Log(db.Model):
+#     """Separately stores each notable conversation a user had with his/her contact."""
 
-    convo_log_id = db.Column(db.Integer,
-                             nullable=False,
-                             primary_key=True)
+#     __tablename__ = "convo_log"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     convo_log_id = db.Column(db.Integer,
+#                              nullable=False,
+#                              primary_key=True)
 
-    convo = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("convo_log"))
+#     convo = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("convo_log"))
 
-class Trait(db.Model):
-    """Separately stores each trait a user noted about his/her contact."""
 
-    __tablename__ = "traits"
+# class Trait(db.Model):
+#     """Separately stores each trait a user noted about his/her contact."""
 
-    trait_id = db.Column(db.Integer,
-                         nullable=False,
-                         primary_key=True)
+#     __tablename__ = "traits"
 
-    relatp_id = db.Column(db.Integer,
-                          db.ForeignKey('relationships.relatp_id'))
+#     trait_id = db.Column(db.Integer,
+#                          nullable=False,
+#                          primary_key=True)
 
-    trait = db.Column(db.Text)
+#     relatp_id = db.Column(db.Integer,
+#                           db.ForeignKey('relationships.relatp_id'))
 
-    relatp = db.relationship("Relationship", backref=db.backref("traits"))
+#     trait = db.Column(db.Text)
 
+#     relatp = db.relationship("Relationship", backref=db.backref("traits"))
 
-class Connection(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    provider_id = db.Column(db.String(255))
-    provider_user_id = db.Column(db.String(255))
-    access_token = db.Column(db.String(255))
-    secret = db.Column(db.String(255))
-    display_name = db.Column(db.String(255))
-    profile_url = db.Column(db.String(512))
-    image_url = db.Column(db.String(512))
-    rank = db.Column(db.Integer)
 
+# class Connection(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+#     provider_id = db.Column(db.String(255))
+#     provider_user_id = db.Column(db.String(255))
+#     access_token = db.Column(db.String(255))
+#     secret = db.Column(db.String(255))
+#     display_name = db.Column(db.String(255))
+#     profile_url = db.Column(db.String(512))
+#     image_url = db.Column(db.String(512))
+#     rank = db.Column(db.Integer)
 
-
-
-
-def connect_to_db(app):
-    """Conenct the database to the Flask app."""
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///contacts'
-    db.app = app
-    db.init_app(app)
 
 if __name__ == "__main__":
     """This is useful for running this module interactively. This will leave me

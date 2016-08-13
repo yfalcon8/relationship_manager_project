@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
+{% block content %}
     <h1>Add Your Contacts</h1>
-    <form>
+    <form action="/methods_of_reaching_out" method="POST">
         <div>
             <label>First Name:
-                <input type="fname" name="fname" required>
+                <input type="text" name="fname" required>
             </label>
         </div>
 
         <div>
             <label>Last Name:
-                <input type="lname" name="lname" required>
+                <input type="text" name="lname">
             </label>
         </div>
 
         <div>
             <input type="submit" value="Add Contact">
         </div>
-
     </form>
+    <h3>To Do</h3>
+    <ul>
+        <li>Add Contact to user todb.</li>
+    </ul>
+
 {% endblock %}
