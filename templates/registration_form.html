@@ -2,7 +2,7 @@
 {% block content %}
 
     <h1>Registration Page</h1>
-    <form action="/add_contacts" method="POST">
+    <form action="/registration-success" method="POST">
         <div>
             <label>First Name:
                 <input type="text" name="fname" required>
@@ -16,7 +16,7 @@
         </div>
 
         <div>
-            <label>Email: (this will be your user name)
+            <label>Email (this will be your user name):
                 <input type="email" name="email" required>
             </label>
         </div>
@@ -33,13 +33,5 @@
         </div>
 
     </form>
-
-    <h3>To Do</h3>
-    <ul>
-        <li>Query db to see if email is taken.</li>
-        <li>If email is taken, alert user.</li>
-        <li>Create new user object.</li>
-        <li>Store new user's info in db.</li>
-    </ul>
     
     {% endblock %}

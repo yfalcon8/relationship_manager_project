@@ -8,22 +8,14 @@ inheriting html files.) -->
     <title>Contacts</title>
 </head>
 <body>
-Contacts
-
-{% if "user_id" in session %}
-    <a href="/logout">Logout</a>
-    {% else %}
-    <a href="/login">Login</a>
-    {% endif %}
+    <a href="/login">Login</a><br>
 
     <a href="/register">Register</a>
-
-{% for flash in get_flashed_messages() %}
-  {{ flash }}
-{% endfor %}
-
 {% block content %}
-    
+    Contacts
+    <br>
+
+
 {% endblock %}
 
 </body>

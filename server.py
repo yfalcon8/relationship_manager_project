@@ -1,25 +1,49 @@
 """My web app's online structure."""
 
+#################
+#### imports ####
+#################
+
 # Jinja is a popular template system for Python, used by Flask.
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, session, flash, redirect
+# Flask: A class that we import. An instance of this class will be the
+# WSGI application.
+# session: A Flask object (class) that allows you to store information specific to a
+# user from one request to the next. It's a dictionary that preserves type.
+# It is a customized cookie.
+
 from flask_debugtoolbar import DebugToolbarExtension
+from flask.ext.sqlalchemy import SQLAlchemy
 
 from sendnotif import *
+from model import connect_to_db, db, User, Recommendation, Relationship
 
-# Instantiates Flask.
+#######################
+#### configuration ####
+#######################
+
+# Instantiates Flask. "__name__" is a special Python variable for the name of
+# the current module. This is needed so that Flask knows where to look for
+# templates, static files, and so on.
 app = Flask(__name__)
 
-# Required to use Flask sessions and the debug DebugToolbarExtension
+# Required to use Flask sessions and the debug DebugToolbarExtension. The user could look at
+# the contents of your cookie but not modify it, unless they know the secret key
+# used for signing.
 app.secret_key = "ILoveStephenColbert"
+# Another way of generating a secret key:
+# >>>import os
+# >>>os.urandom(24)
 
 # Raises an error when an undefined variable is used in Jinja2.
 app.jinja_env.undefined = StrictUndefined
 
 
 # @app.route('/') is a Python decorator. '/' in the decorator maps directly
-# to the URL the user requested which is the homepage.
+# to the URL the user requested which is the homepage. The index function
+# is triggered when the URL is visited.
 @app.route('/')
 def index():
     """Homepage."""
@@ -27,16 +51,12 @@ def index():
     return render_template("homepage.html")
 
 
-# Tells Flask, "When you receive the request http://server/login, call the
-# login function."
-@app.route('/login')
-def login():
-    """Page where existing user inputs login info."""
-
-    return render_template('login_form.html')
-
-
-@app.route('/login', methods=["POST"])
+# GET: The browser tells the server to just get the information stored on
+# that page and send it.
+# POST: The browser tells the server that it wants to post some new
+# information to that URL and that the server must ensure the data is stored and
+# only stored once. This is how HTML forms usually transmit data to the server.
+@app.route('/login', methods=['GET', 'POST'])
 def process_login():
     """Log user into site.
 
@@ -47,21 +67,7 @@ def process_login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = db.session.query(User).filter_by(email=email).one()
-
-    # user = customers.get_by_email(email)
-
-    # if not user:
-    #     flash("That email does not exist in the database.")
-    #     return redirect('/login')
-
-    # if user.password != password:
-    #     flash("Incorrect password.")
-    #     return redirect("/login")
-
-    # session["logged_in_customer_email"] = user.email
-    # flash("Logged in.")
-    # return redirect("/melons")
+    return render_template('login_form.html')
 
 
 @app.route('/register')
@@ -69,10 +75,33 @@ def register():
     """Page where users registers for my app."""
 
     return render_template('registration_form.html')
-# class SocialLoginError(Exception):
-#     def __init__(self, provider):
-#         self.provider = provider
 
+
+@app.route('/registration-success', methods=['POST'])
+def registration_success():
+    """Inform new user that they've been added."""
+
+    first_name = request.form.get('fname')
+    last_name = request.form.get('lname')
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    email_exists = db.session.query(User).filter_by(email=email).first()
+
+    if email_exists is None:
+        new_user = User(first_name=first_name, last_name=last_name, email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+    else:
+        flash('Email taken.')
+        return redirect('/register')
+
+    return render_template('registration_success.html',
+                           first_name=first_name,
+                           email=email)
+
+
+# route that my emails will be sent from
 @app.route('/send_email')
 def send_email():
 
@@ -83,22 +112,51 @@ def send_email():
     return "Success!"
 
 
-@app.route('/add_contacts')
+@app.route('/add-contacts')
 def add_contacts():
     """User manually adds contacts and categorizes them as friend, family, or
     professional contact."""
 
-    return render_template('add_contact.html')
+    return render_template("add_contact.html")
 
 
-@app.route("/methods_of_reaching_out")
+@app.route('/contact-added', methods=['POST'])
+def contact_added():
+    """Confirmation page that user has been added."""
+
+    first_name = request.form.get('fname')
+    last_name = request.form.get('lname')
+    relatp = request.form.get('relatp')
+
+    relatp_type = ''
+
+    if relatp == 'friend':
+        relatp_type = 'fr'
+    elif relatp == 'family':
+        relatp_type = 'fam'
+    else:
+        relatp_type = 'prf'
+
+    new_contact = Relationship(first_name=first_name, last_name=last_name, relatp_type=relatp_type)
+    db.session.add(new_contact)
+    db.session.commit()
+
+    return render_template("contact_added.html",
+                           first_name=first_name,
+                           last_name=last_name,
+                           relatp_type=relatp_type)
+
+
+@app.route("/methods-of-reaching-out")
 def methods_of_reaching_out():
     """User can select methods of reaching out from a list."""
 
-    return render_template('reach_out.html')
+    recommendations = db.session.query(Recommendation).all()
+    return """<p>{}</p>""".format(recommendations)
+    # return render_template('reach_out.html')
 
 
-@app.route('/landing_page')
+@app.route('/landing-page')
 # @login_required
 def landing_page():
     """Page where users land after logging in or signing up."""
@@ -106,7 +164,7 @@ def landing_page():
     return render_template('landing_page.html')
 
 
-@app.route('/contact_display')
+@app.route('/contact-display')
 def contact_display():
     """Display a selected contacts profile."""
 
@@ -124,12 +182,14 @@ def event_display():
 def process_logout():
     """Log user out."""
 
-    # del session["logged_in_customer_email"]
-    # flash("Logged out.")
+    session.pop('username', None)
+    flash("Logged out.")
     return render_template('logout.html')
 
 
-
+@app.errorhandler(404)
+def page_not_found():
+    return render_template('page_not_found.html'), 404
 
 # @app.context_processor
 # def template_extras():
@@ -233,12 +293,14 @@ if __name__ == "__main__":
     # Setting this to be true so that I can invoke the DebugToolbarExtension
     app.debug = True
 
+    connect_to_db(app)
+
     # Use the DebugToolbar
     DebugToolbarExtension(app)
 
-    # fsocial.init_app(app)
-
-    # Port 5000 required for vagrant.
     # debug=True runs Flask in "debug mode". It will reload my code when it
     # changes and provide error messages in the browser.
+    # The host makes the server publicly available by adding 0.0.0.0. This
+    # tells my operating system to listen on all public IPs.
+    # Port 5000 required for Flask.
     app.run(debug=True, host='0.0.0.0', port=5000)

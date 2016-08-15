@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Success!</h1>
+
+    <p>{{ first_name }} {{ last_name }} has been added as a {{ relatp_type }} to your contacts.</p>
+
+    <a href="/add-contacts">Add Another</a>
+    <a href="/contact-display">{{ first_name }}'s Profile</a>
+{% endblock %}

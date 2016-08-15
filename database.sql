@@ -5,13 +5,13 @@ CREATE TABLE users (
     last_name VARCHAR(30) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(20) NOT NULL,
-    bday DATE NOT NULL
 );
 
+-- add REFERENCES relationships to relatp_code once relationships is solidified.
 CREATE TABLE recommendations (
     rcmdn_id SERIAL PRIMARY KEY,
-    relatp_code INTEGER NOT NULL REFERENCES relationships DEFAULT 100,
-    rcmdn_text TEXT NOT NULL UNIQUE
+    relatp_code INTEGER NOT NULL DEFAULT 100,
+    rcmdn TEXT NOT NULL UNIQUE
 );
 
 -- CREATE TABLE events (
@@ -22,29 +22,29 @@ CREATE TABLE recommendations (
 --     rcmdn_text TEXT NOT NULL
 -- );
 
--- CREATE TABLE relationships (
---     relatp_id SERIAL PRIMARY KEY,
---     relatp_code INTEGER NOT NULL DEFAULT 100,
---     user_id INTEGER,
---     email VARCHAR(50),
---     bday DATE,
---     phone VARCHAR(15),
---     work VARCHAR(50),
---     edu VARCHAR(50),
---     fb VARCHAR(50),
---     linked_in VARCHAR(50),
---     twitter VARCHAR(50),
---     google_plus VARCHAR(50),
---     meet_up VARCHAR(50),
---     github VARCHAR(50),
---     pinterest VARCHAR(50),
---     reddit VARCHAR(50),
---     word_press VARCHAR(50),
---     yelp VARCHAR(50),
---     youtube VARCHAR(50),
---     skype VARCHAR(50),
---     other_social_media VARCHAR(50)
--- );
+CREATE TABLE relationships (
+    relatp_id SERIAL PRIMARY KEY,
+    relatp_code INTEGER NOT NULL DEFAULT 100,
+    user_id INTEGER,
+    email VARCHAR(50),
+    bday DATE,
+    phone VARCHAR(15),
+    work VARCHAR(50),
+    edu VARCHAR(50),
+    fb VARCHAR(50),
+    linked_in VARCHAR(50),
+    twitter VARCHAR(50),
+    google_plus VARCHAR(50),
+    meet_up VARCHAR(50),
+    github VARCHAR(50),
+    pinterest VARCHAR(50),
+    reddit VARCHAR(50),
+    word_press VARCHAR(50),
+    yelp VARCHAR(50),
+    youtube VARCHAR(50),
+    skype VARCHAR(50),
+    other_social_media VARCHAR(50)
+);
 
 -- CREATE TABLE rcmdns_relatps (
 --     rcmdnRelatp_id SERIAL PRIMARY KEY,
@@ -144,7 +144,7 @@ VALUES ('Yuki', 'Falcon', 'yfalcon8@gmail.com', 'blah', to_date('1991-02-27', 'Y
 ('Rachel', 'Shen', 'falcony@unlv.nevada.edu.com', 'blah', to_date('1991-02-26', 'YYYY-MM-DD')),
 ('Chow', 'Chow', 'relationshipmanagerhb@gmail.com', 'blah', to_date('1950-02-27', 'YYYY-MM-DD'));
 
-INSERT INTO "recommendations" (rcmdn_text)
+INSERT INTO "recommendations" (rcmdn)
 VALUES ('Grab drinks'),
 ('Grab dinner'),
 ('Catch a show'),

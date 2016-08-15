@@ -1,7 +1,8 @@
 """The muscle of my database. Models and database functions for contacts db."""
 
-# What is SQLAlchemy? It is a popular and powerful Python-based Object
+# SQLAlchemy is a popular and powerful Python-based Object
 # Relational Model/Mapper (ORM). Helps me navigate my relational database.
+# SQLAlchemy is a powerful software that transforms Python into SQL.
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -13,25 +14,17 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-# This set up allows my app the ability to talk to SQLite, PostgreSQL, MySQL
-# and more.
-def connect_to_db(app):
-    """Connect to database."""
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///contacts'
-    db.app = app
-    db.init_app(app)
-
 ##############################################################################
 # Create my ORM. Allows for object-orientation into SQL.
 
-# All of my models will subclass db.Model. What is db.Model?
-
-
+# All of my models will subclass db.Model.
+# This declares that a class will be managed by SQLAlchemy.
+# db is the object and Model is a class.
+# The Model class contains the __init__() method, so I don't need to include it.
 class User(db.Model):
     """Stores information about my users."""
 
-    # Specifies table name.
+    # The instances of this class will be stored in a table named users.
     __tablename__ = "users"
 
     # db.Column creates a column in the users table called user_id. db.Integer
@@ -41,12 +34,10 @@ class User(db.Model):
                         primary_key=True,
                         autoincrement=True)
 
-    # db.String(30) indicates that the data type of this column can contain
-    # letters, numbers and special characters. As it would not make sense to
-    # have numbers and special characters in a first name, the HTML form that
-    # will collect the first name from the user will specity that only letters
-    # are allowed. The (30) indicates that this field will fit a max of
-    # 30 characters.
+    # 'String' is the SQLAlchemy-managed version of the data type.
+    # It indicates that the data type of this column can contain
+    # letters, numbers and special characters.
+    # The (30) indicates that this field will fit a max of 30 characters.
     first_name = db.Column(db.String(30),
                            nullable=False)
 
@@ -64,15 +55,11 @@ class User(db.Model):
     password = db.Column(db.String(20),
                          nullable=False)
 
-    bday = db.Column(db.Date,
-                     nullable=False)
-
-
     def __repr__(self):
         return "<User: {} {}, {}, {}>".format(self.first_name,
                                               self.last_name,
                                               self.email,
-                                              self.bday)
+                                              self.password)
 
 
 class Recommendation(db.Model):
@@ -87,21 +74,20 @@ class Recommendation(db.Model):
     # The default is for those users who do not feel like specifying the type
     # relationship they have with the contact they just imported. There will
     # be a default set of tips on how to reach out.
-    relatp_code = db.Column(db.Integer,
-                            db.ForeignKey('relationships.relatp_code'),
+    relatp_type = db.Column(db.String(3),
                             default=100)
 
-    rcmdn_text = db.Column(db.Text,
-                           nullable=False,
-                           unique=True)
+    rcmdn = db.Column(db.Text,
+                      nullable=False,
+                      unique=True)
 
     # Join the recommendation table and relationship table through the
     # relatp_code. This allows me to navigate from the a user's contact to his/her
     # associated recommendations and vice versa.
-    relatp = db.relationship("Relationship", backref=db.backref("rcmdn"))
-
+    # relatp = db.relationship("Relationship", backref=db.backref("rcmdn"))
     def __repr__(self):
-        return "<Recommendation: {}>".format(self.rcmdn_text)
+
+        return "<Recommendation: {}>".format(self.rcmdn)
 
 # class Event(db.Model):
 #     """Stores information about each event."""
@@ -128,70 +114,80 @@ class Recommendation(db.Model):
 #     def __repr__(self):
 #         return "<Event: user_id=%s relatp_id=%s, rcmdn_text=%s>" (self.first_name,
 #                                                                   self.last_name,
-#                                                                   self.email,
-#                                                                   self.bday)
 
 
-# class Relationship(db.Model):
-#     """Stores all of a users' contacts info."""
+class Relationship(db.Model):
+    """Stores all of a users' contacts info."""
 
-#     __tablename__ = "relationships"
+    __tablename__ = "relationships"
 
-#     relatp_id = db.Column(db.Integer,
-#                           autoincrement=True,
-#                           primary_key=True)
+    relatp_id = db.Column(db.Integer,
+                          autoincrement=True,
+                          primary_key=True)
 
-#     relatp_code = db.Column(db.Integer,
-#                             nullable=False,
-#                             default=100)
+    first_name = db.Column(db.String(30),
+                           nullable=False)
 
-#     user_id = db.Column(db.Integer,
-#                         db.ForeignKey('users.user_id'))
+    last_name = db.Column(db.String(30),
+                          nullable=False)
 
-#     email = db.Column(db.String(50))
+    relatp_type = db.Column(db.String(3),
+                            nullable=False,
+                            default=100)
 
-#     bday = db.Column(db.Date)
+    user_id = db.Column(db.Integer)
 
-#     phone = db.Column(db.String(15))
+    email = db.Column(db.String(50))
 
-#     work = db.Column(db.String(50))
+    bday = db.Column(db.Date)
 
-#     edu = db.Column(db.String(50))
+    phone = db.Column(db.String(15))
 
-#     fb = db.Column(db.String(50))
+    work = db.Column(db.String(50))
 
-#     linked_in = db.Column(db.String(50))
+    edu = db.Column(db.String(50))
 
-#     twitter = db.Column(db.String(50))
+    fb = db.Column(db.String(50))
 
-#     google_plus = db.Column(db.String(50))
+    linked_in = db.Column(db.String(50))
 
-#     meet_up = db.Column(db.String(50))
+    twitter = db.Column(db.String(50))
 
-#     github = db.Column(db.String(50))
+    google_plus = db.Column(db.String(50))
 
-#     pinterest = db.Column(db.String(50))
+    meet_up = db.Column(db.String(50))
 
-#     reddit = db.Column(db.String(50))
+    github = db.Column(db.String(50))
 
-#     word_press = db.Column(db.String(50))
+    pinterest = db.Column(db.String(50))
 
-#     yelp = db.Column(db.String(50))
+    reddit = db.Column(db.String(50))
 
-#     youtube = db.Column(db.String(50))
+    word_press = db.Column(db.String(50))
 
-#     skype = db.Column(db.String(50))
+    yelp = db.Column(db.String(50))
 
-#     other_social_media = db.Column(db.String(50))
+    youtube = db.Column(db.String(50))
 
+    skype = db.Column(db.String(50))
 
-#     user = db.relationship("User", backref=db.backref("relationships"))
+    other_social_media = db.Column(db.String(50))
 
-#     recommendation = db.relationship("Recommendation",
-#                                      secondary='rcmdns_relatps',
-#                                      backref=db.backref("relationship"))
+    # user = db.relationship("User", backref=db.backref("relationships"))
 
+    # recommendation = db.relationship("Recommendation",
+    #                                  secondary='rcmdns_relatps',
+    #                                  backref=db.backref("relationship"))
 
+    def __repr__(self):
+        """Provide useful information about the relationship."""
+
+        return "<Relationship: user_id={}, email={}, bday={}, phone={}, work={}, edu={}>".format(self.user_id,
+                                                                                                 self.email,
+                                                                                                 self.bday,
+                                                                                                 self.phone,
+                                                                                                 self.work,
+                                                                                                 self.edu)
 # class RecommendationRelationship(db.Model):
 #     """Association table between recommendation and relationship table.
 
@@ -507,18 +503,19 @@ class Recommendation(db.Model):
 
 #     relatp = db.relationship("Relationship", backref=db.backref("traits"))
 
+# This set up allows my app the ability to talk to SQLite, PostgreSQL, MySQL
+# and more.
 
-# class Connection(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-#     provider_id = db.Column(db.String(255))
-#     provider_user_id = db.Column(db.String(255))
-#     access_token = db.Column(db.String(255))
-#     secret = db.Column(db.String(255))
-#     display_name = db.Column(db.String(255))
-#     profile_url = db.Column(db.String(512))
-#     image_url = db.Column(db.String(512))
-#     rank = db.Column(db.Integer)
+##########################
+#### Helper Functions ####
+##########################
+
+def connect_to_db(app):
+    """Connect to database."""
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///contacts'
+    db.app = app
+    db.init_app(app)
 
 
 if __name__ == "__main__":
@@ -527,5 +524,5 @@ if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
-    db.create_all()
+    # db.create_all()
     print "Connected to DB."

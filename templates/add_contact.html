@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Add Your Contacts</h1>
-    <form action="/methods_of_reaching_out" method="POST">
+    <form action="/contact-added" method="POST">
         <div>
             <label>First Name:
                 <input type="text" name="fname" required>
@@ -15,12 +15,20 @@
         </div>
 
         <div>
+            <label>Relationship:
+                <input type="radio" name="relatp" value="friend" required>Friend
+                <input type="radio" name="relatp" value="family">Family
+                <input type="radio" name="relatp" value="professional">Professional
+            </label>
+        </div>
+
+        <div>
             <input type="submit" value="Add Contact">
         </div>
     </form>
     <h3>To Do</h3>
     <ul>
-        <li>Add Contact to user todb.</li>
+        <li>Grab user_id so that it can be stored with the commit.</li>
     </ul>
 
 {% endblock %}

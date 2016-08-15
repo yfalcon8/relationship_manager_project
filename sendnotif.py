@@ -4,14 +4,11 @@ import smtplib
 # Built-in Simple Mail Transfer Protocol (SMTP) module
 
 
-from model import db, User
-
-# FIXME: How do I query my db from this file?
-all_users = db.session.query(User).all()
-print all_users
-
-
 def send_event_notification(name, email):
+    # Set datetime to 'start' when the user signs up.
+    # add 4 months to sign_up_datetime for professional contacts
+    # add 1 months to sign_up_datetime for friends/fam
+
     sender = "relationshipmanagerhb@gmail.com"
     # recipient_email = ["yfalcon8@gmail.com"]
     # recipient_name = ["Yuki Falcon"]
