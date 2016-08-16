@@ -234,12 +234,18 @@ def method_specification_success(user_id, relatp_id):
 def landing_page(user_id):
     """Page where users land after logging in or signing up."""
 
+    # Display the name of all of the reltionships a user has.
+    # A list of tuples are returned.
+    # The relationships id will be used to create a link to their profile.
+    contact_name_and_id = db.session.query(Relationship.user_id, Relationship.id, Relationship.first_name, Relationship.last_name).filter_by(user_id=user_id).all()
+
     return render_template("landing_page.html",
-                           user_id=user_id)
+                           user_id=user_id,
+                           contact_name_and_id=contact_name_and_id)
 
 
-@app.route('/contact-display/<int:user_id>')
-def contact_display(user_id):
+@app.route('/contact-display/<int:user_id>/<int:relatp_id>')
+def contact_display(user_id, relatp_id):
     """Display a selected contacts profile."""
 
     return render_template("contact_display.html",

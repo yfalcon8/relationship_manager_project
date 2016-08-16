@@ -9,6 +9,12 @@
 
     <p>User lands on this page after registering or logging in.</p>
 
+    <ul>
+        {% for user_id, relatp_id, first_name, last_name in contact_name_and_id %}
+            <li><a href="/contact-display/{{ user_id }}/{{ relatp_id }}">{{ first_name }} {{ last_name }}</a></li>
+        {% endfor %}
+    </ul>
+
     <h3>To Do</h3>
     <ul>
         <li>Display the user's contacts in ABC order to the left.</li>
