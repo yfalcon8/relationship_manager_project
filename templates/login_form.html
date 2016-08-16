@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+    <a href="/register">Register</a><br>
+
     <h1>Login</h1>
     <form action="/login" method="POST">
         
@@ -24,8 +26,7 @@
 
     <h3>To Do</h3>
     <ul>
-        <li>Query the db to see if email exists in the User table.</li>
-        <li>If the email does exist, does the password match?</li>
-        <li>Alert the user if the password does not match.</li>
+        <li>Fix the link from the login to the landing page.</li>
+        
     </ul>
 {% endblock %}

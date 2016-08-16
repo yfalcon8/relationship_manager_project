@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+    <a href="/login">Login</a><br>
+
     <h1>Registration Page</h1>
+
     <form action="/registration-success" method="POST">
         <div>
             <label>First Name:
@@ -34,4 +37,9 @@
 
     </form>
     
+    <h3>To Do</h3>
+    <ul>
+        <li>Make sure the email is stored as lowercase in my db.</li>
+    </ul>
+
     {% endblock %}

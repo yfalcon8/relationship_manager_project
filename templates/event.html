@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+
+    <a href="/logout">Logout</a>
+    <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
+
     <h1>Event Display</h1>
+
+    <a href="/landing-page/{{ user_id }}">Back to Main</a>
+    <h3>To Do</h3>
     <p>Display all of a users upcoming events.</p>
 {% endblock %}

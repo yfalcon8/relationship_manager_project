@@ -2,8 +2,11 @@
 {% block content %}
     <h1>Success!</h1>
 
-    <p>{{ first_name }} {{ last_name }} has been added as a {{ relatp_type }} to your contacts.</p>
+    <p>{{ first_name }} {{ last_name }} has been added as a {{ relatp }} to your contacts.</p><br>
 
-    <a href="/add-contacts">Add Another</a>
-    <a href="/contact-display">{{ first_name }}'s Profile</a>
+    <a href="/add-contacts/{{ user_id }}">Add Another</a><br>
+
+    <a href="/contact-display/{{ user_id }}">{{ first_name }}'s Profile</a><br>
+
+    <a href="/methods-of-reaching-out/{{ user_id }}/{{ relatp_id }}">Assign Methods of Reaching out</a>
 {% endblock %}

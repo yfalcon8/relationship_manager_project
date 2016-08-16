@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Add Your Contacts</h1>
-    <form action="/contact-added" method="POST">
+    <form action="/contact-added/{{ user_id }}" method="POST">
         <div>
             <label>First Name:
                 <input type="text" name="fname" required>
@@ -28,7 +28,7 @@
     </form>
     <h3>To Do</h3>
     <ul>
-        <li>Grab user_id so that it can be stored with the commit.</li>
+        <li>Write a unit test that checks the link between this page and contact-added.</li>
     </ul>
 
 {% endblock %}

@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+
+    <a href="/logout">Logout</a>
+    <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
+    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a>
+
     <h1>Landing Page</h1>
+
     <p>User lands on this page after registering or logging in.</p>
+
     <h3>To Do</h3>
     <ul>
         <li>Display the user's contacts in ABC order to the left.</li>

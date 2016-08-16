@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+
+    <a href="/logout">Logout</a>
+
     <h1>Contact View</h1>
-    <p>Display a selected contacts profile.</p>
+    <p>Display a selected contacts profile.</p><br>
+    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a>
     <h3>To Do</h3>
         <ul>
             <li>Display contact name at top.</li>

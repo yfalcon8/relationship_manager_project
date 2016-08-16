@@ -20,6 +20,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from sendnotif import *
 from model import connect_to_db, db, User, Recommendation, Relationship
 
+# import unicdodedata
+# unicodedata will help me convert unicode into a string.
+
 #######################
 #### configuration ####
 #######################
@@ -56,18 +59,44 @@ def index():
 # POST: The browser tells the server that it wants to post some new
 # information to that URL and that the server must ensure the data is stored and
 # only stored once. This is how HTML forms usually transmit data to the server.
-@app.route('/login', methods=['GET', 'POST'])
-def process_login():
+@app.route('/login')
+def display_login():
     """Log user into site.
 
     Find the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session.
     """
 
-    email = request.form.get('email')
-    password = request.form.get('password')
-
     return render_template('login_form.html')
+
+
+@app.route('/login', methods=['POST'])
+def handle_login():
+    """Process login."""
+
+    # Add email and password to the dictionary 'form'
+    email = request.form['email']
+    password = request.form['password']
+
+    # Check to see if the email is in the database.
+    user = User.query.filter_by(email=email).first()
+
+    # If it doesn't, redirect them to the login page.
+    if not user:
+        flash("That user does not exist.")
+        return redirect("/")
+
+    # If the password doesn't match the email, let the user know.
+    if user.password != password:
+        flash("Incorrect password.")
+        return redirect("/")
+
+    # Grab the user_id and assign it to the session dictionary.
+    session["user_id"] = user.id
+
+    # Take the user to the landing page when their login credentials match.
+    flash("Login successful!")
+    return redirect("/landing-page/{}".format(user.id))
 
 
 @app.route('/register')
@@ -86,6 +115,7 @@ def registration_success():
     email = request.form.get('email')
     password = request.form.get('password')
 
+    # Add the user as long as the email isn't already taken.
     email_exists = db.session.query(User).filter_by(email=email).first()
 
     if email_exists is None:
@@ -93,12 +123,23 @@ def registration_success():
         db.session.add(new_user)
         db.session.commit()
     else:
-        flash('Email taken.')
+        flash("Email {} is taken.".format(email))
         return redirect('/register')
+
+    # Grab the id of the user that just signed in.
+    user_id = db.session.query(User.id).filter_by(email=email).first()[0]
+
+   # Add the user to the session.
+    email = request.form['email']
+    password = request.form['password']
+
+    user = User.query.filter_by(email=email).first()
+    session["user_id"] = user.id
 
     return render_template('registration_success.html',
                            first_name=first_name,
-                           email=email)
+                           email=email,
+                           user_id=user_id)
 
 
 # route that my emails will be sent from
@@ -112,16 +153,17 @@ def send_email():
     return "Success!"
 
 
-@app.route('/add-contacts')
-def add_contacts():
+@app.route('/add-contacts/<int:user_id>')
+def add_contacts(user_id):
     """User manually adds contacts and categorizes them as friend, family, or
     professional contact."""
 
-    return render_template("add_contact.html")
+    return render_template("add_contact.html",
+                           user_id=user_id)
 
 
-@app.route('/contact-added', methods=['POST'])
-def contact_added():
+@app.route('/contact-added/<int:user_id>', methods=['POST'])
+def contact_added(user_id):
     """Confirmation page that user has been added."""
 
     first_name = request.form.get('fname')
@@ -130,6 +172,7 @@ def contact_added():
 
     relatp_type = ''
 
+    # Change the relapt_type to match the table it will be committed to.
     if relatp == 'friend':
         relatp_type = 'fr'
     elif relatp == 'family':
@@ -137,52 +180,85 @@ def contact_added():
     else:
         relatp_type = 'prf'
 
-    new_contact = Relationship(first_name=first_name, last_name=last_name, relatp_type=relatp_type)
+    # Add the new contact to the db.
+    new_contact = Relationship(user_id=user_id, first_name=first_name, last_name=last_name, relatp_type=relatp_type)
     db.session.add(new_contact)
     db.session.commit()
+
+    # Grab the id of the relationship that was just created.
+    new_contact_info = db.session.query(Relationship.id).filter_by(user_id=user_id, first_name=first_name, last_name=last_name, relatp_type=relatp_type).all()[0][0]
 
     return render_template("contact_added.html",
                            first_name=first_name,
                            last_name=last_name,
-                           relatp_type=relatp_type)
+                           relatp=relatp,
+                           user_id=user_id,
+                           relatp_id=new_contact_info)
 
 
-@app.route("/methods-of-reaching-out")
-def methods_of_reaching_out():
+@app.route('/methods-of-reaching-out/<int:user_id>/<int:relatp_id>')
+def specify_methods_of_reaching_out(user_id, relatp_id):
     """User can select methods of reaching out from a list."""
 
-    recommendations = db.session.query(Recommendation).all()
-    return """<p>{}</p>""".format(recommendations)
-    # return render_template('reach_out.html')
+    # Given the relatp_id, grab the relationship type (friend, family, or professional).
+    relatp_type = db.session.query(Relationship.relatp_type).filter_by(id=relatp_id).all()[0][0]
+
+    # Grab the recommendation list associated with the relationship type.
+    rcmdn_list = db.session.query(Recommendation).filter_by(relatp_type=relatp_type).all()
+
+    return render_template('reach_out.html',
+                           user_id=user_id,
+                           relatp_id=relatp_id,
+                           rcmdn_list=rcmdn_list)
 
 
-@app.route('/landing-page')
-# @login_required
-def landing_page():
+@app.route('/methods-success/<int:user_id>/<int:relatp_id>', methods=['POST'])
+def method_specification_success(user_id, relatp_id):
+    """Add the methods specified to the relationship."""
+
+    # Grab the recommendation list specified for the relationship.
+    desired_list = request.form.getlist('rcmdn')
+
+    # Retrieve the relationship to which I want to add the list.
+    update_relatp = Relationship.query.filter_by(user_id=user_id, id=relatp_id).first()
+    update_relatp.rcmdn_list = desired_list
+
+    db.session.commit()
+
+    return render_template('reach_out_added.html',
+                           user_id=user_id,
+                           desired_list=desired_list)
+
+
+@app.route('/landing-page/<int:user_id>')
+def landing_page(user_id):
     """Page where users land after logging in or signing up."""
 
-    return render_template('landing_page.html')
+    return render_template("landing_page.html",
+                           user_id=user_id)
 
 
-@app.route('/contact-display')
-def contact_display():
+@app.route('/contact-display/<int:user_id>')
+def contact_display(user_id):
     """Display a selected contacts profile."""
 
-    return render_template('contact_display.html')
+    return render_template("contact_display.html",
+                           user_id=user_id)
 
 
-@app.route('/event_display')
-def event_display():
+@app.route('/event-display/<int:user_id>')
+def event_display(user_id):
     """Display a selected contacts profile."""
 
-    return render_template('event_display.html')
+    return render_template("event.html",
+                           user_id=user_id)
 
 
 @app.route('/logout')
 def process_logout():
     """Log user out."""
 
-    session.pop('username', None)
+    del session["user_id"]
     flash("Logged out.")
     return render_template('logout.html')
 

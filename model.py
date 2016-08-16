@@ -30,9 +30,9 @@ class User(db.Model):
     # db.Column creates a column in the users table called user_id. db.Integer
     # specifies the type of column. This column sets my primary key to be
     # an automatically increasing number.
-    user_id = db.Column(db.Integer,
-                        primary_key=True,
-                        autoincrement=True)
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
 
     # 'String' is the SQLAlchemy-managed version of the data type.
     # It indicates that the data type of this column can contain
@@ -67,15 +67,15 @@ class Recommendation(db.Model):
 
     __tablename__ = "recommendations"
 
-    rcmdn_id = db.Column(db.Integer,
-                         primary_key=True,
-                         autoincrement=True)
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
 
     # The default is for those users who do not feel like specifying the type
     # relationship they have with the contact they just imported. There will
     # be a default set of tips on how to reach out.
     relatp_type = db.Column(db.String(3),
-                            default=100)
+                            default='fr')
 
     rcmdn = db.Column(db.Text,
                       nullable=False,
@@ -84,10 +84,12 @@ class Recommendation(db.Model):
     # Join the recommendation table and relationship table through the
     # relatp_code. This allows me to navigate from the a user's contact to his/her
     # associated recommendations and vice versa.
-    # relatp = db.relationship("Relationship", backref=db.backref("rcmdn"))
+    relatp = db.relationship("Relationship",
+                             secondary='rcmdns_relatps')
+
     def __repr__(self):
 
-        return "<Recommendation: {}>".format(self.rcmdn)
+        return "<Recommendation: relatp_type={}, rcmdn={}>".format(self.relatp_type, self.rcmdn)
 
 # class Event(db.Model):
 #     """Stores information about each event."""
@@ -121,21 +123,23 @@ class Relationship(db.Model):
 
     __tablename__ = "relationships"
 
-    relatp_id = db.Column(db.Integer,
-                          autoincrement=True,
-                          primary_key=True)
+    id = db.Column(db.Integer,
+                   autoincrement=True,
+                   primary_key=True)
 
     first_name = db.Column(db.String(30),
                            nullable=False)
 
-    last_name = db.Column(db.String(30),
-                          nullable=False)
+    last_name = db.Column(db.String(30))
 
     relatp_type = db.Column(db.String(3),
                             nullable=False,
-                            default=100)
+                            default='fr')
 
-    user_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.id'))
+
+    rcmdn_list = db.Column(db.Text)
 
     email = db.Column(db.String(50))
 
@@ -155,59 +159,55 @@ class Relationship(db.Model):
 
     google_plus = db.Column(db.String(50))
 
-    meet_up = db.Column(db.String(50))
-
     github = db.Column(db.String(50))
 
     pinterest = db.Column(db.String(50))
-
-    reddit = db.Column(db.String(50))
 
     word_press = db.Column(db.String(50))
 
     yelp = db.Column(db.String(50))
 
-    youtube = db.Column(db.String(50))
-
     skype = db.Column(db.String(50))
 
     other_social_media = db.Column(db.String(50))
 
-    # user = db.relationship("User", backref=db.backref("relationships"))
+    user = db.relationship("User", backref=db.backref("relationships"))
 
-    # recommendation = db.relationship("Recommendation",
-    #                                  secondary='rcmdns_relatps',
-    #                                  backref=db.backref("relationship"))
+    recommendations = db.relationship("Recommendation",
+                                      secondary='rcmdns_relatps')
 
     def __repr__(self):
         """Provide useful information about the relationship."""
 
-        return "<Relationship: user_id={}, email={}, bday={}, phone={}, work={}, edu={}>".format(self.user_id,
-                                                                                                 self.email,
-                                                                                                 self.bday,
-                                                                                                 self.phone,
-                                                                                                 self.work,
-                                                                                                 self.edu)
-# class RecommendationRelationship(db.Model):
-#     """Association table between recommendation and relationship table.
+        return "<Relationship: user_id={}, email={}, bday={}, phone={}, work={}, edu={}, relatp_type={}, rcmdn_list={}>".format(self.user_id,
+                                                                                                                                self.email,
+                                                                                                                                self.bday,
+                                                                                                                                self.phone,
+                                                                                                                                self.work,
+                                                                                                                                self.edu,
+                                                                                                                                self.relatp_type,
+                                                                                                                                self.rcmdn_list)
 
-#     Describes the method of reaching out that's tied to each contact.
-#     """
 
-#     __tablename__ = "rcmdns_relatps"
+class RecommendationRelationship(db.Model):
+    """Association table between recommendation and relationship table.
 
-#     rcmdnRelatp_id = db.Column(db.Integer,
-#                                autoincrement=True,
-#                                primary_key=True)
+    Describes the method of reaching out that's tied to each contact.
+    """
 
-#     rcmdn_id = db.Column(db.Integer,
-#                          db.ForeignKey('recommendations.rcmdn_id'),
-#                          nullable=False)
+    __tablename__ = "rcmdns_relatps"
 
-#     relatp_code = db.Column(db.Integer,
-#                             db.ForeignKey('relationships.relatp_code'),
-#                             default=100,
-#                             nullable=False)
+    rcmdnRelatp_id = db.Column(db.Integer,
+                               autoincrement=True,
+                               primary_key=True)
+
+    rcmdn_id = db.Column(db.Integer,
+                         db.ForeignKey('recommendations.id'),
+                         nullable=False)
+
+    relatp_id = db.Column(db.Integer,
+                          db.ForeignKey('relationships.id'),
+                          nullable=False)
 
 
 # class Gift_Idea(db.Model):
