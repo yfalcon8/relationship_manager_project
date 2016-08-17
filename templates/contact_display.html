@@ -5,11 +5,49 @@
 
     <h1>Contact View</h1>
     <p>Display a selected contacts profile.</p><br>
-    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a>
+    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br>
+
+    {% for relatp in relatp_info %}
+
+        {{ relatp.first_name }} {{ relatp.last_name }}<br>
+
+        {{ relatp.email }}<br>
+
+        {{ relatp.bday }}<br>
+
+        {{ relatp.phone }}<br>
+
+        {{ relatp.work }}<br>
+
+        {{ relatp.edu }}<br>
+
+        {{ relatp.fb }}<br>
+
+        {{ relatp.linked_in }}<br>
+
+        {{ relatp.twitter }}<br>
+
+        {{ relatp.google_plus }}<br>
+
+        {{ relatp.github }}<br>
+
+        {{ relatp.pinterest }}<br>
+
+        {{ relatp.word_press }}<br>
+
+        {{ relatp.yelp }}<br>
+
+        {{ relatp.skype }}<br>
+
+        {{ relatp.other_social_media }}<br>
+
+
+    {% endfor %}
+
     <h3>To Do</h3>
         <ul>
-            <li>Display contact name at top.</li>
-            <li>Display all the contact's info from db.</li>
+
+            <li>Add a way for users to update each field.</li>
             <li>Add anything user submits to respective table in db.</li>
             <li>Display all of user's other contacts in a bar to the left.</li>
         </ul>   

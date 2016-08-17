@@ -179,14 +179,15 @@ class Relationship(db.Model):
     def __repr__(self):
         """Provide useful information about the relationship."""
 
-        return "<Relationship: user_id={}, email={}, bday={}, phone={}, work={}, edu={}, relatp_type={}, rcmdn_list={}>".format(self.user_id,
-                                                                                                                                self.email,
-                                                                                                                                self.bday,
-                                                                                                                                self.phone,
-                                                                                                                                self.work,
-                                                                                                                                self.edu,
-                                                                                                                                self.relatp_type,
-                                                                                                                                self.rcmdn_list)
+        return "<Relationship: id={}, first_name={}, last_name={},\
+        relatp_type={}, user_id={}, rcmdn_list={}, email={}, bday={}, phone={},\
+        work={}, edu={}, fb={}, linked_in={}, twitter={}, google_plus={},\
+        github={}, pinterest={}, word_press={}, yelp={}, skype={},\
+        other_social_media={}>".format(self.id, self.first_name, self.last_name,
+          self.relatp_type, self.user_id, self.rcmdn_list, self.email, self.bday,
+          self.phone, self.work, self.edu, self.fb, self.linked_in, self.twitter,
+          self.google_plus, self.github, self.pinterest, self.word_press,
+          self.yelp, self.skype, self.other_social_media)
 
 
 class RecommendationRelationship(db.Model):
