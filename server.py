@@ -146,7 +146,7 @@ def registration_success():
 @app.route('/send_email')
 def send_email():
 
-    user = User.query.get(session['user_id'])
+    user = User.query.get(session['id'])
 
     send_event_notification(user.first_name, user.email)
 
@@ -261,6 +261,8 @@ def contact_display(user_id, relatp_id):
 @app.route('/event-display/<int:user_id>')
 def event_display(user_id):
     """Display a selected contacts profile."""
+
+    db.session.query(Relationship.rcmdn_list).filter_by()
 
     return render_template("event.html",
                            user_id=user_id)

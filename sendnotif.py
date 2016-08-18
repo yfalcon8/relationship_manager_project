@@ -1,7 +1,13 @@
 """Send user an email about their contact and recommend how to reach out."""
 
 import smtplib
+from model import Relationship, db, connect_to_db
+import schedule
 # Built-in Simple Mail Transfer Protocol (SMTP) module
+
+
+def call_function():
+    send_event_notification("Joys Place", "relationshipmanagerhb@gmail.com")
 
 
 def send_event_notification(name, email):
@@ -9,16 +15,14 @@ def send_event_notification(name, email):
     # add 4 months to sign_up_datetime for professional contacts
     # add 1 months to sign_up_datetime for friends/fam
 
-    sender = "relationshipmanagerhb@gmail.com"
     # recipient_email = ["yfalcon8@gmail.com"]
-    # recipient_name = ["Yuki Falcon"]
 
     content = """From: Relationship Manager App <RelationshipManagerHB@gmail.com>
-    To: <%s>
+    To: {}
     Subject: SMTP e-mail test
 
-    Hiya, %s!
-    your python email worked! mmm!""" % (email, name)
+    Hiya, {}!
+    your python email worked! mmm!""".format(email, name)
 
     # Create an SMTP object that specifices the server & port (465 or 587 for Gmail).
     mail = smtplib.SMTP('smtp.gmail.com', 587)
@@ -31,10 +35,28 @@ def send_event_notification(name, email):
     mail.starttls()
 
     # Log in to the account that email will come from.
-    mail.login(sender, "fulfillinspiremotivate")
+    mail.login("yfalcon8@gmail.com", PASSWORD HERE)
 
     # Specify sender, receiver and content of email.
-    mail.sendmail(sender, email, content)
+    mail.sendmail("yfalcon8@gmail.com", email, content)
 
     # Disconnect from teh SMTP server
     mail.quit()
+
+
+schedule.every(30).seconds.do(call_function)
+
+if __name__ == "__main__":
+    """This is useful for running this module interactively. This will leave me
+    in a state of being able to work with the database directly."""
+
+    from server import app
+    connect_to_db(app)
+    relatp_type = db.session.query(Relationship.relatp_type).filter_by(id=1).all()[0][0]
+    print "\n\n\n\n", relatp_type, "\n\n\n\n"
+
+
+    while True:
+        schedule.run_pending()
+    # db.create_all()
+    # print "Connected to DB."

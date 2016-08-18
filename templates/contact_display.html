@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <a href="/logout">Logout</a>
+    <a href="/logout">Logout</a><br>
+    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br>
 
     <h1>Contact View</h1>
     <p>Display a selected contacts profile.</p><br>
-    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br>
 
     {% for relatp in relatp_info %}
 
@@ -21,26 +21,69 @@
 
         {{ relatp.edu }}<br>
 
-        {{ relatp.fb }}<br>
+    {% endfor %}
 
-        {{ relatp.linked_in }}<br>
+    <h2>Preferences</h2>
+    {% for relatp in relatp_info %}
 
-        {{ relatp.twitter }}<br>
+        Gift Ideas: {{ relatp.gift_idea }}<br>
 
-        {{ relatp.google_plus }}<br>
+        Pets: {{ relatp.pet }}<br>
 
-        {{ relatp.github }}<br>
+        Goals: {{ relatp.goal }}<br>
 
-        {{ relatp.pinterest }}<br>
+        Notes: {{ relatp.note }}<br>
 
-        {{ relatp.word_press }}<br>
+        Family: {{ relatp.family }}<br>
 
-        {{ relatp.yelp }}<br>
+        Hobbies: {{ relatp.hobby }}<br>
 
-        {{ relatp.skype }}<br>
+        Likes: {{ relatp.likes }}<br>
 
-        {{ relatp.other_social_media }}<br>
+        Dislikes: {{ relatp.dislike }}<br>
 
+        Pet Peeve: {{ relatp.pet_peeve }}<br>
+
+        Favorite Food: {{ relatp.fav_food }}<br>
+
+        Favorite Drink: {{ relatp.fav_drink }}<br>
+
+        Favorite Restaurant: {{ relatp.fav_restaurant }}<br>
+
+        Favorite Sports Teams: {{ relatp.sports_team }}<br>
+
+        Favorite Brand: {{ relatp.fav_brand }}<br>
+
+        Other Favorites: {{ relatp.other_fav }}<br>
+
+        Conversation Log: {{ relatp.convo }}<br>
+
+        Personality Traits: {{ relatp.trait }}<br>
+
+    {% endfor %}
+
+    <h2>Social Media</h2>
+    {% for relatp in relatp_info %}
+
+        Facebook: {{ relatp.fb }}<br>
+
+        Linked In: {{ relatp.linked_in }}<br>
+
+        Twitter: {{ relatp.twitter }}<br>
+
+        Google+: {{ relatp.google_plus }}<br>
+
+        Github: {{ relatp.github }}<br>
+
+        Pinterest: {{ relatp.pinterest }}<br>
+
+        Word Press: {{ relatp.word_press }}<br>
+
+        Yelp: {{ relatp.yelp }}<br>
+
+        Skype: {{ relatp.skype }}<br>
+
+        Other Social Media: {{ relatp.other_social_media }}<br>
 
     {% endfor %}
 
