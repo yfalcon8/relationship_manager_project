@@ -120,10 +120,11 @@ class Event(db.Model):
     relationship = db.relationship('Relationship', backref=db.backref('events'))
 
     def __repr__(self):
-        return "<Event: event_id={}, user_id={}, relatp_id={}, rcmdn={}>".format(self.id,
-                                                                                 self.user_id,
-                                                                                 self.relatp_id,
-                                                                                 )
+        return "<Event: id={}, user_id={}, scheduled_at={}, relatp_id={}, rcmdn={}>".format(self.id,
+                                                                                            self.user_id,
+                                                                                            self.scheduled_at,
+                                                                                            self.relatp_id,
+                                                                                            self.rcmdn)
 
 
 class Relationship(db.Model):

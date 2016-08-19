@@ -227,32 +227,32 @@ def method_specification_success(user_id, relatp_id):
     # Turn the query result (a tuple) into an Arrow friendly format.
     arrow_created_at = arrow.get(created_at[0])
 
+    # The start date of all events will be a month from the date he/she was added.
+    start_date = arrow_created_at.replace(months=+1)
+
     # Events will be scheduled for a max of a year for demo purposes.
-    yr_from_now = arrow_created_at.replace(years=+1)
+    yr_from_now = start_date.replace(years=+1)
 
     # Create events for the duration of the year.
     # Friends and family should have an event a month.
     # Professional contacts should have an event per quarter.
-    while arrow_created_at < yr_from_now:
+    while start_date < yr_from_now:
 
         for desired_item in desired_list:
 
             if update_relatp.relatp_type == 'fr' or update_relatp.relatp_type == 'fam':
 
                 # Convert from arrow format to datetime format for db storage.
-                new_event = Event(user_id=user_id, relatp_id=relatp_id, rcmdn=desired_item, scheduled_at=arrow_created_at.datetime)
+                new_event = Event(user_id=user_id, relatp_id=relatp_id, rcmdn=desired_item, scheduled_at=start_date.datetime)
                 db.session.add(new_event)
 
-                arrow_created_at = arrow_created_at.replace(months=+1)
-
-                print "\n\n{}, {}\n\n".format(desired_item, update_relatp.first_name)
+                start_date = start_date.replace(months=+1)
 
             else:
-                new_event = Event(user_id=user_id, relatp_id=relatp_id, rcmdn=desired_item, scheduled_at=arrow_created_at.datetime)
+                new_event = Event(user_id=user_id, relatp_id=relatp_id, rcmdn=desired_item, scheduled_at=start_date.datetime)
                 db.session.add(new_event)
 
-                arrow_created_at = arrow_created_at.replace(months=+4)
-                print "\n\n{}, {}\n\n".format(desired_item, update_relatp.first_name)
+                start_date = start_date.replace(months=+4)
 
     db.session.commit()
 
@@ -293,10 +293,23 @@ def contact_display(user_id, relatp_id):
 def event_display(user_id):
     """Display a selected contacts profile."""
 
-    db.session.query(Relationship.rcmdn_list).filter_by()
+    # Store all of a users events in a list.
+    all_events = []
+
+    # Grab the text and time of all of the users relationship.
+    # Returns a list of tuples.
+    rcmdn_and_date = db.session.query(Event.rcmdn, Event.scheduled_at, Event.relatp_id).filter_by(user_id=user_id).all()
+
+    # Grab the name of the relationship.
+    # Store the name, text, and time in the all_events list.
+    for rcmdn in rcmdn_and_date:
+        relatp_id = rcmdn.relatp_id
+        relatp_name = db.session.query(Relationship.first_name, Relationship.last_name).filter_by(id=relatp_id).one()
+        all_events.append([relatp_name.first_name, relatp_name.last_name, rcmdn[0], rcmdn[1].date()])
 
     return render_template("event.html",
-                           user_id=user_id)
+                           user_id=user_id,
+                           all_events=all_events)
 
 
 @app.route('/logout')
