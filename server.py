@@ -15,13 +15,11 @@ from flask import Flask, render_template, request, session, flash, redirect
 # It is a customized cookie.
 
 from flask_debugtoolbar import DebugToolbarExtension
-from flask.ext.sqlalchemy import SQLAlchemy
 
 from sendnotif import *
-from model import connect_to_db, db, User, Recommendation, Relationship
+from model import connect_to_db, db, User, Recommendation, Relationship, Event
 
-# import unicdodedata
-# unicodedata will help me convert unicode into a string.
+import arrow
 
 #######################
 #### configuration ####
@@ -219,9 +217,42 @@ def method_specification_success(user_id, relatp_id):
     # Grab the recommendation list specified for the relationship.
     desired_list = request.form.getlist('rcmdn')
 
-    # Retrieve the relationship to which I want to add the list.
+    # Add the customized list to the respective relationship.
     update_relatp = Relationship.query.filter_by(user_id=user_id, id=relatp_id).first()
     update_relatp.rcmdn_list = desired_list
+
+    # The created_at column should be placed in the Relationship table.
+    created_at = db.session.query(Relationship.created_date).filter_by(id=relatp_id).one()
+
+    # Turn the query result (a tuple) into an Arrow friendly format.
+    arrow_created_at = arrow.get(created_at[0])
+
+    # Events will be scheduled for a max of a year for demo purposes.
+    yr_from_now = arrow_created_at.replace(years=+1)
+
+    # Create events for the duration of the year.
+    # Friends and family should have an event a month.
+    # Professional contacts should have an event per quarter.
+    while arrow_created_at < yr_from_now:
+
+        for desired_item in desired_list:
+
+            if update_relatp.relatp_type == 'fr' or update_relatp.relatp_type == 'fam':
+
+                # Convert from arrow format to datetime format for db storage.
+                new_event = Event(user_id=user_id, relatp_id=relatp_id, rcmdn=desired_item, scheduled_at=arrow_created_at.datetime)
+                db.session.add(new_event)
+
+                arrow_created_at = arrow_created_at.replace(months=+1)
+
+                print "\n\n{}, {}\n\n".format(desired_item, update_relatp.first_name)
+
+            else:
+                new_event = Event(user_id=user_id, relatp_id=relatp_id, rcmdn=desired_item, scheduled_at=arrow_created_at.datetime)
+                db.session.add(new_event)
+
+                arrow_created_at = arrow_created_at.replace(months=+4)
+                print "\n\n{}, {}\n\n".format(desired_item, update_relatp.first_name)
 
     db.session.commit()
 

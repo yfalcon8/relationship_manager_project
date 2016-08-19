@@ -22,7 +22,7 @@ def send_event_notification(name, email):
     Subject: SMTP e-mail test
 
     Hiya, {}!
-    your python email worked! mmm!""".format(email, name)
+    Your python email worked!!""".format(email, name)
 
     # Create an SMTP object that specifices the server & port (465 or 587 for Gmail).
     mail = smtplib.SMTP('smtp.gmail.com', 587)
@@ -35,7 +35,7 @@ def send_event_notification(name, email):
     mail.starttls()
 
     # Log in to the account that email will come from.
-    mail.login("yfalcon8@gmail.com", PASSWORD HERE)
+    mail.login("yfalcon8@gmail.com", "yukilovesmarlonandmomo")
 
     # Specify sender, receiver and content of email.
     mail.sendmail("yfalcon8@gmail.com", email, content)
@@ -43,8 +43,12 @@ def send_event_notification(name, email):
     # Disconnect from teh SMTP server
     mail.quit()
 
+# Email every 4 months for professional contacts
+schedule.every(13).weeks.do(call_function)
 
-schedule.every(30).seconds.do(call_function)
+# Email every month for professional contacts
+schedule.every(4).weeks.do(call_function)
+
 
 if __name__ == "__main__":
     """This is useful for running this module interactively. This will leave me
@@ -54,7 +58,6 @@ if __name__ == "__main__":
     connect_to_db(app)
     relatp_type = db.session.query(Relationship.relatp_type).filter_by(id=1).all()[0][0]
     print "\n\n\n\n", relatp_type, "\n\n\n\n"
-
 
     while True:
         schedule.run_pending()

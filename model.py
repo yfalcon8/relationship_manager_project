@@ -57,14 +57,11 @@ class User(db.Model):
     password = db.Column(db.String(20),
                          nullable=False)
 
-    created_date = db.Column(db.DateTime, default=datetime.datetime.now())
-
     def __repr__(self):
-        return "<User: {} {}, {}, {}, {}>".format(self.first_name,
-                                                  self.last_name,
-                                                  self.email,
-                                                  self.password,
-                                                  self.created_date)
+        return "<User: {} {}, {}, {}>".format(self.first_name,
+                                              self.last_name,
+                                              self.email,
+                                              self.password)
 
 
 class Recommendation(db.Model):
@@ -110,8 +107,7 @@ class Event(db.Model):
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'))
 
-    scheduled_at = db.Column(db.DateTime,
-                             nullable=False)
+    scheduled_at = db.Column(db.DateTime)
 
     relatp_id = db.Column(db.Integer,
                           db.ForeignKey('relationships.id'))
@@ -150,6 +146,9 @@ class Relationship(db.Model):
 
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'))
+
+    created_date = db.Column(db.DateTime,
+                             default=datetime.datetime.now())
 
     rcmdn_list = db.Column(db.Text)
 
@@ -225,7 +224,7 @@ class Relationship(db.Model):
     def __repr__(self):
         """Provide useful information about the relationship."""
 
-        return "<Relationship: id={}, first_name={}, last_name={},\
+        return "<Relationship: id={}, first_name={}, last_name={}, created_date={}\
         relatp_type={}, user_id={}, rcmdn_list={}, email={}, bday={}, phone={},\
         work={}, edu={}, fb={}, linked_in={}, twitter={}, google_plus={},\
         github={}, pinterest={}, word_press={}, yelp={}, skype={},\
@@ -233,7 +232,7 @@ class Relationship(db.Model):
         family={}, hobby={}, likes={}, dislike={}, pet_peeve={}, fav_food={},\
         fav_drink={}, fav_restaurant={}, sports_team={}, fav_brand={},\
         other_fav={}, convo={}, trait={}>".format(
-          self.id, self.first_name, self.last_name,
+        self.id, self.first_name, self.last_name, self.created_date,
         self.relatp_type, self.user_id, self.rcmdn_list, self.email, self.bday,
         self.phone, self.work, self.edu, self.fb, self.linked_in, self.twitter,
         self.google_plus, self.github, self.pinterest, self.word_press,

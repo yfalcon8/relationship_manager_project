@@ -17,14 +17,6 @@ VALUES ('fr', 'Grab drinks'),
 ('prf', 'cook them dinner');
 
 
--- INSERT INTO "events" (user_id, scheduled_at, relatp_id, rcmdn_text)
--- VALUES (3, to_timestamp('2002-12-27 08:32:57', 'dd/mm/yyyy hh24:mi.ss.ff'), 4, 'Grab dinner with him/her.'),
--- (3, to_timestamp('2002-12-27 08:32:57', 'dd/mm/yyyy hh24:mi.ss.ff'), 4, 'Grab dinner with him/her.'),;
--- (3, to_timestamp('2002-12-27 08:32:57', 'dd/mm/yyyy hh24:mi.ss.ff'), 4, 'Grab dinner with him/her.'),
--- (3, to_timestamp('2002-12-27 08:32:57', 'dd/mm/yyyy hh24:mi.ss.ff'), 4, 'Grab dinner with him/her.'),
--- (3, to_timestamp('2002-12-27 08:32:57', 'dd/mm/yyyy hh24:mi.ss.ff'), 4, 'Grab dinner with him/her.')
-
-
 -- Can't store the phone number with '-' in between bc sql will subtract.
 INSERT INTO "relationships" (relatp_type, user_id, first_name, last_name, email, bday, phone, work,
 edu, fb, linked_in, twitter, google_plus, github, pinterest,
@@ -44,6 +36,11 @@ VALUES ('fr', 1, 'Minnie', 'Mouse', 'yfalcon8@yahoo.com', to_date('1991-02-26', 
 ('fam', 2, 'Eeyore', 'Grey', 'yfalcon8@yahoo.com', to_date('1991-02-26', 'YYYY-MM-DD'),
 7022907928, 'Merrill Lynch', 'UNLV', 'yfalcon8FB', 'yfalcon8LI', 'yfalcon8TW',
 'yfalcon8G+', 'meetmeup', 'yfalcon8GH', 'yfalcon8PIN', NULL, NULL, NULL);
+
+
+-- ################################
+-- #### Populate by TV Show :D ####
+-- ################################
 
 -- INSERT INTO "rcmdns_relatps" (rcmdn_id, relatp_code)
 -- VALUES (4, 200),
