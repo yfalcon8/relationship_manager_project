@@ -2,88 +2,119 @@
 {% block content %}
 
     <a href="/logout">Logout</a><br>
-    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br>
-
-    <h1>Contact View</h1>
-    <p>Display a selected contacts profile.</p><br>
+    <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
+    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br><br>
 
     {% for relatp in relatp_info %}
 
-        {{ relatp.first_name }} {{ relatp.last_name }}<br>
+        {% if relatp.last_name %}
+        
+            <h1>{{ relatp.first_name }} {{ relatp.last_name }}'s Profile</h1><br><br>
 
-        {{ relatp.email }}<br>
+        {% else %}
 
-        {{ relatp.bday }}<br>
+            <h1>{{ relatp.first_name }}'s Profile</h1><br><br>
 
-        {{ relatp.phone }}<br>
+        {% endif %} 
 
-        {{ relatp.work }}<br>
+        {% if relatp.email %}
+        
+            Email: {{ relatp.email }}<br>
+            <input type="email" name="email">
+            <input type="submit" value="Update"><br><br>
 
-        {{ relatp.edu }}<br>
+        {% else %}
+
+            Email: <input type="email" name="email">
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.bday %}
+
+        Birthday: {{ relatp.bday }}<br>
+        <input type="date" name="bday">
+        <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+        Birthday:
+        <input type="date" name="bday">
+        <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        Phone: {{ relatp.phone }}<br>
+        <input type="tel" type="tel">
+        <input type="submit" value="Update"><br><br>
+
+        {{ relatp.work }}<br><br>
+
+        {{ relatp.edu }}<br><br>
 
     {% endfor %}
 
     <h2>Preferences</h2>
     {% for relatp in relatp_info %}
 
-        Gift Ideas: {{ relatp.gift_idea }}<br>
+        Gift Ideas: {{ relatp.gift_idea }}<br><br>
+        <input type="text">
 
-        Pets: {{ relatp.pet }}<br>
+        Pets: {{ relatp.pet }}<br><br>
 
-        Goals: {{ relatp.goal }}<br>
+        Goals: {{ relatp.goal }}<br><br>
 
-        Notes: {{ relatp.note }}<br>
+        Notes: {{ relatp.note }}<br><br>
 
-        Family: {{ relatp.family }}<br>
+        Family: {{ relatp.family }}<br><br>
 
-        Hobbies: {{ relatp.hobby }}<br>
+        Hobbies: {{ relatp.hobby }}<br><br>
 
-        Likes: {{ relatp.likes }}<br>
+        Likes: {{ relatp.likes }}<br><br>
 
-        Dislikes: {{ relatp.dislike }}<br>
+        Dislikes: {{ relatp.dislike }}<br><br>
 
-        Pet Peeve: {{ relatp.pet_peeve }}<br>
+        Pet Peeve: {{ relatp.pet_peeve }}<br><br>
 
-        Favorite Food: {{ relatp.fav_food }}<br>
+        Favorite Food: {{ relatp.fav_food }}<br><br>
 
-        Favorite Drink: {{ relatp.fav_drink }}<br>
+        Favorite Drink: {{ relatp.fav_drink }}<br><br>
 
-        Favorite Restaurant: {{ relatp.fav_restaurant }}<br>
+        Favorite Restaurant: {{ relatp.fav_restaurant }}<br><br>
 
-        Favorite Sports Teams: {{ relatp.sports_team }}<br>
+        Favorite Sports Teams: {{ relatp.sports_team }}<br><br>
 
-        Favorite Brand: {{ relatp.fav_brand }}<br>
+        Favorite Brand: {{ relatp.fav_brand }}<br><br>
 
-        Other Favorites: {{ relatp.other_fav }}<br>
+        Other Favorites: {{ relatp.other_fav }}<br><br>
 
-        Conversation Log: {{ relatp.convo }}<br>
+        Conversation Log: {{ relatp.convo }}<br><br>
 
-        Personality Traits: {{ relatp.trait }}<br>
-
+        Personality Traits: {{ relatp.trait }}<br><br>
     {% endfor %}
 
     <h2>Social Media</h2>
     {% for relatp in relatp_info %}
 
-        Facebook: {{ relatp.fb }}<br>
+        Facebook: {{ relatp.fb }}<br><br>
 
-        Linked In: {{ relatp.linked_in }}<br>
+        Linked In: {{ relatp.linked_in }}<br><br>
 
-        Twitter: {{ relatp.twitter }}<br>
+        Twitter: {{ relatp.twitter }}<br><br>
 
-        Google+: {{ relatp.google_plus }}<br>
+        Google+: {{ relatp.google_plus }}<br><br>
 
-        Github: {{ relatp.github }}<br>
+        Github: {{ relatp.github }}<br><br>
 
-        Pinterest: {{ relatp.pinterest }}<br>
+        Pinterest: {{ relatp.pinterest }}<br><br>
 
-        Word Press: {{ relatp.word_press }}<br>
+        Word Press: {{ relatp.word_press }}<br><br>
 
-        Yelp: {{ relatp.yelp }}<br>
+        Yelp: {{ relatp.yelp }}<br><br>
 
-        Skype: {{ relatp.skype }}<br>
+        Skype: {{ relatp.skype }}<br><br>
 
-        Other Social Media: {{ relatp.other_social_media }}<br>
+        Other Social Media: {{ relatp.other_social_media }}<br><br>
 
     {% endfor %}
 

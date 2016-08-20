@@ -266,7 +266,7 @@ class RecommendationRelationship(db.Model):
 
 
 # This set up allows my app the ability to talk to SQLite, PostgreSQL, MySQL
-# and more.
+# among others.
 
 ##########################
 #### Helper Functions ####
