@@ -139,17 +139,6 @@ def registration_success():
                            user_id=user_id)
 
 
-# route that my emails will be sent from
-@app.route('/send_email')
-def send_email():
-
-    user = User.query.get(session['id'])
-
-    send_event_notification(user.first_name, user.email)
-
-    return "Success!"
-
-
 @app.route('/add-contacts/<int:user_id>')
 def add_contacts(user_id):
     """User manually adds contacts and categorizes them as friend, family, or
@@ -322,8 +311,7 @@ def process_logout():
 
 @app.errorhandler(404)
 def page_not_found():
-    return render_template('page_not_found.html'), 404
-
+    return render_template('page_not_found.html', 404)
 
 
 # App will only run if we ask it to run.
