@@ -5,6 +5,8 @@
     <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
     <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br><br>
 
+    <form action="/contact-display/{{ user_id }}/{{ relatp_id }}">
+
     {% for relatp in relatp_info %}
 
         {% if relatp.last_name %}
@@ -32,96 +34,459 @@
 
         {% if relatp.bday %}
 
-        Birthday: {{ relatp.bday }}<br>
-        <input type="date" name="bday">
-        <input type="submit" value="Update"><br><br>
+            Birthday: {{ relatp.bday }}<br>
+            <input type="date" name="bday">
+            <input type="submit" value="Update"><br><br>
 
         {% else %}
 
-        Birthday:
-        <input type="date" name="bday">
-        <input type="submit" value="Update"><br><br>
+            Birthday:
+            <input type="date" name="bday">
+            <input type="submit" value="Update"><br><br>
 
         {% endif %}
 
-        Phone: {{ relatp.phone }}<br>
-        <input type="tel" type="tel">
-        <input type="submit" value="Update"><br><br>
+        {% if relatp.phone %}
 
-        {{ relatp.work }}<br><br>
+            Phone: {{ relatp.phone }}<br>
+            <input type="tel" name="tel">
+            <input type="submit" value="Update"><br><br>
 
-        {{ relatp.edu }}<br><br>
+        {% else %}
+
+            Phone:
+            <input type="tel" name="tel">
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.work %}
+
+            Work: {{ relatp.work }}<br>
+            <input type="text" name="work"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+             Work:
+             <input type="text" name="work"><br>
+             <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.edu %}
+
+            Education: {{ relatp.edu }}<br>
+            <input type="text" name="work"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Education:
+            <input type="text" name="edu"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
 
     {% endfor %}
 
     <h2>Preferences</h2>
     {% for relatp in relatp_info %}
 
-        Gift Ideas: {{ relatp.gift_idea }}<br><br>
-        <input type="text">
+        {% if relatp.gift_idea %}
 
-        Pets: {{ relatp.pet }}<br><br>
+            Gift Ideas: {{ relatp.gift_idea }}<br>
+            <input type="text" name="gift_idea"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Goals: {{ relatp.goal }}<br><br>
+        {% else %}
 
-        Notes: {{ relatp.note }}<br><br>
+            Gift Ideas:
+            <input type="text" name="gift_idea"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Family: {{ relatp.family }}<br><br>
+        {% endif %}
 
-        Hobbies: {{ relatp.hobby }}<br><br>
+        {% if relatp.pet %}
 
-        Likes: {{ relatp.likes }}<br><br>
+            Pets: {{ relatp.pet }}<br>
+            <input type="text" name="pet"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Dislikes: {{ relatp.dislike }}<br><br>
+        {% else %}
 
-        Pet Peeve: {{ relatp.pet_peeve }}<br><br>
+            Pets:
+            <input type="text" name="pet"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Favorite Food: {{ relatp.fav_food }}<br><br>
+        {% endif %}
 
-        Favorite Drink: {{ relatp.fav_drink }}<br><br>
+        {% if relatp.goal %}
 
-        Favorite Restaurant: {{ relatp.fav_restaurant }}<br><br>
+            Goals: {{ relatp.goal }}<br>
+            <input type="text" name="goal"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Favorite Sports Teams: {{ relatp.sports_team }}<br><br>
+        {% else %}
 
-        Favorite Brand: {{ relatp.fav_brand }}<br><br>
+            Goals:
+            <input type="text" name="goal"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Other Favorites: {{ relatp.other_fav }}<br><br>
+        <br>
 
-        Conversation Log: {{ relatp.convo }}<br><br>
+        {% endif %}
 
-        Personality Traits: {{ relatp.trait }}<br><br>
+        {% if relatp.note %}
+
+            Notes: {{ relatp.note }}<br>
+            <input type="text" name="note"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Notes:
+            <input type="text" name="note"><br>
+            <input type="submit" value="Update"><br><br>
+
+
+        {% endif %}
+
+        {% if relatp.family %}
+
+            Family: {{ relatp.family }}<br>
+            <input type="text" name="family"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Family:
+            <input type="text" name="family"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.hobby %}
+
+            Hobbies: {{ relatp.hobby }}<br>
+            <input type="text" name="hobby"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Hobbies:
+            <input type="text" name="hobby"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.likes %}
+
+            Likes: {{ relatp.likes }}<br>
+            <input type="text" name="like"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Likes:
+            <input type="text" name="like"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.dislike %}
+
+            Dislikes: {{ relatp.dislike }}<br>
+            <input type="text" name="dislike"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Dislikes:
+            <input type="text" name="dislike"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.pet_peeve %}
+
+            Pet Peeve: {{ relatp.pet_peeve }}<br>
+            <input type="text" name="pet_peeve"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Pet Peeve:
+            <input type="text" name="pet_peeve"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.fav_food %}
+
+            Favorite Food: {{ relatp.fav_food }}<br>
+            <input type="text" name="fav_food"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Favorite Food:
+            <input type="text" name="fav_food"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.fav_drink %}
+
+            Favorite Drink: {{ relatp.fav_drink }}<br>
+            <input type="text" name="fav_drink"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Favorite Drink:
+            <input type="text" name="fav_drink"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.fav_restaurant %}
+
+            Favorite Restaurant: {{ relatp.fav_restaurant }}<br>
+            <input type="text" name="fav_restaurant"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Favorite Restaurant:
+            <input type="text" name="fav_restaurant"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.sports_team %}
+
+            Favorite Sports Teams: {{ relatp.sports_team }}<br>
+            <input type="text" name="fav_sports_team"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Favorite Sports Teams:
+            <input type="text" name="fav_sports_team"><br>
+            <input type="submit" value="Update"><br><br>
+        
+        {% endif %} 
+
+        {% if relatp.fav_brand %}
+
+            Favorite Brand: {{ relatp.fav_brand }}<br>
+            <input type="text" name="fav_brand"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Favorite Brand:
+            <input type="text" name="fav_brand"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.other_fav %}
+
+            Other Favorites: {{ relatp.other_fav }}<br>
+            <input type="text" name="other_fav"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Other Favorites:
+            <input type="text" name="other_fav"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.convo %}
+
+            Conversation Log: {{ relatp.convo }}<br>
+            <input type="text" name="convo"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Conversation Log:
+            <input type="text" name="convo"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.trait %}
+
+            Personality Traits: {{ relatp.trait }}<br>
+            <input type="text" name="trait"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Personality Traits:
+            <input type="text" name="trait"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
     {% endfor %}
 
     <h2>Social Media</h2>
     {% for relatp in relatp_info %}
 
-        Facebook: {{ relatp.fb }}<br><br>
+        {% if relatp.fb %}
 
-        Linked In: {{ relatp.linked_in }}<br><br>
+            Facebook: {{ relatp.fb }}<br>
+            <input type="text" name="fb"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Twitter: {{ relatp.twitter }}<br><br>
+        {% else %}
 
-        Google+: {{ relatp.google_plus }}<br><br>
+            Facebook:
+            <input type="text" name="fb"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Github: {{ relatp.github }}<br><br>
+        {% endif %}
 
-        Pinterest: {{ relatp.pinterest }}<br><br>
+        {% if relatp.linked_in %}
 
-        Word Press: {{ relatp.word_press }}<br><br>
+            Linked In: {{ relatp.linked_in }}<br>
+            <input type="text" name="linked_in"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Yelp: {{ relatp.yelp }}<br><br>
+        {% else %}
 
-        Skype: {{ relatp.skype }}<br><br>
+            Linked In:
+            <input type="text" name="linked_in"><br>
+            <input type="submit" value="Update"><br><br>
 
-        Other Social Media: {{ relatp.other_social_media }}<br><br>
+        {% endif %}
+
+        {% if relatp.twitter %}
+
+            Twitter: {{ relatp.twitter }}<br>
+            <input type="text" name="twitter"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Twitter:
+            <input type="text" name="twitter"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.google_plus %}
+
+            Google+: {{ relatp.google_plus }}<br>
+            <input type="text" name="google_plus"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Google+:
+            <input type="text" name="google_plus"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.github %}
+
+            Github: {{ relatp.github }}<br>
+            <input type="text" name="github"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Github: {{ relatp.github }}<br>
+            <input type="text" name="github"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.pinterest %}
+
+            Pinterest: {{ relatp.pinterest }}<br>
+            <input type="text" name="pinterest"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Pinterest:
+            <input type="text" name="pinterest"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.word_press %}
+
+            Word Press: {{ relatp.word_press }}<br><br>
+            <input type="text" name="word_press"><br>
+            <input type="submit" value="Update"><br><br>
+
+
+        {% else %}
+
+            Word Press:
+            <input type="text" name="word_press"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.yelp %}
+
+            Yelp: {{ relatp.yelp }}<br>
+            <input type="text" name="yelp"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Yelp:
+            <input type="text" name="yelp"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.skype %}
+
+            Skype: {{ relatp.skype }}<br>
+            <input type="text" name="skype"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Skype:
+            <input type="text" name="skype"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
+
+        {% if relatp.other_social_media %}
+
+            Other Social Media: {{ relatp.other_social_media }}<br>
+            <input type="text" name="other_social_media"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% else %}
+
+            Other Social Media:
+            <input type="text" name="other_social_media"><br>
+            <input type="submit" value="Update"><br><br>
+
+        {% endif %}
 
     {% endfor %}
+
+    </form>
 
     <h3>To Do</h3>
         <ul>
 
-            <li>Add a way for users to update each field.</li>
             <li>Add anything user submits to respective table in db.</li>
             <li>Display all of user's other contacts in a bar to the left.</li>
         </ul>   

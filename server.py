@@ -48,6 +48,9 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
 
+    # if session['_flashes'][0][1] == 'Login successful!':
+    #     return redirect('/registration-success')
+
     return render_template("homepage.html")
 
 
@@ -139,6 +142,21 @@ def registration_success():
                            user_id=user_id)
 
 
+# Hidden route to process FB API results
+@app.route('/check_email_existence')
+def query_db_for_email():
+
+    email = request.args.get('email')
+
+    email_exists = db.session.query(User.id).filter_by(email=email).first()
+
+    if email_exists:
+        url = '/landing-page/%s' % (email_exists[0])
+        return redirect(url)
+    else:
+        return redirect('/register')
+
+
 @app.route('/add-contacts/<int:user_id>')
 def add_contacts(user_id):
     """User manually adds contacts and categorizes them as friend, family, or
@@ -212,7 +230,7 @@ def method_specification_success(user_id, relatp_id):
     # The created_at column should be placed in the Relationship table.
     created_at = db.session.query(Relationship.created_date).filter_by(id=relatp_id).one()
 
-    # Turn the query result (a tuple) into an Arrow friendly format.
+    # Turn the query result (a tuple of datetime) into an Arrow-friendly format.
     arrow_created_at = arrow.get(created_at[0])
 
     # The start date of all events will be a month from the date he/she was added.
@@ -274,6 +292,7 @@ def contact_display(user_id, relatp_id):
 
     return render_template("contact_display.html",
                            user_id=user_id,
+                           relatp_id=relatp_id,
                            relatp_info=relatp_info)
 
 

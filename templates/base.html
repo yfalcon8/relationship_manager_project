@@ -9,6 +9,8 @@ inheriting html files.) -->
 </head>
 <body>
 {% block content %}
+<fb:login-button scope="public_profile,email" auto-logout-link="true" onlogin="checkLoginState();">
+</fb:login-button>
     Contacts
     <a href="/login">Login</a><br>
 
@@ -17,6 +19,6 @@ inheriting html files.) -->
 
 
 {% endblock %}
-
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </body>
 </html>
