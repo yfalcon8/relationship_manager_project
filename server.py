@@ -142,9 +142,9 @@ def registration_success():
                            user_id=user_id)
 
 
-# Hidden route to process FB API results
 @app.route('/check_email_existence')
 def query_db_for_email():
+    """Hidden route that processes Facebooks API results."""
 
     email = request.args.get('email')
 
