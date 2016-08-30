@@ -1,6 +1,5 @@
 INSERT INTO "users" (first_name, last_name, email, password)
-VALUES ('Yuki', 'Falcon', 'yfalcon8@gmail.com', 'blah'),
-('Harry', 'Potter', 'quidditch@gmail.com', 'blah'),
+VALUES ('Harry', 'Potter', 'quidditch@gmail.com', 'blah'),
 ('Sherlock', 'Holmes', 'sherlock@mystery.com', 'blah'),
 ('Harvey', 'Specter', 'harvey@gmail.com', 'blah'),
 ('Chow', 'Chow', 'relationshipmanagerhb@gmail.com', 'blah');

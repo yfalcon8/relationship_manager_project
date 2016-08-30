@@ -36,6 +36,13 @@ class User(db.Model):
                    primary_key=True,
                    autoincrement=True)
 
+    # If the user signs up with Facebook, grab their Facebook_user_id.
+    # This field is useful for when users who didn't store their email with
+    # FB wants to sign-in to my app. FB may not return an email address, but
+    # the user will have an email address stored in my database.
+    fb_id = db.Column(db.String(20),
+                      unique=True)
+
     # 'String' is the SQLAlchemy-managed version of the data type.
     # It indicates that the data type of this column can contain
     # letters, numbers and special characters.
@@ -61,7 +68,7 @@ class User(db.Model):
         return "<User: {} {}, {}, {}>".format(self.first_name,
                                               self.last_name,
                                               self.email,
-                                              self.password)
+                                              self.fb_id)
 
 
 class Recommendation(db.Model):

@@ -7,7 +7,7 @@
 # Jinja is a popular template system for Python, used by Flask.
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, session, flash, redirect
+from flask import Flask, render_template, request, session, flash, redirect, url_for
 # Flask: A class that we import. An instance of this class will be the
 # WSGI application.
 # session: A Flask object (class) that allows you to store information specific to a
@@ -103,7 +103,10 @@ def handle_login():
 def register():
     """Page where users registers for my app."""
 
-    return render_template('registration_form.html')
+    fb_id = request.args.get('fb_id')
+
+    return render_template('registration_form.html',
+                           fb_id=fb_id)
 
 
 @app.route('/registration-success', methods=['POST'])
@@ -114,12 +117,16 @@ def registration_success():
     last_name = request.form.get('lname')
     email = request.form.get('email')
     password = request.form.get('password')
+    fb_id = request.form.get('fb_id')
+
+    print "\n\n{}\n\n".format(fb_id)
+    print 'hi'
 
     # Add the user as long as the email isn't already taken.
     email_exists = db.session.query(User).filter_by(email=email).first()
 
     if email_exists is None:
-        new_user = User(first_name=first_name, last_name=last_name, email=email, password=password)
+        new_user = User(fb_id=fb_id, first_name=first_name, last_name=last_name, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
     else:
@@ -147,14 +154,28 @@ def query_db_for_email():
     """Hidden route that processes Facebooks API results."""
 
     email = request.args.get('email')
+    fb_id = request.args.get('id')
 
+    # Check to see whether the email address exists in the database.
+    # If so, return the user_id.
     email_exists = db.session.query(User.id).filter_by(email=email).first()
 
+    # If the email exists, take the user to the landing page.
     if email_exists:
         url = '/landing-page/%s' % (email_exists[0])
         return redirect(url)
+    # Otherwise, check for the existence of the fb_id in the database.
     else:
-        return redirect('/register')
+        # Grab the associated user_id to feed to the landing page url.
+        fb_id_exists = db.session.query(User.id).filter_by(fb_id=fb_id).first()
+
+        # If the fb_id exists, take the user to the landing page.
+        if fb_id_exists:
+            url = '/landing-page/%s' % (fb_id_exists[0])
+            return redirect(url)
+        # Otherwise, take them to the registration page.
+        else:
+            return redirect(url_for('register', fb_id=fb_id))
 
 
 @app.route('/add-contacts/<int:user_id>')
@@ -328,9 +349,9 @@ def process_logout():
     return render_template('logout.html')
 
 
-@app.errorhandler(404)
-def page_not_found():
-    return render_template('page_not_found.html', 404)
+# @app.errorhandler(404)
+# def page_not_found():
+#     return render_template('page_not_found.html', 404)
 
 
 # App will only run if we ask it to run.

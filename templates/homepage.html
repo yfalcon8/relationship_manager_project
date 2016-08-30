@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
-<title>Facebook Login JavaScript Example</title>
+
 <meta charset="UTF-8">
 </head>
 <body>
@@ -91,24 +91,28 @@
       'Thanks for logging in, ' + response.name + '!';
 
       // Redirect the user to hidden route /check_email_existence.
-      // window.location = '/check_email_existence?email='+response.email;
+      window.location = '/check_email_existence?email='+response.email+'&id='+response.id;
     });
+
+  function fbLogout() {
+    FB.logout(function (response) {  
+      window.location = '/';
+      });
+    }
   }
 
 </script>
 
-<!--
-  Below we include the Login Button social plugin. This button uses
+  <!-- Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
+  the FB.login() function when clicked. -->
+
 
 <fb:login-button scope="public_profile,email" data-auto-logout-link="true" onlogin="checkLoginState();">
 </fb:login-button>
 
-<div id="status">
-</div>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<div id="status"></div>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> 
 
 <h1>To Do</h1>
     <p>Write a cron that auto-checks my website content for broken links and have a report e-mailed to myself regularly.</p>

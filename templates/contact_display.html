@@ -5,6 +5,22 @@
     <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
     <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br><br>
 
+    <script type="text/javascript">
+    var function callMe(){
+      console.log('/n/nyou made it here/n/n');
+    };
+    </script>
+
+    $("#button").click(function(){
+        $.post("/model.py",
+        {
+            email: {{ relatp.email }}, 
+        },
+        function(data, status){
+            alert("Data: " + data + "\nStatus: " + status);
+        });
+    });
+
     <form action="/contact-display/{{ user_id }}/{{ relatp_id }}">
 
     {% for relatp in relatp_info %}
@@ -27,8 +43,8 @@
 
         {% else %}
 
-            Email: <input type="email" name="email">
-            <input type="submit" value="Update"><br><br>
+            Email: <input id="email" type="email" name="email">
+            <button id="button" onclick="callMe()">Update</button><br><br>
 
         {% endif %}
 
