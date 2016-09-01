@@ -7,7 +7,7 @@
 # Jinja is a popular template system for Python, used by Flask.
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, session, flash, redirect, url_for
+from flask import Flask, render_template, request, session, flash, redirect, url_for, jsonify
 # Flask: A class that we import. An instance of this class will be the
 # WSGI application.
 # session: A Flask object (class) that allows you to store information specific to a
@@ -118,9 +118,6 @@ def registration_success():
     email = request.form.get('email')
     password = request.form.get('password')
     fb_id = request.form.get('fb_id')
-
-    print "\n\n{}\n\n".format(fb_id)
-    print 'hi'
 
     # Add the user as long as the email isn't already taken.
     email_exists = db.session.query(User).filter_by(email=email).first()
@@ -311,10 +308,100 @@ def contact_display(user_id, relatp_id):
     # Returns a list of objects.
     relatp_info = db.session.query(Relationship).filter_by(id=relatp_id).all()
 
+    session['user_id'] = 'user_id'
     return render_template("contact_display.html",
                            user_id=user_id,
                            relatp_id=relatp_id,
                            relatp_info=relatp_info)
+
+
+@app.route('/contact-display-handler', methods=['GET', 'POST'])
+def contact_display_hander():
+    """Handle the updates on the relationships."""
+
+    # user_id = session['user_id']
+
+
+    relatp_id = request.args.get("relatp_id")
+
+
+    # relation = Relationship.query.get(relatp_id)
+
+    email = request.form.get("email")
+    type_button = request.form.get("typeButton")
+    label_id = request.form.get("labelid")
+
+    user_info = {'typeButton': type_button,
+                 'labelid': label_id,
+                 'email': email}
+
+    return jsonify(user_info)
+    # bday = request
+    # phone
+    # work
+    # edu
+    # fb
+    # linked_in
+    # twitter
+    # google_plus
+    # github
+    # pinterest
+    # word_press
+    # yelp
+    # skype
+    # other_social_media
+    # gift_idea
+    # goal
+    # note
+    # pet
+    # family
+    # hobby
+    # likes
+    # dislike
+    # pet_peeve
+    # fav_food
+    # fav_drink
+    # fav_restaurant
+    # sports_team
+    # fav_brand
+    # other_fav
+    # convo
+    # trait
+
+
+    # update_prefs = Relationship(id=relatp_id,
+                                # email, 
+                                # bday
+                                # phone
+                                # work
+                                # edu
+                                # fb
+                                # linked_in
+                                # twitter
+                                # google_plus
+                                # github
+                                # pinterest
+                                # word_press
+                                # yelp
+                                # skype
+                                # other_social_media
+                                # gift_idea
+                                # goal
+                                # note
+                                # pet
+                                # family
+                                # hobby
+                                # likes
+                                # dislike
+                                # pet_peeve
+                                # fav_food
+                                # fav_drink
+                                # fav_restaurant
+                                # sports_team
+                                # fav_brand
+                                # other_fav
+                                # convo
+                                # trait
 
 
 @app.route('/event-display/<int:user_id>')
@@ -349,11 +436,6 @@ def process_logout():
     return render_template('logout.html')
 
 
-# @app.errorhandler(404)
-# def page_not_found():
-#     return render_template('page_not_found.html', 404)
-
-
 # App will only run if we ask it to run.
 if __name__ == "__main__":
 
@@ -363,11 +445,11 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     # debug=True runs Flask in "debug mode". It will reload my code when it
     # changes and provide error messages in the browser.
     # The host makes the server publicly available by adding 0.0.0.0. This
     # tells my operating system to listen on all public IPs.
     # Port 5000 required for Flask.
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)

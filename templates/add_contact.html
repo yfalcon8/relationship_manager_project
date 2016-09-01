@@ -4,19 +4,19 @@
     <form action="/contact-added/{{ user_id }}" method="POST">
         <div>
             <label>First Name:
-                <input type="text" name="fname" required>
+                <input type="text" name="fname" value="Harvey" required>
             </label>
         </div>
 
         <div>
             <label>Last Name:
-                <input type="text" name="lname">
+                <input type="text" name="lname" value="Specter">
             </label>
         </div>
 
         <div>
             <label>Relationship:
-                <input type="radio" name="relatp" value="friend" required>Friend
+                <input type="radio" name="relatp" value="friend" default=True required>Friend
                 <input type="radio" name="relatp" value="family">Family
                 <input type="radio" name="relatp" value="professional">Professional
             </label>
@@ -26,9 +26,5 @@
             <input type="submit" value="Add Contact">
         </div>
     </form>
-    <h3>To Do</h3>
-    <ul>
-        <li>Write a unit test that checks the link between this page and contact-added.</li>
-    </ul>
 
 {% endblock %}

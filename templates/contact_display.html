@@ -5,24 +5,6 @@
     <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
     <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br><br>
 
-    <script type="text/javascript">
-    var function callMe(){
-      console.log('/n/nyou made it here/n/n');
-    };
-    </script>
-
-    $("#button").click(function(){
-        $.post("/model.py",
-        {
-            email: {{ relatp.email }}, 
-        },
-        function(data, status){
-            alert("Data: " + data + "\nStatus: " + status);
-        });
-    });
-
-    <form action="/contact-display/{{ user_id }}/{{ relatp_id }}">
-
     {% for relatp in relatp_info %}
 
         {% if relatp.last_name %}
@@ -35,18 +17,16 @@
 
         {% endif %} 
 
-        {% if relatp.email %}
         
-            Email: {{ relatp.email }}<br>
-            <input type="email" name="email">
-            <input type="submit" value="Update"><br><br>
+            
+            Email: {% if relatp.email %}
+                        {{ relatp.email }}
+                   {% endif %}
+                        <br>
+            <div id="emailDIV"></div>
+            <input type="email" name="email" id="emailinput">
+            <button id="email" data-labelid="emailDIV" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% else %}
-
-            Email: <input id="email" type="email" name="email">
-            <button id="button" onclick="callMe()">Update</button><br><br>
-
-        {% endif %}
 
         {% if relatp.bday %}
 
@@ -498,13 +478,6 @@
 
     {% endfor %}
 
-    </form>
-
-    <h3>To Do</h3>
-        <ul>
-
-            <li>Add anything user submits to respective table in db.</li>
-            <li>Display all of user's other contacts in a bar to the left.</li>
-        </ul>   
+    <script src="/static/js/contact_display.js"></script>
     
 {% endblock %}
