@@ -16,16 +16,14 @@
             <h1>{{ relatp.first_name }}'s Profile</h1><br><br>
 
         {% endif %} 
-
-        
             
             Email: {% if relatp.email %}
                         {{ relatp.email }}
                    {% endif %}
                         <br>
-            <div id="emailDIV"></div>
+            <div id="emailDIV"><ul class="emailList"></ul></div>
             <input type="email" name="email" id="emailinput">
-            <button id="email" data-labelid="emailDIV" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="email" data-relId="{{ relatp.id }}">Update</button><br><br>
 
 
         {% if relatp.bday %}

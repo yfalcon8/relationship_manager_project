@@ -319,58 +319,29 @@ def contact_display(user_id, relatp_id):
 def contact_display_hander():
     """Handle the updates on the relationships."""
 
-    # user_id = session['user_id']
+    relatp_id = request.form.get("id")
 
+    # The inputted value of the new information
+    value = request.form.get("value")
 
-    relatp_id = request.args.get("relatp_id")
-
-
-    # relation = Relationship.query.get(relatp_id)
-
-    email = request.form.get("email")
+    # The field getting updated.
     type_button = request.form.get("typeButton")
-    label_id = request.form.get("labelid")
+
+    relationship = Relationship.query.get(relatp_id)
+    print type_button, value
+
+    # Update the existing record for the relationship.
+    setattr(relationship, type_button, value)
+
+    db.session.commit()
 
     user_info = {'typeButton': type_button,
-                 'labelid': label_id,
-                 'email': email}
+                 'value': value}
 
     return jsonify(user_info)
-    # bday = request
-    # phone
-    # work
-    # edu
-    # fb
-    # linked_in
-    # twitter
-    # google_plus
-    # github
-    # pinterest
-    # word_press
-    # yelp
-    # skype
-    # other_social_media
-    # gift_idea
-    # goal
-    # note
-    # pet
-    # family
-    # hobby
-    # likes
-    # dislike
-    # pet_peeve
-    # fav_food
-    # fav_drink
-    # fav_restaurant
-    # sports_team
-    # fav_brand
-    # other_fav
-    # convo
-    # trait
-
 
     # update_prefs = Relationship(id=relatp_id,
-                                # email, 
+                                # email,
                                 # bday
                                 # phone
                                 # work
