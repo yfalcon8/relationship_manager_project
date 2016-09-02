@@ -13,10 +13,7 @@ function displayPreference(result) {
     console.log('\n\nPref updated\n\n');
 }
 
-// Grab the id of the button associated with updating the email.
 function getPreference(evt) {
-    // evt.preventDefault();
-    debugger;
     // Grab the name of the button that was clicked.
     // The name of the button corresponds with the column name.
     var typeButton = $(this).attr("id");

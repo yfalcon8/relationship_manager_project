@@ -321,14 +321,14 @@ def contact_display_hander():
 
     relatp_id = request.form.get("id")
 
-    # The inputted value of the new information
+    # Assign a var to the inputted value of the new information.
     value = request.form.get("value")
 
-    # The field getting updated.
+    # Assign a var to the field getting updated.
     type_button = request.form.get("typeButton")
 
+    # Grab the person getting updated.
     relationship = Relationship.query.get(relatp_id)
-    print type_button, value
 
     # Update the existing record for the relationship.
     setattr(relationship, type_button, value)
@@ -339,40 +339,6 @@ def contact_display_hander():
                  'value': value}
 
     return jsonify(user_info)
-
-    # update_prefs = Relationship(id=relatp_id,
-                                # email,
-                                # bday
-                                # phone
-                                # work
-                                # edu
-                                # fb
-                                # linked_in
-                                # twitter
-                                # google_plus
-                                # github
-                                # pinterest
-                                # word_press
-                                # yelp
-                                # skype
-                                # other_social_media
-                                # gift_idea
-                                # goal
-                                # note
-                                # pet
-                                # family
-                                # hobby
-                                # likes
-                                # dislike
-                                # pet_peeve
-                                # fav_food
-                                # fav_drink
-                                # fav_restaurant
-                                # sports_team
-                                # fav_brand
-                                # other_fav
-                                # convo
-                                # trait
 
 
 @app.route('/event-display/<int:user_id>')

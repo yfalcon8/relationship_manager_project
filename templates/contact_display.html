@@ -19,460 +19,300 @@
             
             Email: {% if relatp.email %}
                         {{ relatp.email }}
-                   {% endif %}
-                        <br>
+                   {% endif %}<br>
+
             <div id="emailDIV"><ul class="emailList"></ul></div>
             <input type="email" name="email" id="emailinput">
             <button id="email" data-relId="{{ relatp.id }}">Update</button><br><br>
+        
+
+            Birthday: {% if relatp.bday %}
+                            {{ relatp.bday }}
+                      {% endif %}<br>
+
+            <div id="bdayDIV"><ul class="bdayList"></ul></div>
+            <input type="date" name="bday" id="bdayinput">
+            <button id="bday" data-relId="{{ relatp.id }}">Update</button><br><br>
 
 
-        {% if relatp.bday %}
+            Phone: {% if relatp.phone %}
+                        {{ relatp.phone }}
+                   {% endif %}<br>
 
-            Birthday: {{ relatp.bday }}<br>
-            <input type="date" name="bday">
-            <input type="submit" value="Update"><br><br>
+            <div id="phoneDIV"><ul class="phoneList"></ul></div>
+            <input type="tel" name="phone" id="phoneinput">
+            <button id="phone" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% else %}
 
-            Birthday:
-            <input type="date" name="bday">
-            <input type="submit" value="Update"><br><br>
+            Work: {% if relatp.work %}
+                      {{ relatp.work }}
+                  {% endif %}<br>
 
-        {% endif %}
+            <div id="workDIV"><ul class="workList"></ul></div>
+            <input type="text" name="work" id="workinput">
+            <button id="work" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% if relatp.phone %}
 
-            Phone: {{ relatp.phone }}<br>
-            <input type="tel" name="tel">
-            <input type="submit" value="Update"><br><br>
+            Education: {% if relatp.edu %}
+                           {{ relatp.edu }}
+                       {% endif %}
 
-        {% else %}
+            <div id="eduDIV"><ul class="eduList"></ul></div>
+            <input type="text" name="edu" id="eduinput">
+            <button id="edu" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Phone:
-            <input type="tel" name="tel">
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.work %}
-
-            Work: {{ relatp.work }}<br>
-            <input type="text" name="work"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-             Work:
-             <input type="text" name="work"><br>
-             <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.edu %}
-
-            Education: {{ relatp.edu }}<br>
-            <input type="text" name="work"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Education:
-            <input type="text" name="edu"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
 
     {% endfor %}
 
     <h2>Preferences</h2>
     {% for relatp in relatp_info %}
 
-        {% if relatp.gift_idea %}
+            Gift Ideas: {% if relatp.gift_idea %}
+                            {{ relatp.gift_idea }}
+                        {% endif %}
 
-            Gift Ideas: {{ relatp.gift_idea }}<br>
-            <input type="text" name="gift_idea"><br>
-            <input type="submit" value="Update"><br><br>
+            <div id="gift_ideaDIV"><ul class="gift_ideaList"></ul></div>
+            <input type="text" name="gift_idea" id="gift_ideainput">
+            <button id="gift_idea" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% else %}
 
-            Gift Ideas:
-            <input type="text" name="gift_idea"><br>
-            <input type="submit" value="Update"><br><br>
+            Pets: {% if relatp.pet %}
+                      {{ relatp.pet }}
+                  {% endif %}
 
-        {% endif %}
+            <div id="petDIV"><ul class="petList"></ul></div>
+            <input type="text" name="pet" id="petinput">
+            <button id="pet" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% if relatp.pet %}
 
-            Pets: {{ relatp.pet }}<br>
-            <input type="text" name="pet"><br>
-            <input type="submit" value="Update"><br><br>
+            Goals: {% if relatp.goal %}
+                       {{ relatp.goal }}
+                   {% endif %} 
 
-        {% else %}
+            <div id="goalDIV"><ul class="goalList"></ul></div>
+            <input type="text" name="goal" id="goalinput">
+            <button id="goal" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Pets:
-            <input type="text" name="pet"><br>
-            <input type="submit" value="Update"><br><br>
 
-        {% endif %}
+            Notes: {% if relatp.note %}
+                       {{ relatp.note }}
+                   {% endif %}
+            
+            <div id="noteDIV"><ul class="noteList"></ul></div>
+            <input type="text" name="note" id="noteinput">
+            <button id="note" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% if relatp.goal %}
 
-            Goals: {{ relatp.goal }}<br>
-            <input type="text" name="goal"><br>
-            <input type="submit" value="Update"><br><br>
+            Family: {% if relatp.family %}
+                        {{ relatp.family }}
+                    {% endif %}
 
-        {% else %}
+            <div id="familyDIV"><ul class="familyList"></ul></div>
+            <input type="text" name="family" id="familyinput">
+            <button id="family" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Goals:
-            <input type="text" name="goal"><br>
-            <input type="submit" value="Update"><br><br>
 
-        <br>
+            Hobbies: {% if relatp.hobby %}
+                         {{ relatp.hobby }}
+                     {% endif %}
 
-        {% endif %}
+            <div id="hobbyDIV"><ul class="hobbyList"></ul></div>
+            <input type="text" name="hobby" id="hobbyinput">
+            <button id="hobby" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% if relatp.note %}
 
-            Notes: {{ relatp.note }}<br>
-            <input type="text" name="note"><br>
-            <input type="submit" value="Update"><br><br>
+            Likes: {% if relatp.likes %}
+                       {{ relatp.likes }}
+                   {% endif %}
 
-        {% else %}
+            <div id="likesDIV"><ul class="likesList"></ul></div>
+            <input type="text" name="likes" id="likesinput">
+            <button id="likes" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Notes:
-            <input type="text" name="note"><br>
-            <input type="submit" value="Update"><br><br>
 
+            Dislikes: {% if relatp.dislike %}
+                          {{ relatp.dislike }}
+                      {% endif %}
 
-        {% endif %}
+            <div id="dislikeDIV"><ul class="dislikeList"></ul></div>
+            <input type="text" name="dislike" id="dislikeinput">
+            <button id="dislike" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% if relatp.family %}
 
-            Family: {{ relatp.family }}<br>
-            <input type="text" name="family"><br>
-            <input type="submit" value="Update"><br><br>
+            Pet Peeve: {% if relatp.pet_peeve %}
+                           {{ relatp.pet_peeve }}
+                       {% endif %}
 
-        {% else %}
+            <div id="pet_peeveDIV"><ul class="pet_peeveList"></ul></div>
+            <input type="text" name="pet_peeve" id="pet_peeveinput">
+            <button id="pet_peeve" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Family:
-            <input type="text" name="family"><br>
-            <input type="submit" value="Update"><br><br>
 
-        {% endif %}
+            Favorite Food: {% if relatp.fav_food %}
+                               {{ relatp.fav_food }}
+                           {% endif %}
 
-        {% if relatp.hobby %}
+            <div id="fav_foodDIV"><ul class="fav_foodList"></ul></div>
+            <input type="text" name="fav_food" id="fav_foodinput">
+            <button id="fav_food" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Hobbies: {{ relatp.hobby }}<br>
-            <input type="text" name="hobby"><br>
-            <input type="submit" value="Update"><br><br>
 
-        {% else %}
+            Favorite Drink: {% if relatp.fav_drink %}
+                                {{ relatp.fav_drink }}
+                            {% endif %}
+            
+            <div id="fav_drinkDIV"><ul class="fav_drinkList"></ul></div>
+            <input type="text" name="fav_drink" id="fav_drinkinput">
+            <button id="fav_drink" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Hobbies:
-            <input type="text" name="hobby"><br>
-            <input type="submit" value="Update"><br><br>
 
-        {% endif %}
-
-        {% if relatp.likes %}
-
-            Likes: {{ relatp.likes }}<br>
-            <input type="text" name="like"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Likes:
-            <input type="text" name="like"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.dislike %}
-
-            Dislikes: {{ relatp.dislike }}<br>
-            <input type="text" name="dislike"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Dislikes:
-            <input type="text" name="dislike"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.pet_peeve %}
-
-            Pet Peeve: {{ relatp.pet_peeve }}<br>
-            <input type="text" name="pet_peeve"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Pet Peeve:
-            <input type="text" name="pet_peeve"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.fav_food %}
-
-            Favorite Food: {{ relatp.fav_food }}<br>
-            <input type="text" name="fav_food"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Favorite Food:
-            <input type="text" name="fav_food"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.fav_drink %}
-
-            Favorite Drink: {{ relatp.fav_drink }}<br>
-            <input type="text" name="fav_drink"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Favorite Drink:
-            <input type="text" name="fav_drink"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.fav_restaurant %}
-
-            Favorite Restaurant: {{ relatp.fav_restaurant }}<br>
-            <input type="text" name="fav_restaurant"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Favorite Restaurant:
-            <input type="text" name="fav_restaurant"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.sports_team %}
-
-            Favorite Sports Teams: {{ relatp.sports_team }}<br>
-            <input type="text" name="fav_sports_team"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Favorite Sports Teams:
-            <input type="text" name="fav_sports_team"><br>
-            <input type="submit" value="Update"><br><br>
+            Favorite Restaurant: {% if relatp.fav_restaurant %}
+                                     {{ relatp.fav_restaurant }}
+                                 {% endif %}
+            
+            <div id="fav_restaurantDIV"><ul class="fav_restaurantList"></ul></div>
+            <input type="text" name="fav_restaurant" id="fav_restaurantinput">
+            <button id="fav_restaurant" data-relId="{{ relatp.id }}">Update</button><br><br>
+
+
+            Favorite Sports Teams: {% if relatp.sports_team %}
+                                       {{ relatp.sports_team }}
+                                   {% endif %}
+            
+            <div id="sports_teamDIV"><ul class="sports_teamList"></ul></div>
+            <input type="text" name="sports_team" id="sports_teaminput">
+            <button id="sports_team" data-relId="{{ relatp.id }}">Update</button><br><br>
+         
+
+            Favorite Brand: {% if relatp.fav_brand %}
+                                {{ relatp.fav_brand }}
+                            {% endif %}
+
+            <div id="fav_brandDIV"><ul class="fav_brandList"></ul></div>
+            <input type="text" name="fav_brand" id="fav_brandinput">
+            <button id="fav_brand" data-relId="{{ relatp.id }}">Update</button><br><br>
+
+
+            Other Favorites: {% if relatp.other_fav %}
+                                 {{ relatp.other_fav }}
+                             {% endif %}
+
+            <div id="other_favDIV"><ul class="other_favList"></ul></div>
+            <input type="text" name="other_fav" id="other_favinput">
+            <button id="other_fav" data-relId="{{ relatp.id }}">Update</button><br><br>
         
-        {% endif %} 
 
-        {% if relatp.fav_brand %}
+            Conversation Log: {% if relatp.convo %}
+                                  {{ relatp.convo }}
+                              {% endif %}
 
-            Favorite Brand: {{ relatp.fav_brand }}<br>
-            <input type="text" name="fav_brand"><br>
-            <input type="submit" value="Update"><br><br>
+            <div id="convoDIV"><ul class="convoList"></ul></div>
+            <input type="text" name="convo" id="convoinput">
+            <button id="convo" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% else %}
 
-            Favorite Brand:
-            <input type="text" name="fav_brand"><br>
-            <input type="submit" value="Update"><br><br>
+            Personality Traits: {% if relatp.trait %}
+                                    {{ relatp.trait }}
+                                {% endif %}        
 
-        {% endif %}
+            <div id="traitDIV"><ul class="traitList"></ul></div>
+            <input type="text" name="trait" id="traitinput">
+            <button id="trait" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% if relatp.other_fav %}
-
-            Other Favorites: {{ relatp.other_fav }}<br>
-            <input type="text" name="other_fav"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Other Favorites:
-            <input type="text" name="other_fav"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.convo %}
-
-            Conversation Log: {{ relatp.convo }}<br>
-            <input type="text" name="convo"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Conversation Log:
-            <input type="text" name="convo"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.trait %}
-
-            Personality Traits: {{ relatp.trait }}<br>
-            <input type="text" name="trait"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Personality Traits:
-            <input type="text" name="trait"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
 
     {% endfor %}
 
     <h2>Social Media</h2>
     {% for relatp in relatp_info %}
 
-        {% if relatp.fb %}
+            Facebook: {% if relatp.fb %}
+                          {{ relatp.fb }}
+                      {% endif %}
 
-            Facebook: {{ relatp.fb }}<br>
-            <input type="text" name="fb"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Facebook:
-            <input type="text" name="fb"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.linked_in %}
-
-            Linked In: {{ relatp.linked_in }}<br>
-            <input type="text" name="linked_in"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Linked In:
-            <input type="text" name="linked_in"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.twitter %}
-
-            Twitter: {{ relatp.twitter }}<br>
-            <input type="text" name="twitter"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Twitter:
-            <input type="text" name="twitter"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.google_plus %}
-
-            Google+: {{ relatp.google_plus }}<br>
-            <input type="text" name="google_plus"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Google+:
-            <input type="text" name="google_plus"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.github %}
-
-            Github: {{ relatp.github }}<br>
-            <input type="text" name="github"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Github: {{ relatp.github }}<br>
-            <input type="text" name="github"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.pinterest %}
-
-            Pinterest: {{ relatp.pinterest }}<br>
-            <input type="text" name="pinterest"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% else %}
-
-            Pinterest:
-            <input type="text" name="pinterest"><br>
-            <input type="submit" value="Update"><br><br>
-
-        {% endif %}
-
-        {% if relatp.word_press %}
-
-            Word Press: {{ relatp.word_press }}<br><br>
-            <input type="text" name="word_press"><br>
-            <input type="submit" value="Update"><br><br>
+            <div id="fbDIV"><ul class="fbList"></ul></div>
+            <input type="text" name="fb" id="fbinput">
+            <button id="fb" data-relId="{{ relatp.id }}">Update</button><br><br>
 
 
-        {% else %}
+            Linked In: {% if relatp.linked_in %}
+                           {{ relatp.linked_in }}
+                       {% endif %}
 
-            Word Press:
-            <input type="text" name="word_press"><br>
-            <input type="submit" value="Update"><br><br>
+            <div id="linked_inDIV"><ul class="linked_inList"></ul></div>
+            <input type="text" name="linked_in" id="linked_ininput">
+            <button id="linked_in" data-relId="{{ relatp.id }}">Update</button><br><br>
+        
 
-        {% endif %}
+            Twitter: {% if relatp.twitter %}
+                        {{ relatp.twitter }}
+                     {% endif %}
 
-        {% if relatp.yelp %}
+            <div id="twitterDIV"><ul class="twitterList"></ul></div>
+            <input type="text" name="twitter" id="twitterinput">
+            <button id="twitter" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Yelp: {{ relatp.yelp }}<br>
-            <input type="text" name="yelp"><br>
-            <input type="submit" value="Update"><br><br>
 
-        {% else %}
+            Google+: {% if relatp.google_plus %}
+                         {{ relatp.google_plus }}
+                     {% endif %}
 
-            Yelp:
-            <input type="text" name="yelp"><br>
-            <input type="submit" value="Update"><br><br>
+            <div id="google_plusDIV"><ul class="google_plusList"></ul></div>
+            <input type="text" name="google_plus" id="google_plusinput">
+            <button id="google_plus" data-relId="{{ relatp.id }}">Update</button><br><br>
+        
 
-        {% endif %}
+            Github: {% if relatp.github %}
+                        {{ relatp.github }}
+                    {% endif %}
 
-        {% if relatp.skype %}
+            <div id="githubDIV"><ul class="githubList"></ul></div>
+            <input type="text" name="github" id="githubinput">
+            <button id="github" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Skype: {{ relatp.skype }}<br>
-            <input type="text" name="skype"><br>
-            <input type="submit" value="Update"><br><br>
 
-        {% else %}
+            Pinterest: {% if relatp.pinterest %}
+                           {{ relatp.pinterest }}
+                       {% endif %}
 
-            Skype:
-            <input type="text" name="skype"><br>
-            <input type="submit" value="Update"><br><br>
+            <div id="pinterestDIV"><ul class="pinterestList"></ul></div>
+            <input type="text" name="pinterest" id="pinterestinput">
+            <button id="pinterest" data-relId="{{ relatp.id }}">Update</button><br><br>
+       
 
-        {% endif %}
+            Word Press: {% if relatp.word_press %}
+                            {{ relatp.word_press }}
+                        {% endif %}
 
-        {% if relatp.other_social_media %}
+            <div id="word_pressDIV"><ul class="word_pressList"></ul></div>
+            <input type="text" name="word_press" id="word_pressinput">
+            <button id="word_press" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-            Other Social Media: {{ relatp.other_social_media }}<br>
-            <input type="text" name="other_social_media"><br>
-            <input type="submit" value="Update"><br><br>
 
-        {% else %}
+            Yelp: {% if relatp.yelp %}
+                      {{ relatp.yelp }}
+                  {% endif %}
 
-            Other Social Media:
-            <input type="text" name="other_social_media"><br>
-            <input type="submit" value="Update"><br><br>
+            <div id="yelpDIV"><ul class="yelpList"></ul></div>
+            <input type="text" name="yelp" id="yelpinput">
+            <button id="yelp" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-        {% endif %}
+
+            Skype: {% if relatp.skype %}
+                       {{ relatp.skype }}
+                   {% endif %}
+
+            <div id="skypeDIV"><ul class="skypeList"></ul></div>
+            <input type="text" name="skype" id="skypeinput">
+            <button id="skype" data-relId="{{ relatp.id }}">Update</button><br><br>
+
+
+            Other Social Media: {% if relatp.other_social_media %}
+                                    {{ relatp.other_social_media }}
+                                {% endif %}
+
+            <div id="other_social_mediaDIV"><ul class="other_social_mediaList"></ul></div>
+            <input type="text" name="other_social_media" id="other_social_mediainput">
+            <button id="other_social_media" data-relId="{{ relatp.id }}">Update</button><br><br>
 
     {% endfor %}
 
