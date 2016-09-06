@@ -230,6 +230,7 @@ def specify_methods_of_reaching_out(user_id, relatp_id):
 
     return render_template('reach_out.html',
                            user_id=user_id,
+                           relatp_type=relatp_type,
                            relatp_id=relatp_id,
                            rcmdn_list=rcmdn_list)
 
@@ -293,7 +294,7 @@ def landing_page(user_id):
     # A list of tuples are returned.
     # The relationships id will be used to create a link to their profile.
     # The user_id is needed in the query results to pass into my Jinja for loop.
-    contact_name_and_id = db.session.query(Relationship.user_id, Relationship.id, Relationship.first_name, Relationship.last_name).filter_by(user_id=user_id).all()
+    contact_name_and_id = db.session.query(Relationship.user_id, Relationship.id, Relationship.first_name, Relationship.last_name).filter_by(user_id=user_id).order_by(Relationship.first_name).all()
 
     return render_template("landing_page.html",
                            user_id=user_id,
@@ -315,7 +316,7 @@ def contact_display(user_id, relatp_id):
                            relatp_info=relatp_info)
 
 
-@app.route('/contact-display-handler', methods=['GET', 'POST'])
+@app.route('/contact-display-handler', methods=['POST'])
 def contact_display_hander():
     """Handle the updates on the relationships."""
 
@@ -350,7 +351,7 @@ def event_display(user_id):
 
     # Grab the text and time of all of the users relationship.
     # Returns a list of tuples.
-    rcmdn_and_date = db.session.query(Event.rcmdn, Event.scheduled_at, Event.relatp_id).filter_by(user_id=user_id).all()
+    rcmdn_and_date = db.session.query(Event.rcmdn, Event.scheduled_at, Event.relatp_id).filter_by(user_id=user_id).order_by(Event.scheduled_at).all()
 
     # Grab the name of the relationship.
     # Store the name, text, and time in the all_events list.
@@ -382,7 +383,7 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # Use the DebugToolbar
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
 
     # debug=True runs Flask in "debug mode". It will reload my code when it
     # changes and provide error messages in the browser.

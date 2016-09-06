@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Here are some tips on how to reach out to your contacts:</h1>
 
+<body class="methods">
+    <div class="login-reg" id="methods">
+
+    <h1>How do you want to stay in touch?</h1>
+    <b>
+    {% if relatp_type == "prf" %}
+        <p>Quarterly emails will be sent with the recommendations selected below.
+    {% else %}
+        <p>Monthly emails will be sent with the recommendations selected below.
+    {% endif %}
+    Only one reminder will be sent, so be sure to mark your calendar right away!</p>
+    </b>
     <form action="/methods-success/{{ user_id }}/{{ relatp_id }}", method="POST">
+
+    <ul>
     {% for rcmdn in rcmdn_list %}
-        <input type="checkbox" name="rcmdn" value="{{ rcmdn.rcmdn }}" checked>{{ rcmdn.rcmdn }}
+        <li><input type="checkbox" name="rcmdn" value="{{ rcmdn.rcmdn }}" checked>&nbsp;{{ rcmdn.rcmdn }}</li>
     {% endfor %}
-    <input type="submit" value="next">
-    </form>
-    <br>
+    </ul><br>
+
+    <input type="submit" value="Next">
+    </form><br>
+
+    </div>
+</body>
 
 {% endblock %}

@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Success!</h1>
 
-    <p>{{ first_name }} {{ last_name }} has been added as a {{ relatp }} to your contacts.</p><br>
+<body class="login-reg-bg">
+    <div class="login-reg">
+
+    <h1>Success!</h1>
+    <b>
+    {% if relatp == "family" %}
+        <p>{{ first_name }} {{ last_name }} has been added as your family member.</p>
+    {% elif relatp == "professional" %}
+        <p>{{ first_name }} {{ last_name }} has been added as your professional contact.</p>
+    {% else %}
+        <p>{{ first_name }} {{ last_name }} has been added as your friend.</p>
+    {% endif %}</b><br>
 
     <a href="/methods-of-reaching-out/{{ user_id }}/{{ relatp_id }}">Assign Methods of Reaching out</a>
+
+    </div>
+</body>
+
 {% endblock %}

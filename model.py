@@ -272,6 +272,27 @@ class RecommendationRelationship(db.Model):
                           nullable=False)
 
 
+def example_data():
+    """This function exists to populate testable data in the database.
+
+    It is safer to test a sample database instead of testing an apps actual
+    database."""
+
+    user = User(id=1,
+                first_name='Gabriel',
+                last_name='Macht',
+                email='gabriel@gmail.com',
+                password='gabriel#1')
+
+    recommendation = Recommendation(relatp_type='fr',
+                                    rcmdn='Send a text')
+
+    friend = Relationship()
+
+    db.session.add(user)
+    db.session.commit()
+
+
 # This set up allows my app the ability to talk to SQLite, PostgreSQL, MySQL
 # among others.
 
@@ -279,10 +300,12 @@ class RecommendationRelationship(db.Model):
 #### Helper Functions ####
 ##########################
 
-def connect_to_db(app):
+# When running my actual db, db_uri="postgresql:///contacts".
+# For testing purposes, db_uri="postgresql:///testdb".
+def connect_to_db(app, db_uri="postgresql:///contacts"):
     """Connect to database."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///contacts'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     db.app = app
     db.init_app(app)
 

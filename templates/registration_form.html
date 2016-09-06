@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    <a href="/login">Login</a><br>
-
+    
+<body class="login-reg-bg">
+    <div class="login-reg">
     <h1>Registration Page</h1>
-
     <form action="/registration-success" method="POST">
         <div>
             <label>First Name:
@@ -19,7 +18,7 @@
         </div>
 
         <div>
-            <label>Email (this will be your user name):
+            <label>Email:
                 <input type="email" name="email" required>
             </label>
         </div>
@@ -30,15 +29,15 @@
                 <input type="password" name="password" required>
             </label>
         </div>
-
+            
         <div>
+            <input type="submit" value="Let's Go!">
+        </div><br>
 
-        </div>
-            <input type="text" value={{ fb_id }} name="fb_id">
-        <div>
-            <input type="submit" value="Register">
-        </div>
+        <a href="/login">Already Registered? Login here.</a><br>
 
     </form>
+    </div>
+</body>
 
     {% endblock %}

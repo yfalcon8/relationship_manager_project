@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<body class="success">
+    <div class="login-reg">
+
     <h1>Success!</h1>
 
-    <p>The following methods have been added:</p>
+    <p><b>The following methods have been added:</b></p>
+    <div class="methods-added">
+    <ul>
+    {% for recommendation in desired_list %}
+        <li>
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            {{ recommendation }}
+        </li>
 
-    {{ desired_list }}
-
+    {% endfor %}
+    </ul>
+    </div><br>
 
     <a href="/landing-page/{{ user_id }}">Next</a>
+
+    </div>
+</body>
 
 {% endblock %}

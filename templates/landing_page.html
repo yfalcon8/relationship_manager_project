@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<body class="landing-bg" id="landing-bg">
+
 <script>
  // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
@@ -74,43 +76,39 @@
   }(document, 'script', 'facebook-jssdk'));
 
   function fbLogout(evt) {
-    alert("YES");
      FB.logout(function (response) {  
          alert("You have been logged out!")
          window.location = '/';
-         
       });
 
    }
-
-
     </script>
 
-<!-- <fb:login-button scope="public_profile,email" data-auto-logout-link="true" onlogin="checkLoginState();">
-</fb:login-button> -->
-<button id="logout">Facebook Logout</button>
 
-<script>
-    $('#logout').on('click', fbLogout);
-</script>
+  <button id="logout">Facebook Logout</button>
 
-<div id="status"></div>
+  <script>
+      $('#logout').on('click', fbLogout);
+  </script><br>
 
-    <span>
-    <!-- <a href="/logout">Logout</a><br></span> -->
-    <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
-    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a>
+  <div id="status" hidden></div>
 
-    <h1>Landing Page</h1>
+      <span>
+      <a href="/logout">Logout</a><br></span>
+      <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
+      <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a>
+      <div class="landing">
+      <h1>Landing Page</h1>
 
-    <p>User lands on this page after registering or logging in.</p>
+      <p>User lands on this page after registering or logging in.</p>
 
-    <ul>
-        {% for user_id, relatp_id, first_name, last_name in contact_name_and_id %}
-            <li><a href="/contact-display/{{ user_id }}/{{ relatp_id }}">{{ first_name }} {{ last_name }}</a></li>
-        {% endfor %}
-    </ul>
-
+      <ul>
+          {% for user_id, relatp_id, first_name, last_name in contact_name_and_id %}
+              <li><a href="/contact-display/{{ user_id }}/{{ relatp_id }}">{{ first_name }} {{ last_name }}</a></li>
+          {% endfor %}
+      </ul>
+      </div>
+</body>
 {% endblock %} 
 
 

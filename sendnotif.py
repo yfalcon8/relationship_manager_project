@@ -24,7 +24,7 @@ connect_to_db(app)
 past_events = set()
 
 
-def call_function():
+def query_to_email():
     """Query the Events table to check who needs to be emailed and email them."""
 
     # Grab the current time in datetime format.
@@ -118,7 +118,7 @@ def send_event_notification(recipient_name, relatp_name, recipient_email, recomm
     Happy networking,
 
     Relationship Manager
-    """.format(recipient_email, relatp_name, recipient_name, relatp_name, relatp_name, recommendations)
+    """.format(recipient_email, relatp_name, recipient_name, relatp_name, relatp_name, recommendation)
 
     # Create an SMTP object that specifices the server & port (465 or 587 for Gmail).
     mail = smtplib.SMTP('smtp.gmail.com', 587)
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     """This is useful for running this module interactively. This will leave me
     in a state of being able to work with the database directly."""
 
-    schedule.every().hour.do(call_function)
+    schedule.every().hour.do(query_to_email)
 
     while True:
         schedule.run_pending()

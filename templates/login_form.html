@@ -1,27 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
+    
+    <body class="login-reg-bg">
+        <div class="login-reg">
+            <h1>Login</h1>
+            <form action="/login" method="POST">
+                
+                <div>
+                    <label>&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;
+                        <input type="email" name="email" required>
+                    </label>
+                </div>
 
-    <a href="/register">Register</a><br>
+                <div>
+                    <label>Password:
+                        <input type="password" name="password" required>
+                    </label>
+                </div>
 
-    <h1>Login</h1>
-    <form action="/login" method="POST">
-        
-        <div>
-            <label>Email:
-                <input type="email" name="email" required>
-            </label>
+                <div>
+                    <input type="submit" value="Let's Go!">
+                </div><br>
+
+                <a href="/register">New user? Register here.</a><br>
+
+            </form>
         </div>
-
-        <div>
-            <label>Password:
-                <input type="password" name="password" required>
-            </label>
-        </div>
-
-        <div>
-            <input type="submit" value="Log In">
-        </div>
-
-    </form>
+    </body>
 
 {% endblock %}

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Add Your Contacts</h1>
+    
+<body class="login-reg-bg">
+    <div class="login-reg">
+    <h1>Add Contact</h1>
     <form action="/contact-added/{{ user_id }}" method="POST">
         <div>
             <label>First Name:
@@ -23,8 +26,9 @@
         </div>
 
         <div>
-            <input type="submit" value="Add Contact">
+            <input type="submit" value="Next">
         </div>
     </form>
-
+    </div>
+</body>
 {% endblock %}
