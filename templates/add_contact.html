@@ -3,7 +3,7 @@
     
 <body class="login-reg-bg">
     <div class="login-reg">
-    <h1>Add Contact</h1>
+    <h1 class="knockout-contact">Add Contact</h1>
     <form action="/contact-added/{{ user_id }}" method="POST">
         <div>
             <label>First Name:
@@ -19,9 +19,9 @@
 
         <div>
             <label>Relationship:
-                <input type="radio" name="relatp" value="friend" default=True required>Friend
-                <input type="radio" name="relatp" value="family">Family
-                <input type="radio" name="relatp" value="professional">Professional
+                <input type="radio" name="relatp" value="friend" default=True required>&nbsp;Friend
+                <input type="radio" name="relatp" value="family">&nbsp;Family
+                <input type="radio" name="relatp" value="professional">&nbsp;Professional
             </label>
         </div>
 

@@ -40,6 +40,8 @@ app.secret_key = "ILoveStephenColbert"
 # Raises an error when an undefined variable is used in Jinja2.
 app.jinja_env.undefined = StrictUndefined
 
+# Prevents the need to restart server when HTML/CSS is changed.
+app.jinja_env.auto_reload = True
 
 # @app.route('/') is a Python decorator. '/' in the decorator maps directly
 # to the URL the user requested which is the homepage. The index function
@@ -66,7 +68,7 @@ def display_login():
     Find the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session.
     """
-
+    print "in login route"
     return render_template('login_form.html')
 
 

@@ -224,87 +224,89 @@
     {% endfor %}
 
     <h2>Social Media</h2>
+    <table style="width:100%">
     {% for relatp in relatp_info %}
-
-            Facebook: {% if relatp.fb %}
+          <tr>
+            <th>Facebook: {% if relatp.fb %}
                           {{ relatp.fb }}
                       {% endif %}
 
             <div id="fbDIV"><ul class="fbList"></ul></div>
             <input type="text" name="fb" id="fbinput">
-            <button id="fb" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="fb" data-relId="{{ relatp.id }}">Update</button></th>
 
 
-            Linked In: {% if relatp.linked_in %}
+            <th>Linked In: {% if relatp.linked_in %}
                            {{ relatp.linked_in }}
                        {% endif %}
 
             <div id="linked_inDIV"><ul class="linked_inList"></ul></div>
             <input type="text" name="linked_in" id="linked_ininput">
-            <button id="linked_in" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="linked_in" data-relId="{{ relatp.id }}">Update</button></th>
         
 
-            Twitter: {% if relatp.twitter %}
+            <th>Twitter: {% if relatp.twitter %}
                         {{ relatp.twitter }}
                      {% endif %}
 
             <div id="twitterDIV"><ul class="twitterList"></ul></div>
             <input type="text" name="twitter" id="twitterinput">
-            <button id="twitter" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="twitter" data-relId="{{ relatp.id }}">Update</button></th>
+          </tr>
 
-
-            Google+: {% if relatp.google_plus %}
+          <tr>
+            <th>Google+: {% if relatp.google_plus %}
                          {{ relatp.google_plus }}
                      {% endif %}
 
             <div id="google_plusDIV"><ul class="google_plusList"></ul></div>
             <input type="text" name="google_plus" id="google_plusinput">
-            <button id="google_plus" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="google_plus" data-relId="{{ relatp.id }}">Update</button></th>
         
-
-            Github: {% if relatp.github %}
+        
+            <th>Github: {% if relatp.github %}
                         {{ relatp.github }}
                     {% endif %}
 
             <div id="githubDIV"><ul class="githubList"></ul></div>
             <input type="text" name="github" id="githubinput">
-            <button id="github" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="github" data-relId="{{ relatp.id }}">Update</button></th>
 
 
-            Pinterest: {% if relatp.pinterest %}
+            <th>Pinterest: {% if relatp.pinterest %}
                            {{ relatp.pinterest }}
                        {% endif %}
 
             <div id="pinterestDIV"><ul class="pinterestList"></ul></div>
             <input type="text" name="pinterest" id="pinterestinput">
-            <button id="pinterest" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="pinterest" data-relId="{{ relatp.id }}">Update</button></th>
+          </tr>
        
-
-            Word Press: {% if relatp.word_press %}
+          <tr>
+            <th>Word Press: {% if relatp.word_press %}
                             {{ relatp.word_press }}
                         {% endif %}
 
             <div id="word_pressDIV"><ul class="word_pressList"></ul></div>
             <input type="text" name="word_press" id="word_pressinput">
-            <button id="word_press" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="word_press" data-relId="{{ relatp.id }}">Update</button><br></th>
 
-
-            Yelp: {% if relatp.yelp %}
+            <th>Yelp: {% if relatp.yelp %}
                       {{ relatp.yelp }}
                   {% endif %}
 
             <div id="yelpDIV"><ul class="yelpList"></ul></div>
             <input type="text" name="yelp" id="yelpinput">
-            <button id="yelp" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="yelp" data-relId="{{ relatp.id }}">Update</button><br></th>
 
-
-            Skype: {% if relatp.skype %}
+            <th>Skype: {% if relatp.skype %}
                        {{ relatp.skype }}
                    {% endif %}
 
             <div id="skypeDIV"><ul class="skypeList"></ul></div>
             <input type="text" name="skype" id="skypeinput">
-            <button id="skype" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="skype" data-relId="{{ relatp.id }}">Update</button><br></th>
+          </tr>
 
 
             Other Social Media: {% if relatp.other_social_media %}
@@ -316,6 +318,7 @@
             <button id="other_social_media" data-relId="{{ relatp.id }}">Update</button><br><br>
 
     {% endfor %}
+    </table>
 
     <script src="/static/js/contact_display.js"></script>
     

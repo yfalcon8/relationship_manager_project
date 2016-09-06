@@ -1,3 +1,28 @@
+.container-fluid {
+    background-color: white;
+    position: relative;
+    top: 300px;
+}
+
+.content-home {
+    position: absolute;
+    min-height: 100%;
+    width:100%;
+    z-index: 1000;
+    text-align: center;
+    background-color: rgba(255,255,255,0.7);
+}
+
+.content-home h1 {
+    color: black;
+    padding-top: 15%;
+    margin-bottom: 10px;
+}
+
+.content-home p {
+    color: #aaa;
+}
+
 .methods-added li {
     list-style:none;
     background-image:none;
@@ -11,7 +36,7 @@ ul {
 }
 
 .login-reg {
-    width:350px;
+    width:600px;
     height:300px;
     margin:0 auto;
     text-align: center;
@@ -43,14 +68,6 @@ ul {
     margin-top:25%; 
 }
 
-.col-xs-6 .col-sm-6 .col-md-6 .col-lg-6 .right {
-    background-image: url(pexels-photo-26135-medium.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    line-height: 1.3;
-    -webkit-font-smoothing: antialiased;
-}
-
 .landing-bg {
     background-color: black;
     background-image: url(mountains.jpg);
@@ -73,10 +90,72 @@ ul {
     background-size: cover;
 }
 
-#methods {
-    width:390px;
-}
-
 h1 {
     color: #607D8B;
+}
+
+.background-wrap {
+    position: fixed;
+    z-index: -1000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    }
+
+.content {
+    position: absolute;
+    min-height: 100%;
+    width:100%;
+    z-index: 1000;
+    text-align: center;
+    background-color: rgba(255,255,255,0.7);
+}
+
+.content h1 {
+    color: black;
+    padding-top: 8%;
+    margin-bottom: 10px;
+}
+
+.content p {
+    color: #aaa;
+}
+
+.knockout {
+  background: url(https://i.vimeocdn.com/video/570394282.webp?mw=1500&mh=848&q=70) -80px -80px;
+  color: red;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  font-size: 100px;
+  font-family: arial, helvetica;
+  width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.knockout-contact {
+  background: url(picnic.jpg) -80px -80px;
+  color: red;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  font-size: 80px;
+  font-family: arial, helvetica;
+  width: 600px;
+  margin: auto;
+  text-align: center;
 }

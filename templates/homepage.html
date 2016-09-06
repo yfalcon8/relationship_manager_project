@@ -108,48 +108,32 @@
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked. -->
 
-
-<div class="container-fluid">
-  <div class="row section">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left">
-      
-      <p class="homepage">Relationships = </p>
-      <p class="homepage"><u>Managed</u></p>
-      <p>Don't let another friendship slip away.</p>
-
-    </div>
-    
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 right">
-
-      <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 lead">
-              <fb:login-button scope="public_profile,email" data-auto-logout-link="true" onlogin="checkLoginState();">
-</fb:login-button><br>
-              <a href="/login" class="btn btn-lg btn-default">Login</a><br>
- 
-              <a href="/register" class="btn btn-lg btn-default">Register</a>
-          
-          </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
-
-          
-      </div>
-    </div>
+  <div class="background-wrap">
+    <video poster="/static/css/beach-fireworks.jpg" preload="auto" autoplay="true" muted="muted" loop>
+        <source src="/static/css/Adventures.webm" type="video/mp4">
+        Video not supported. 
+    </video>
   </div>
-</div>
+
+  <div class="content-home">
+    <h1>Take your relationships to new heights.</h1>
+    <p>
+    <fb:login-button scope="public_profile,email" data-auto-logout-link="true" onlogin="checkLoginState();"></fb:login-button><br>
+    <a href="/login" class="btn btn-md btn-default">Login</a><br>
+    <a href="/register" class="btn btn-md btn-default">Register</a>
+    </p>
+  </div>
+          
 
 
 
 <div class="container-fluid">
-  <div class="row section">
     <font color="red">I'm in the second div!</font>
-  </div>
 </div>
 
 
 
-<div id="status"></div>
+<div id="status" hidden></div>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> 
 
 
