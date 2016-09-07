@@ -1,71 +1,104 @@
 {% extends 'base.html' %}
 {% block content %}
+<br><br><br>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"><span class="glyphicon glyphicon-registration-mark" aria-hidden="true"></span></a>
+    </div>
 
-    <a href="/logout">Logout</a><br>
-    <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
-    <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a><br><br>
-    <a href="/landing-page/{{ user_id }}">Landing Page</a>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+      <ul class="nav navbar-nav">
+
+        <li><a href="/event-display/{{ user_id }}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;Upcoming Events</a></li>
+
+        <li><a href="/add-contacts/{{ user_id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add New Contact</a></li>
+
+        <li><a href="/add-contacts/{{ user_id }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;All Contacts</a></li>
+
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li><div style="center"><button class="btn btn-default navbar-btn" id="logout">Logout</button></div></li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+    <div align="center">
     {% for relatp in relatp_info %}
 
         {% if relatp.last_name %}
         
-            <h1>{{ relatp.first_name }} {{ relatp.last_name }}'s Profile</h1><br><br>
+            <h1 class="knockout-contact">{{ relatp.first_name }} {{ relatp.last_name }}'s Profile</h1><br><br>
 
         {% else %}
 
             <h1>{{ relatp.first_name }}'s Profile</h1><br><br>
 
-        {% endif %} 
-            
+        {% endif %}
+        </div>
+        <table align="center" style="width:60%">
+           <tr><th>
             Email: {% if relatp.email %}
                         {{ relatp.email }}
-                   {% endif %}<br>
+                   {% endif %}
 
             <div id="emailDIV"><ul class="emailList"></ul></div>
             <input type="email" name="email" id="emailinput">
-            <button id="email" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="email" data-relId="{{ relatp.id }}">Update</button></th>
         
-
+            <th>
             Birthday: {% if relatp.bday %}
                             {{ relatp.bday }}
-                      {% endif %}<br>
+                      {% endif %}
 
             <div id="bdayDIV"><ul class="bdayList"></ul></div>
             <input type="date" name="bday" id="bdayinput">
-            <button id="bday" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="bday" data-relId="{{ relatp.id }}">Update</button></th>
 
-
+            <th>
             Phone: {% if relatp.phone %}
                         {{ relatp.phone }}
-                   {% endif %}<br>
+                   {% endif %}
 
             <div id="phoneDIV"><ul class="phoneList"></ul></div>
             <input type="tel" name="phone" id="phoneinput">
-            <button id="phone" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="phone" data-relId="{{ relatp.id }}">Update</button></th></tr></table>
 
-
+          <table align="center" style="width:40%">
+          <tr style="width:50%"><th>
             Work: {% if relatp.work %}
                       {{ relatp.work }}
-                  {% endif %}<br>
+                  {% endif %}
 
             <div id="workDIV"><ul class="workList"></ul></div>
             <input type="text" name="work" id="workinput">
-            <button id="work" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="work" data-relId="{{ relatp.id }}">Update</button></th>
 
-
+          <th>
             Education: {% if relatp.edu %}
                            {{ relatp.edu }}
                        {% endif %}
 
             <div id="eduDIV"><ul class="eduList"></ul></div>
             <input type="text" name="edu" id="eduinput">
-            <button id="edu" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="edu" data-relId="{{ relatp.id }}">Update</button></th></tr>
 
-
+        </table><br><br>   
     {% endfor %}
-
-    <h2>Preferences</h2>
+    <div align="center" align="100%">
+    <h2 class="knockout-contact">Preferences</h2>
     {% for relatp in relatp_info %}
 
             Gift Ideas: {% if relatp.gift_idea %}
@@ -220,11 +253,11 @@
             <input type="text" name="trait" id="traitinput">
             <button id="trait" data-relId="{{ relatp.id }}">Update</button><br><br>
 
-
+          </div><br>
     {% endfor %}
 
-    <h2>Social Media</h2>
-    <table style="width:100%">
+    <h2 class="knockout-contact" align="center">Social Media</h2><br>
+    <table align="center" style="width:80%">
     {% for relatp in relatp_info %}
           <tr>
             <th>Facebook: {% if relatp.fb %}
@@ -306,19 +339,20 @@
             <div id="skypeDIV"><ul class="skypeList"></ul></div>
             <input type="text" name="skype" id="skypeinput">
             <button id="skype" data-relId="{{ relatp.id }}">Update</button><br></th>
-          </tr>
+          </tr></table>
 
-
+          <table align="center" style="width:27%">
+          <th>
             Other Social Media: {% if relatp.other_social_media %}
                                     {{ relatp.other_social_media }}
                                 {% endif %}
 
             <div id="other_social_mediaDIV"><ul class="other_social_mediaList"></ul></div>
             <input type="text" name="other_social_media" id="other_social_mediainput">
-            <button id="other_social_media" data-relId="{{ relatp.id }}">Update</button><br><br>
+            <button id="other_social_media" data-relId="{{ relatp.id }}">Update</button></th></table><br><br>
 
     {% endfor %}
-    </table>
+    
 
     <script src="/static/js/contact_display.js"></script>
     

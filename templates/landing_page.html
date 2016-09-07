@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+            {% extends 'base.html' %}
 
 {% block content %}
-<body class="landing-bg" id="landing-bg">
+<body class="landing-bg" id="landing-bg" style="background-color: rgba(255,255,255,0.7);">
 
 <script>
  // This is called with the results from from FB.getLoginStatus().
@@ -82,32 +82,63 @@
       });
 
    }
-    </script>
+    </script><br><br>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"><span class="glyphicon glyphicon-registration-mark" aria-hidden="true"></span></a>
+    </div>
 
-  <button id="logout">Facebook Logout</button>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul class="nav navbar-nav">
+
+        <li><a href="/event-display/{{ user_id }}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;Upcoming Events</a></li>
+
+        <li><a href="/add-contacts/{{ user_id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add New Contact</a></li>
+
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li><div style="center"><button class="btn btn-default navbar-btn" id="logout">Logout</button></div></li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="landing">
 
   <script>
       $('#logout').on('click', fbLogout);
   </script><br>
 
-  <div id="status" hidden></div>
+  <div id="status" hidden></div><br><br>
 
-      <span>
-      <a href="/logout">Logout</a><br></span>
-      <a href="/add-contacts/{{ user_id }}">Add a New Contact</a><br>
-      <a href="/event-display/{{ user_id }}">All of your Upcoming Events</a>
-      <div class="landing">
-      <h1>Landing Page</h1>
+    <h1 class="knockout-contact">Relationships, managed.</h1><br>
 
-      <p>User lands on this page after registering or logging in.</p>
+    <span class="glyphicon glyphicon-registration-mark" aria-hidden="true"></span><br><br>
 
-      <ul>
-          {% for user_id, relatp_id, first_name, last_name in contact_name_and_id %}
-              <li><a href="/contact-display/{{ user_id }}/{{ relatp_id }}">{{ first_name }} {{ last_name }}</a></li>
-          {% endfor %}
-      </ul>
-      </div>
+    <b><p>"Be the one who nurtures and builds.</p>
+    <p>Be the one who has an understanding and forgiving heart - one who looks for the best in people.</p>
+    <p>Leave people better than you found them.”</p>
+    <p>― Marvin J. Ashton</p></b>
+
+    <ul>
+      {% for user_id, relatp_id, first_name, last_name in contact_name_and_id %}
+          <li><a href="/contact-display/{{ user_id }}/{{ relatp_id }}">{{ first_name }} {{ last_name }}</a></li>
+      {% endfor %}
+    </ul><br><br><br>
+  </div>
 </body>
 {% endblock %} 
 

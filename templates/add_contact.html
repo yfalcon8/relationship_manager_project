@@ -2,33 +2,34 @@
 {% block content %}
     
 <body class="login-reg-bg">
-    <div class="login-reg">
-    <h1 class="knockout-contact">Add Contact</h1>
-    <form action="/contact-added/{{ user_id }}" method="POST">
-        <div>
-            <label>First Name:
-                <input type="text" name="fname" value="Harvey" required>
-            </label>
-        </div>
+    <div class="login-reg"><br>
+        <h1 class="knockout-contact">Add Contact</h1><br>
+        <form action="/contact-added/{{ user_id }}" method="POST">
+            <div>
+                <label>First Name:
+                    <input type="text" name="fname" value="Harvey" required>
+                </label>
+            </div>
 
-        <div>
-            <label>Last Name:
-                <input type="text" name="lname" value="Specter">
-            </label>
-        </div>
+            <div>
+                <label>Last Name:
+                    <input type="text" name="lname" value="Specter">
+                </label><br>
+            </div>
 
-        <div>
-            <label>Relationship:
-                <input type="radio" name="relatp" value="friend" default=True required>&nbsp;Friend
-                <input type="radio" name="relatp" value="family">&nbsp;Family
-                <input type="radio" name="relatp" value="professional">&nbsp;Professional
-            </label>
-        </div>
+            <div>
+                <label>Relationship:
+                    <input type="radio" name="relatp" value="friend" default=True required>&nbsp;Friend
+                    <input type="radio" name="relatp" value="family">&nbsp;Family
+                    <input type="radio" name="relatp" value="professional">&nbsp;Professional<br> <br>
+                </label>
+            </div>
 
-        <div>
-            <input type="submit" value="Next">
-        </div>
-    </form>
+            <div>
+                <input type="submit" value="Next">
+            </div>
+        </form>
     </div>
 </body>
+
 {% endblock %}

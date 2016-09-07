@@ -14,8 +14,6 @@ from flask import Flask, render_template, request, session, flash, redirect, url
 # user from one request to the next. It's a dictionary that preserves type.
 # It is a customized cookie.
 
-from flask_debugtoolbar import DebugToolbarExtension
-
 from model import connect_to_db, db, User, Recommendation, Relationship, Event
 
 import arrow
@@ -68,7 +66,7 @@ def display_login():
     Find the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session.
     """
-    print "in login route"
+
     return render_template('login_form.html')
 
 
@@ -380,12 +378,12 @@ def process_logout():
 if __name__ == "__main__":
 
     # Setting this to be true so that I can invoke the DebugToolbarExtension
-    app.debug = True
+    # app.debug = True
 
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     # debug=True runs Flask in "debug mode". It will reload my code when it
     # changes and provide error messages in the browser.

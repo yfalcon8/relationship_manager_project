@@ -2,9 +2,9 @@
 {% block content %}
 
 <body class="login-reg-bg">
-    <div class="login-reg">
+    <div class="login-reg"><br>
 
-    <h1>Success!</h1>
+    <h1 class="knockout-contact">Success!</h1><br>
     <b>
     {% if relatp == "family" %}
         <p>{{ first_name }} {{ last_name }} has been added as your family member.</p>
@@ -14,7 +14,7 @@
         <p>{{ first_name }} {{ last_name }} has been added as your friend.</p>
     {% endif %}</b><br>
 
-    <a href="/methods-of-reaching-out/{{ user_id }}/{{ relatp_id }}">Assign Methods of Reaching out</a>
+    <a href="/methods-of-reaching-out/{{ user_id }}/{{ relatp_id }}">Assign Methods of Reaching Out</a>
 
     </div>
 </body>
