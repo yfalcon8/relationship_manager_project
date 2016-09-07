@@ -28,7 +28,12 @@ Depending on the type of contact, the scheduled frequency of tips and events wil
 - HTML
 - CSS
 - Bootstrap
+- Arrow library (datetime)
+- SMTP library (email)
 
+### APIs
+- Facebook OAuth API
+- Schedule API
 
 ### Building the App
 
