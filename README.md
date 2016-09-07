@@ -18,6 +18,7 @@ Depending on the type of contact, the scheduled frequency of tips and events wil
 - Python
 - JavaScript
 - jQuery
+- Object-oriented programming
 - PostgreSQL
 - SQL
 - SQLAlchemy
