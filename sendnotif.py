@@ -131,10 +131,10 @@ def send_event_notification(recipient_name, relatp_name, recipient_email, recomm
     mail.starttls()
 
     # Log in to the account that email will come from.
-    mail.login("yfalcon8@gmail.com", "yukilovesmarlonandmomo")
+    mail.login(YOUR_EMAIL_ADDRESS, YOUR_EMAIL_PASSWORD)
 
     # Specify sender, receiver and content of email.
-    mail.sendmail("yfalcon8@gmail.com", recipient_email, choice(content))
+    mail.sendmail(YOUR_EMAIL_ADDRESS, recipient_email, choice(content))
 
     # Disconnect from teh SMTP server
     mail.quit()

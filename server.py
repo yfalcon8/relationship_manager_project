@@ -7,14 +7,17 @@
 # Jinja is a popular template system for Python, used by Flask.
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, session, flash, redirect, url_for, jsonify
 # Flask: A class that we import. An instance of this class will be the
 # WSGI application.
 # session: A Flask object (class) that allows you to store information specific to a
 # user from one request to the next. It's a dictionary that preserves type.
 # It is a customized cookie.
+from flask import Flask, render_template, request, session, flash, redirect, url_for, jsonify
 
 from model import connect_to_db, db, User, Recommendation, Relationship, Event
+
+# Imported or 'DEBUG' to prevent from Flask Traceback error showing.
+import os
 
 import arrow
 
@@ -30,7 +33,7 @@ app = Flask(__name__)
 # Required to use Flask sessions and the debug DebugToolbarExtension. The user could look at
 # the contents of your cookie but not modify it, unless they know the secret key
 # used for signing.
-app.secret_key = "ILoveStephenColbert"
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
 # Another way of generating a secret key:
 # >>>import os
 # >>>os.urandom(24)
@@ -374,20 +377,33 @@ def process_logout():
     return render_template('logout.html')
 
 
+@app.route("/error")
+def error():
+    raise Exception("Error!")
+
+
 # App will only run if we ask it to run.
 if __name__ == "__main__":
 
     # Setting this to be true so that I can invoke the DebugToolbarExtension
     # app.debug = True
 
-    connect_to_db(app)
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
+
+    # Create the tables we need from our models (if they already
+    # exist, nothing will happen here, so it's fine to do this each
+    # time on startup)
+    db.create_all(app=app)
 
     # Use the DebugToolbar
     # DebugToolbarExtension(app)
+
+    DEBUG = "NO_DEBUG" not in os.environ
+    PORT = int(os.environ.get("PORT", 5000))
 
     # debug=True runs Flask in "debug mode". It will reload my code when it
     # changes and provide error messages in the browser.
     # The host makes the server publicly available by adding 0.0.0.0. This
     # tells my operating system to listen on all public IPs.
     # Port 5000 required for Flask.
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
