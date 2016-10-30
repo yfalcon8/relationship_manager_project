@@ -316,5 +316,9 @@ if __name__ == "__main__":
     in a state of being able to work with the database directly."""
 
     from server import app
-    connect_to_db(app)
+
+    # Heroku configuration
+    # connect_to_db(app)
+
+    connect_to_db(app, "postgresql:///contacts")
     print "Connected to DB."

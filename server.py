@@ -1,7 +1,7 @@
 """My web app's online structure."""
 
 #################
-#### imports ####
+#### Imports ####
 #################
 
 # Jinja is a popular template system for Python, used by Flask.
@@ -22,7 +22,7 @@ import os
 import arrow
 
 #######################
-#### configuration ####
+#### Configuration ####
 #######################
 
 # Instantiates Flask. "__name__" is a special Python variable for the name of
@@ -44,17 +44,15 @@ app.jinja_env.undefined = StrictUndefined
 # Prevents the need to restart server when HTML/CSS is changed.
 app.jinja_env.auto_reload = True
 
-# @app.route('/') is a Python decorator. '/' in the decorator maps directly
-# to the URL the user requested which is the homepage. The index function
-# is triggered when the URL is visited.
+
+# @app.route('/') is a Python decorator.
+# '/' in the decorator maps directly to the homepage.
+# The index function is triggered when the URL is visited.
 @app.route('/')
 def index():
     """Homepage."""
 
-    # if session['_flashes'][0][1] == 'Login successful!':
-    #     return redirect('/registration-success')
-
-    return render_template("homepage.html")
+    return render_template('homepage.html')
 
 
 # GET: The browser tells the server to just get the information stored on
@@ -64,18 +62,17 @@ def index():
 # only stored once. This is how HTML forms usually transmit data to the server.
 @app.route('/login')
 def display_login():
-    """Log user into site.
-
-    Find the user's login credentials located in the 'request.form'
-    dictionary, look up the user, and store them in the session.
-    """
+    """Log user into site."""
 
     return render_template('login_form.html')
 
 
 @app.route('/login', methods=['POST'])
 def handle_login():
-    """Process login."""
+    """Process login.
+
+    Find the user's login credentials located in the 'request.form'
+    dictionary, look up the user, and store them in the session."""
 
     # Add email and password to the dictionary 'form'
     email = request.form['email']
@@ -108,8 +105,9 @@ def register():
 
     fb_id = request.args.get('fb_id')
 
-    return render_template('registration_form.html',
-                           fb_id=fb_id)
+    session["fb_id"] = fb_id
+
+    return render_template('registration_form.html')
 
 
 @app.route('/registration-success', methods=['POST'])
@@ -388,15 +386,18 @@ if __name__ == "__main__":
     # Setting this to be true so that I can invoke the DebugToolbarExtension
     # app.debug = True
 
-    connect_to_db(app, os.environ.get("DATABASE_URL"))
+    # Use the DebugToolbar
+    # DebugToolbarExtension(app)
+
+    connect_to_db(app)
+
+    # Connection for Heroku.
+    # connect_to_db(app, os.environ.get("DATABASE_URL"))
 
     # Create the tables we need from our models (if they already
     # exist, nothing will happen here, so it's fine to do this each
     # time on startup)
-    db.create_all(app=app)
-
-    # Use the DebugToolbar
-    # DebugToolbarExtension(app)
+    # db.create_all(app=app)
 
     DEBUG = "NO_DEBUG" not in os.environ
     PORT = int(os.environ.get("PORT", 5000))
