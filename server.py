@@ -127,6 +127,8 @@ def registration_success():
         new_user = User(fb_id=fb_id, first_name=first_name, last_name=last_name, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
+
+        session["email"] = email
     else:
         flash("Email {} is taken.".format(email))
         return redirect('/register')

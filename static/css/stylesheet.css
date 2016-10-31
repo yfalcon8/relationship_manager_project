@@ -1,3 +1,24 @@
+.background-wrap {
+    position: fixed;
+    z-index: -1000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+}
+
 .container-fluid {
     background-color: white;
     position: relative;
@@ -17,13 +38,7 @@
 }
 
 .content-home h1 {
-    color: black;
-    padding-top: 15%;
-    margin-bottom: 10px;
-}
-
-.content-home p {
-    color: black;
+    margin-top: 20%;
 }
 
 .methods-added li {
@@ -51,6 +66,7 @@ ul {
     border: 2px solid white;
     border-radius: 5px;
     opacity: 0.8;
+    box-shadow: 5px 5px 5px #7e7e7e;
 }
 
 .login-reg-bg {
@@ -112,27 +128,6 @@ ul {
 landing-li:link {
     color: #607D8B;
 }
-
-.background-wrap {
-    position: fixed;
-    z-index: -1000;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    top: 0;
-    left: 0;
-}
-
-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    }
 
 .content {
     margin:0;

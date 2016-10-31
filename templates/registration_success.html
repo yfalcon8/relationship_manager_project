@@ -1,9 +1,10 @@
 {% extends 'base.html' %} 
 {% block content %}
 <body class="methods">
+    <div class="login-reg">
     <h1>Welcome {{ first_name }}!</h1>
     <p>Your user name will be {{ email }}.</p><br>
-    <p>Let's start adding some contacts!</p>
+    <p>Let's start adding contacts!</p>
 
     <a href="/add-contacts/{{ user_id }}">Add contacts</a>
 </body>
