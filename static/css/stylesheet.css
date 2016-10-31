@@ -55,7 +55,7 @@ ul {
 
 .login-reg {
     width:600px;
-    height:300px;
+    height:350px;
     margin:0 auto;
     text-align: center;
     background-color: white;
@@ -72,6 +72,17 @@ ul {
 .login-reg-bg {
     background-color: black;
     background-image: url(picnic.jpg);
+}
+
+.knockout-contact {
+  -webkit-background-clip: text;
+  font-weight: bold;
+  font-size: 40px;
+  font-family: 'Lato', sans-serif;
+  color: #607D8B;
+  width: 600px;
+  margin: auto;
+  text-align: center;
 }
 
 .section {
@@ -160,16 +171,5 @@ landing-li:link {
   font-size: 50px;
   font-family: arial, helvetica;
   margin: 10px auto;
-  text-align: center;
-}
-
-.knockout-contact {
-  -webkit-background-clip: text;
-  font-weight: bold;
-  font-size: 50px;
-  font-family: 'Lato', sans-serif;
-  color: #607D8B;
-  width: 600px;
-  margin: auto;
   text-align: center;
 }

@@ -87,8 +87,7 @@ class Recommendation(db.Model):
                             default='fr')
 
     rcmdn = db.Column(db.Text,
-                      nullable=False,
-                      unique=True)
+                      nullable=False)
 
     # Join the recommendation table and relationship table through the
     # relatp_code. This allows me to navigate from the a user's contact to his/her
