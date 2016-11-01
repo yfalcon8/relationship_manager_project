@@ -102,9 +102,9 @@
 
       <ul class="nav navbar-nav">
 
-        <li><a href="/event-display/{{ user_id }}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;Upcoming Events</a></li>
+        <li><a href="/event-display"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;Upcoming Events</a></li>
 
-        <li><a href="/add-contacts/{{ user_id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add New Contact</a></li>
+        <li><a href="/add-contacts"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add New Contact</a></li>
 
       </ul>
       
@@ -134,8 +134,8 @@
     <p>― Marvin J. Ashton</p></b>
 
     <ul>
-      {% for user_id, relatp_id, first_name, last_name in contact_name_and_id %}
-          <li><a href="/contact-display/{{ user_id }}/{{ relatp_id }}">{{ first_name }} {{ last_name }}</a></li>
+      {% for relatp_id, first_name, last_name in contact_name_and_id %}
+          <li><a href="/contact-display/{{ relatp_id }}">{{ first_name }} {{ last_name }}</a></li>
       {% endfor %}
     </ul><br><br><br>
   </div>

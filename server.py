@@ -21,6 +21,8 @@ import os
 
 import arrow
 
+from flask_bcrypt import Bcrypt
+
 #######################
 #### Configuration ####
 #######################
@@ -43,6 +45,8 @@ app.jinja_env.undefined = StrictUndefined
 
 # Prevents the need to restart server when HTML/CSS is changed.
 app.jinja_env.auto_reload = True
+
+bcrypt = Bcrypt(app)
 
 
 # @app.route('/') is a Python decorator.
@@ -69,36 +73,27 @@ def display_login():
 
 @app.route('/login', methods=['POST'])
 def handle_login():
-    """Process login.
+    """Process login. Store user in session."""
 
-    Find the user's login credentials located in the 'request.form'
-    dictionary, look up the user, and store them in the session."""
+    # Grab the users input.
+    email = request.form.get("email")
+    password = bcrypt.generate_password_hash(request.form.get("password"))
 
-    # Add email and password to the dictionary 'form'
-    email = request.form['email']
-    password = request.form['password']
+    # Check that the user exists.
+    uq = User.query
+    user_object = uq.filter_by(email=email).first()
 
-    # Check to see if the email is in the database.
-    user = User.query.filter_by(email=email).first()
+    if user_object and bcrypt.check_password_hash(password, user_object.password):
+        flash("Hello again!")
+        session["user_email"] = user_object.email
+        session["user_id"] = user_object.id
 
-    # If it doesn't, redirect them to the login page.
-    if not user:
-        flash("That user does not exist.")
-        return redirect("/")
+        return redirect("/landing-page")
+    else:
+        flash("Oops! Email / Password mismatch: Try again.")
+        return redirect("/login")
 
-    # If the password doesn't match the email, let the user know.
-    if user.password != password:
-        flash("Incorrect password.")
-        return redirect("/")
-
-    # Grab the user_id and assign it to the session dictionary.
-    session["user_id"] = user.id
-
-    # Take the user to the landing page when their login credentials match.
-    flash("Login successful!")
-    return redirect("/landing-page/{}".format(user.id))
-
-
+    print "\n\n user_id={}".format(session["user_id"])
 @app.route('/register')
 def register():
     """Page where users registers for my app."""
@@ -178,17 +173,16 @@ def query_db_for_email():
             return redirect(url_for('register', fb_id=fb_id))
 
 
-@app.route('/add-contacts/<int:user_id>')
-def add_contacts(user_id):
+@app.route('/add-contacts')
+def add_contacts():
     """User manually adds contacts and categorizes them as friend, family, or
     professional contact."""
 
-    return render_template("add_contact.html",
-                           user_id=user_id)
+    return render_template("add_contact.html")
 
 
-@app.route('/contact-added/<int:user_id>', methods=['POST'])
-def contact_added(user_id):
+@app.route('/contact-added', methods=['POST'])
+def contact_added():
     """Confirmation page that user has been added."""
 
     first_name = request.form.get('fname')
@@ -289,23 +283,23 @@ def method_specification_success(user_id, relatp_id):
                            desired_list=desired_list)
 
 
-@app.route('/landing-page/<int:user_id>')
-def landing_page(user_id):
+@app.route('/landing-page')
+def landing_page():
     """Page where users land after logging in or signing up."""
 
     # Display the name of all of the reltionships a user has.
     # A list of tuples are returned.
     # The relationships id will be used to create a link to their profile.
     # The user_id is needed in the query results to pass into my Jinja for loop.
-    contact_name_and_id = db.session.query(Relationship.user_id, Relationship.id, Relationship.first_name, Relationship.last_name).filter_by(user_id=user_id).order_by(Relationship.first_name).all()
+    print session["user_id"]
+    contact_name_and_id = db.session.query(Relationship.id, Relationship.first_name, Relationship.last_name).filter_by(user_id=session["user_id"]).order_by(Relationship.first_name).all()
 
     return render_template("landing_page.html",
-                           user_id=user_id,
                            contact_name_and_id=contact_name_and_id)
 
 
-@app.route('/contact-display/<int:user_id>/<int:relatp_id>')
-def contact_display(user_id, relatp_id):
+@app.route('/contact-display/<int:relatp_id>')
+def contact_display(relatp_id):
     """Display a selected contacts profile."""
 
     # Query for all the data related to a relationship.
@@ -314,7 +308,6 @@ def contact_display(user_id, relatp_id):
 
     session['user_id'] = 'user_id'
     return render_template("contact_display.html",
-                           user_id=user_id,
                            relatp_id=relatp_id,
                            relatp_info=relatp_info)
 
@@ -345,8 +338,8 @@ def contact_display_hander():
     return jsonify(user_info)
 
 
-@app.route('/event-display/<int:user_id>')
-def event_display(user_id):
+@app.route('/event-display')
+def event_display():
     """Display a selected contacts profile."""
 
     # Store all of a users events in a list.
@@ -364,7 +357,6 @@ def event_display(user_id):
         all_events.append([relatp_name.first_name, relatp_name.last_name, rcmdn[0], rcmdn[1].date()])
 
     return render_template("event.html",
-                           user_id=user_id,
                            all_events=all_events)
 
 
@@ -386,7 +378,7 @@ def error():
 if __name__ == "__main__":
 
     # Setting this to be true so that I can invoke the DebugToolbarExtension
-    # app.debug = True
+    app.debug = True
 
     # Use the DebugToolbar
     # DebugToolbarExtension(app)

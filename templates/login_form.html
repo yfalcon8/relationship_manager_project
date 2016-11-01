@@ -3,24 +3,34 @@
     
     <body class="login-reg-bg">
         <div class="login-reg">
+            <br><br><br>
             <h1>Login</h1>
             <form action="/login" method="POST">
-                
-                <div>
-                    <label>&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;
-                        <input type="email" name="email" required>
-                    </label>
-                </div>
+                 <div class="col-xs-12 col-sm-12 col-md-12">
+        <form role="form" action="/registration-success" method="POST">
+            
+            <!-- The fieldset tag is used to group related elements in a form. -->
+            <!-- A box is drawn around the related elements. -->
+            <fieldset>
 
-                <div>
-                    <label>Password:
-                        <input type="password" name="password" required>
-                    </label>
-                </div>
+                <!-- <div class="row"> -->
 
-                <div>
-                    <input type="submit" value="Let's Go!">
-                </div><br>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+                        </div>
+                    </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+            </div>
+        </div>
+
+    <!-- </div> -->
+        <div>
+            <input type="submit" value="Let's Go!">
+        </div><br>
 
                 <a href="/register">New user? Register here.</a><br>
 
