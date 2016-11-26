@@ -18,7 +18,7 @@ To get started, users add their closest circle, then categorize each contact by 
 
 The algorithm was created using the Arrow library. Users have the option of signing up using their Facebook account. The JavaScript SDK was used for the OAuth.
 
-![alt text](https://cloud.githubusercontent.com/assets/19376513/20639046/85534d94-b36d-11e6-9e2a-ecbb9e4f5f1d.pngg)
+![alt text](https://cloud.githubusercontent.com/assets/19376513/20639061/cce572b8-b36d-11e6-99cf-bab0738e60a0.png)
 
 ### Receive Notifications
  
