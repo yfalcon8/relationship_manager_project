@@ -12,17 +12,17 @@ Similarly, when was the last time that you were at a networking event or a compa
 
 ![alt text](https://cloud.githubusercontent.com/assets/19376513/20638976/bbb9f7fe-b36b-11e6-9e73-2b96b29c3ab0.png)
 
-To get started, users add their closest circle, then categorize each contact by 'Friend,' 'Family' or 'Professional.' A datetime algorithm captures the time that a contact was added, and schedules an event with a tip on how to reach out.
+To get started, users add their closest circle, then categorize each contact by 'Friend,' 'Family' or 'Professional' and events are scheduled with a tip on how to reach out.
 
 ![alt text](https://cloud.githubusercontent.com/assets/19376513/20638996/61e0527c-b36c-11e6-8e8f-9e445d7d1c80.png)
 
-The algorithm was created using the Arrow library. Users have the option of signing up using their Facebook account. The JavaScript SDK was used for the OAuth.
+Users have the option of signing up using their Facebook account. The JavaScript SDK was used for the OAuth.
 
 ![alt text](https://cloud.githubusercontent.com/assets/19376513/20639061/cce572b8-b36d-11e6-99cf-bab0738e60a0.png)
 
 ### Receive Notifications
  
-Emails are sent to the user using Python's SMTP library. Depending on the type of contact, the scheduled frequency of tips and events will vary - quarterly for professional contacts and monthly for friends and family. The Schedule API acts as a cron job, querying the database hourly to see what which events had most recently passed, and sending emails for those events. A notification for a mentor (professional contact), for example, would look like: "Rachel, it's been three months since your last meeting with your mentor, Jane Doe. Send her a quick email to see how she's doing! She would love to hear from you." Reminders about a contact who is a friend would suggest: "Hey Rachel! Jessica has been wondering about you. Take time to grab dinner with her this week."
+Emails are sent to the user using Python's SMTP library. Depending on the type of contact, the scheduled frequency of tips and events will vary - quarterly for professional contacts and monthly for friends and family. The Schedule API acts as a cron job, querying the database hourly to see which events had most recently elapsed, and sending emails for those events. A notification for a mentor (professional contact), for example, would look like: "Rachel, it's been three months since your last meeting with your mentor, Jane Doe. Send her a quick email to see how she's doing! She would love to hear from you." Reminders about a contact who is a friend would suggest: "Hey Rachel! Jessica has been wondering about you. Take time to grab dinner with her this week."
 
 ### Store Info about Contacts
 
@@ -89,7 +89,7 @@ python server.py
 
 ### Building the App
 
-Check out my [blog](http://yfalcon8.wixsite.com/yuki-falcon) fore more about my journey in creating this app!
+Check out my [blog](http://yfalcon8.wixsite.com/yuki-falcon) for more about my journey in creating this app!
 
 ### Heroku
 
