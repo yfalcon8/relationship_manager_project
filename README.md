@@ -1,6 +1,6 @@
 # Relationship Manager
 
-![](https://gifs.com/gif/oY73pL)
+![](https://j.gifs.com/oY73pL.gif)
 
 ### Synopsis
 
