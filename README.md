@@ -10,19 +10,15 @@ Similarly, when was the last time that you were at a networking event or a compa
  
 ### Adding Contacts
 
-![alt text][logo]
-
-[logo]: https://cloud.githubusercontent.com/assets/19376513/20638976/bbb9f7fe-b36b-11e6-9e73-2b96b29c3ab0.png
+![alt text](https://cloud.githubusercontent.com/assets/19376513/20638976/bbb9f7fe-b36b-11e6-9e73-2b96b29c3ab0.png)
 
 To get started, users add their closest circle, then categorize each contact by 'Friend,' 'Family' or 'Professional.' A datetime algorithm captures the time that a contact was added, and schedules an event with a tip on how to reach out.
 
-![alt text] https://cloud.githubusercontent.com/assets/19376513/20638996/61e0527c-b36c-11e6-8e8f-9e445d7d1c80.png
+![alt text](https://cloud.githubusercontent.com/assets/19376513/20638996/61e0527c-b36c-11e6-8e8f-9e445d7d1c80.png)
 
 The algorithm was created using the Arrow library. Users have the option of signing up using their Facebook account. The JavaScript SDK was used for the OAuth. Receive email notifications about people you haven't talked to in a while. Store a variety of info on each contact.
 
-![alt text][logo]
-
-[logo]: https://cloud.githubusercontent.com/assets/19376513/20638989/0bd4f446-b36c-11e6-895d-0ee075c1c7f0.png
+![alt text](https://cloud.githubusercontent.com/assets/19376513/20638989/0bd4f446-b36c-11e6-895d-0ee075c1c7f0.png)
 
 ### Receive Notifications
  
@@ -30,9 +26,7 @@ Emails are sent to the user using Python's SMTP library. Depending on the type o
 
 ### Store Info about Contacts
 
-![alt text][logo]
-
-[logo]: https://cloud.githubusercontent.com/assets/19376513/20639008/a17fa2de-b36c-11e6-8f01-9b4bc71eacbc.png
+![alt text](https://cloud.githubusercontent.com/assets/19376513/20639008/a17fa2de-b36c-11e6-8f01-9b4bc71eacbc.png)
 
 Users can store information about their contact's favorite drink, sports team, gift ideas, goals, pets, family information, etc. JSON is used to store the information in the database and AJAX is used to asynchronously render inputted text on the browser immediately.
 
