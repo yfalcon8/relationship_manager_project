@@ -16,9 +16,7 @@ Similarly, when was the last time that you were at a networking event or a compa
 
 To get started, users add their closest circle, then categorize each contact by 'Friend,' 'Family' or 'Professional.' A datetime algorithm captures the time that a contact was added, and schedules an event with a tip on how to reach out.
 
-![alt text][logo]
-
-[logo]: https://cloud.githubusercontent.com/assets/19376513/20638996/61e0527c-b36c-11e6-8e8f-9e445d7d1c80.png
+![alt text] https://cloud.githubusercontent.com/assets/19376513/20638996/61e0527c-b36c-11e6-8e8f-9e445d7d1c80.png
 
 The algorithm was created using the Arrow library. Users have the option of signing up using their Facebook account. The JavaScript SDK was used for the OAuth. Receive email notifications about people you haven't talked to in a while. Store a variety of info on each contact.
 
