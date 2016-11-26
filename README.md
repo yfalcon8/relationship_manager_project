@@ -14,21 +14,36 @@ Similarly, when was the last time that you were at a networking event or a compa
 
 [logo]: https://cloud.githubusercontent.com/assets/19376513/20638976/bbb9f7fe-b36b-11e6-9e73-2b96b29c3ab0.png
 
+To get started, users add their closest circle, then categorize each contact by 'Friend,' 'Family' or 'Professional.' A datetime algorithm captures the time that a contact was added, and schedules an event with a tip on how to reach out.
 
- "Logo Title Text 2"
+![alt text][logo]
 
-To get started, users add their closest circle, then categorize each contact by 'Friend,' 'Family' or 'Professional.' A datetime algorithm captures the time that a contact was added, and schedules an event with a tip on how to reach out. The algorithm was created using the Arrow library. Users have the option of signing up using their Facebook account. The JavaScript SDK was used for the OAuth. Receive email notifications about people you haven't talked to in a while. Store a variety of info on each contact.
+[logo]: https://cloud.githubusercontent.com/assets/19376513/20638996/61e0527c-b36c-11e6-8e8f-9e445d7d1c80.png
 
-### Notifications
+The algorithm was created using the Arrow library. Users have the option of signing up using their Facebook account. The JavaScript SDK was used for the OAuth. Receive email notifications about people you haven't talked to in a while. Store a variety of info on each contact.
+
+![alt text][logo]
+
+[logo]: https://cloud.githubusercontent.com/assets/19376513/20638989/0bd4f446-b36c-11e6-895d-0ee075c1c7f0.png
+
+### Receive Notifications
  
 Emails are sent to the user using Python's SMTP library. Depending on the type of contact, the scheduled frequency of tips and events will vary - quarterly for professional contacts and monthly for friends and family. The Schedule API acts as a cron job, querying the database hourly to see what which events had most recently passed, and sending emails for those events. A notification for a mentor (professional contact), for example, would look like: "Rachel, it's been three months since your last meeting with your mentor, Jane Doe. Send her a quick email to see how she's doing! She would love to hear from you." Reminders about a contact who is a friend would suggest: "Hey Rachel! Jessica has been wondering about you. Take time to grab dinner with her this week."
+
+### Store Info about Contacts
+
+![alt text][logo]
+
+[logo]: https://cloud.githubusercontent.com/assets/19376513/20639008/a17fa2de-b36c-11e6-8f01-9b4bc71eacbc.png
+
+Users can store information about their contact's favorite drink, sports team, gift ideas, goals, pets, family information, etc. JSON is used to store the information in the database and AJAX is used to asynchronously render inputted text on the browser immediately.
 
 ### Database
 
 The relational PostgreSQL database was used to store information and SQLAlchemy was used for the queries. Object-oriented programming was used to structure the schema of the model. 
 
 
-### Install Instructions
+### Installation Instructions
 
 1. Create a copy of the project on your local machine.
 
