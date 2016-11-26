@@ -26,15 +26,18 @@ The relational PostgreSQL database was used to store information and SQLAlchemy 
 
 1. Create a copy of the project on your local machine.
 
-```git clone https://github.com/yfalcon8/relationship_manager_project```
+```python
+$ git clone https://github.com/yfalcon8/relationship_manager_project```
 
 2. Create and name a virtual environment.
 
-```virtualenv env```
+```python
+$ virtualenv env```
 
 3. Download necessary programs, libraries and packages.
 
-```pip install -r requirements.txt```
+```python
+$ pip install -r requirements.txt```
 
 4. On line 134 in sendnotif.py, type your email address and email password in place of YOUR_EMAIL_ADDRESS and YOUR_EMAIL_PASSWORD, respectively. For obvious security reasons, I excluded my own information.
 
