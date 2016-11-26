@@ -6,7 +6,7 @@
 
 Relationship Manager helps users nurture the most important relationships in their lives. Have you ever been a situation where you lost touch with a friend after you transitioned to a new job or to a new city? What about with former coworkers or bosses? Are you as close with them as you would like? Some relationships are too important or too valuable for us to afford losing, yet, many of us do not actively set aside time to remind ourselves to reach out to that person.
 
-Similarly, when was the last time that you were at a networking event or a company party where you couldn't remember a particular fact about someone or didn't have anything to talk about with that important someone? It's good practice to keep track of the likes, dislikes, goals, preferences, etc. about every meaningful person, and that's best accomplished when documented immediately. That's where my app comes in handy. Record observations. Imagine how much more impactful your follow-ups would be if you could accurately recall the details shared in your last interaction with that person. 
+Similarly, when was the last time that you were at a networking event or a company party where you couldn't remember a particular fact about someone or didn't have anything to talk about with that important someone? It's good practice to keep track of the likes, dislikes, goals, preferences, etc. about every meaningful person, and that's best accomplished when documented immediately. That's where my app comes in handy. Record observations and imagine how much more impactful your follow-ups would be if you could accurately recall the details shared in your last interaction with that person. 
  
 ### Adding Contacts
 
@@ -23,6 +23,7 @@ The algorithm was created using the Arrow library. Users have the option of sign
 ### Receive Notifications
  
 Emails are sent to the user using Python's SMTP library. Depending on the type of contact, the scheduled frequency of tips and events will vary - quarterly for professional contacts and monthly for friends and family. The Schedule API acts as a cron job, querying the database hourly to see what which events had most recently passed, and sending emails for those events. A notification for a mentor (professional contact), for example, would look like: "Rachel, it's been three months since your last meeting with your mentor, Jane Doe. Send her a quick email to see how she's doing! She would love to hear from you." Reminders about a contact who is a friend would suggest: "Hey Rachel! Jessica has been wondering about you. Take time to grab dinner with her this week."
+
 ### Store Info about Contacts
 
 ![alt text](https://cloud.githubusercontent.com/assets/19376513/20639008/a17fa2de-b36c-11e6-8f01-9b4bc71eacbc.png)
@@ -31,7 +32,9 @@ Users can store information about their contact's favorite drink, sports team, g
 
 ### Database
 
-The relational PostgreSQL database was used to store information and SQLAlchemy was used for the queries. Object-oriented programming was used to structure the schema of the model. 
+The relational PostgreSQL database was used to store information and SQLAlchemy was used for the queries. Object-oriented programming was used to structure the schema of the model. A view inclusive of all upcoming events with all contacts has been included as well:
+
+![upcoming-events](https://cloud.githubusercontent.com/assets/19376513/20639105/39371830-b36f-11e6-8270-cab6c57f5495.gif)
 
 
 ### Installation Instructions
