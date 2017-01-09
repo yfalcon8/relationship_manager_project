@@ -4,7 +4,7 @@
 
 ![gif](https://cloud.githubusercontent.com/assets/19376513/20638960/26102ab6-b36b-11e6-9b5c-939a75d1025a.gif)
 
-Relationship Manager helps users nurture the most important relationships in their lives. Have you ever been a situation where you lost touch with a friend after you transitioned to a new job or to a new city? What about with former coworkers or bosses? Are you as close with them as you would like? Some relationships are too important or too valuable for us to afford losing, yet, many of us do not actively set aside time to remind ourselves to reach out to that person.
+Relationship Manager helps users nurture the most important relationships in their lives. Have you ever been in a situation where you lost touch with a friend after you transitioned to a new job or to a new city? What about with former coworkers or bosses? Are you as close with them as you would like? Some relationships are too important or too valuable for us to afford losing, yet, many of us do not actively set aside time to remind ourselves to reach out to that person.
 
 Similarly, when was the last time that you were at a networking event or a company party where you couldn't remember a particular fact about someone or didn't have anything to talk about with that important someone? It's good practice to keep track of the likes, dislikes, goals, preferences, etc. about every meaningful person, and that's best accomplished when documented immediately. That's where my app comes in handy. Record observations and imagine how much more impactful your follow-ups would be if you could accurately recall the details shared in your last interaction with that person. 
  
