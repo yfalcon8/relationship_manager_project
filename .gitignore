@@ -1,4 +1,5 @@
 .coverage
+.DS_Store
 .idea/
 .Procfile.swp
 *.pyc
@@ -8,5 +9,5 @@ client_secrets.json
 contacts.sql
 database.sql
 data/
-Procfile
 mydb.dump
+Procfile
