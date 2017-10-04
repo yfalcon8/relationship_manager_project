@@ -66,7 +66,7 @@ def index():
 # only stored once. This is how HTML forms usually transmit data to the server.
 @app.route('/login')
 def display_login():
-    """Log user into site."""
+    """Login page."""
 
     return render_template('login_form.html')
 
@@ -93,10 +93,10 @@ def handle_login():
         flash("Oops! Email / Password mismatch: Try again.")
         return redirect("/login")
 
-    print "\n\n user_id={}".format(session["user_id"])
+
 @app.route('/register')
 def register():
-    """Page where users registers for my app."""
+    """Registration page."""
 
     fb_id = request.args.get('fb_id')
 
@@ -146,7 +146,7 @@ def registration_success():
 
 @app.route('/check_email_existence')
 def query_db_for_email():
-    """Hidden route that processes Facebooks API results."""
+    """Hidden route that processes Facebook's API results."""
 
     email = request.args.get('email')
     fb_id = request.args.get('id')
@@ -175,8 +175,7 @@ def query_db_for_email():
 
 @app.route('/add-contacts')
 def add_contacts():
-    """User manually adds contacts and categorizes them as friend, family, or
-    professional contact."""
+    """User manually adds contacts and categorizes them as a friend, family, or professional."""
 
     return render_template("add_contact.html")
 
