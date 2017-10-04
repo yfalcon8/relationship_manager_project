@@ -1,7 +1,12 @@
+.coverage
+.idea/
+.Procfile.swp
+*.pyc
 env/
-*.pyc
-
 client_secrets.sh
-*.pyc
-
 client_secrets.json
+contacts.sql
+database.sql
+data/
+Procfile
+mydb.dump
