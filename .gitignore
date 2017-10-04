@@ -6,6 +6,7 @@
 env/
 client_secrets.sh
 client_secrets.json
+contacts.dump
 contacts.sql
 database.sql
 data/
