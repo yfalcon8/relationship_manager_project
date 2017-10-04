@@ -1,8 +1,7 @@
 """The muscle of my database. Models and database functions for contacts db."""
 
-# SQLAlchemy is a popular and powerful Python-based Object
-# Relational Model/Mapper (ORM). Helps me navigate my relational database.
-# SQLAlchemy is a powerful software that transforms Python into SQL.
+# SQLAlchemy is a Python-based Object Relational Model/Mapper (ORM). Helps me navigate my relational database and
+# transforms Python into SQL.
 
 import datetime
 
@@ -15,9 +14,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
-##############################################################################
-# Create my ORM. Allows for object-orientation into SQL.
+# Create my ORM. Allows for object-orientation in SQL.
 
 # All of my models will subclass db.Model.
 # This declares that a class will be managed by SQLAlchemy.

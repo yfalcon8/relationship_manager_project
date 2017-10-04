@@ -6,11 +6,8 @@ function displayPreference(result) {
 
     // Create an <li> for the new entry that will display.s
     var newDiv = '<li>' + result.value + '</li>';
-    console.log(newDiv);
 
     $(prefName).append(newDiv);
-
-    console.log('\n\nPref updated\n\n');
 }
 
 function getPreference(evt) {

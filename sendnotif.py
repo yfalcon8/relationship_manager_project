@@ -1,26 +1,18 @@
 """Send user an email about their contact and recommend how to reach out."""
 
-import smtplib
-# Built-in Simple Mail Transfer Protocol (SMTP) module
-
-import schedule
-
 import arrow
+import choice
+import schedule
+import smtplib  # Built-in Simple Mail Transfer Protocol (SMTP) module
 
 from model import Event, User, Relationship, connect_to_db, db
-
 from flask import Flask
 
-import choice
 
-#######################
-#### Configuration ####
-#######################
 app = Flask(__name__)
 connect_to_db(app)
 
-# Sets make the most sense here, as it's faster than a list and there's
-# no need for a key.
+# Sets make the most sense here, as it's faster than a list and there's no need for a key.
 past_events = set()
 
 
